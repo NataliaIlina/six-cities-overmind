@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
-* Студент: [Наталья Ильина](https://up.htmlacademy.ru/react/1/user/38944).
-* Наставник: `Неизвестно`.
+- Студент: [Наталья Ильина](https://up.htmlacademy.ru/react/1/user/38944).
+- Наставник: [Всеволод Артемьев](https://htmlacademy.ru/profile/id459331).
 
 ---
 
