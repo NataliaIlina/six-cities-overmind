@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../header/header.jsx";
-import PlaceCard from "../place-card/place-card.jsx";
+import Header from "components/header/header";
+import PlaceCard from "components/place-card/place-card";
 
 const places = [
   {
@@ -9,7 +9,7 @@ const places = [
     isPremium: true,
     rating: 93,
     type: `Apartment`,
-    url: `img/apartment-01.jpg`,
+    url: `img/apartment-01.jpg`
   },
   {
     title: `Wood and stone place`,
@@ -17,7 +17,7 @@ const places = [
     isPremium: false,
     rating: 80,
     type: `Private room`,
-    url: `img/room.jpg`,
+    url: `img/room.jpg`
   },
   {
     title: `Canal View Prinsengracht`,
@@ -25,7 +25,7 @@ const places = [
     isPremium: false,
     rating: 80,
     type: `Apartment`,
-    url: `img/apartment-02.jpg`,
+    url: `img/apartment-02.jpg`
   },
   {
     title: `Nice, cozy, warm big bed apartment`,
@@ -33,16 +33,8 @@ const places = [
     isPremium: true,
     rating: 100,
     type: `Apartment`,
-    url: `img/apartment-03.jpg`,
-  },
-  {
-    title: `Wood and stone place`,
-    price: 80,
-    isPremium: false,
-    rating: 80,
-    type: `Private room`,
-    url: `img/room.jpg`,
-  },
+    url: `img/apartment-03.jpg`
+  }
 ];
 
 const App = () => (
