@@ -6,7 +6,7 @@ it(`PlaceCard rendered correctly`, () => {
   const tree = renderer
     .create(
         <PlaceCard
-          place={{
+          offer={{
             title: `title`,
             price: 120,
             isPremium: true,

@@ -6,7 +6,7 @@ it(`click on card title works correctly`, () => {
   const clickHandler = jest.fn();
   const wrapper = shallow(
       <PlaceCard
-        place={{
+        offer={{
           title: `title`,
           price: 120,
           isPremium: true,
