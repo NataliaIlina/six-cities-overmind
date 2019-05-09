@@ -9,7 +9,14 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
       </div>
     )}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#" onClick={onCardClick}>
+      <a
+        href="#"
+        className="place-card__link"
+        onClick={(e) => {
+          e.preventDefault();
+          onCardClick();
+        }}
+      >
         <img
           className="place-card__image"
           src={offer.url}

@@ -18,8 +18,7 @@ class OffersList extends React.PureComponent {
           <PlaceCard
             offer={offer}
             key={`${offer.name}_${index}`}
-            onCardClick={(evt) => {
-              evt.preventDefault();
+            onCardClick={() => {
               this.setState({activeCard: offer});
             }}
             onCardHover={() => {

@@ -248,6 +248,7 @@ exports[`App rendered correctly 1`] = `
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
+                  className="place-card__link"
                   href="#"
                   onClick={[Function]}
                 >
@@ -346,6 +347,7 @@ exports[`App rendered correctly 1`] = `
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
+                  className="place-card__link"
                   href="#"
                   onClick={[Function]}
                 >

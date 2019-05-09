@@ -15,7 +15,9 @@ exports[`PlaceCard rendered correctly 1`] = `
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
+      className="place-card__link"
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
