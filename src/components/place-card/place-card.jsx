@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const PlaceCard = ({offer, onCardTitleClick}) => (
-  <article className="cities__place-card place-card">
+const PlaceCard = ({offer, onCardClick, onCardHover}) => (
+  <article className="cities__place-card place-card" onMouseEnter={onCardHover}>
     {offer.isPremium && (
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
     )}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <a href="#" onClick={onCardClick}>
         <img
           className="place-card__image"
           src={offer.url}
@@ -38,7 +38,7 @@ const PlaceCard = ({offer, onCardTitleClick}) => (
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
-      <h2 className="place-card__name" onClick={onCardTitleClick}>
+      <h2 className="place-card__name">
         <a href="#">{offer.title}t</a>
       </h2>
       <p className="place-card__type">{offer.type}</p>
@@ -55,7 +55,8 @@ PlaceCard.propTypes = {
     type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
     url: PropTypes.string.isRequired
   }),
-  onCardTitleClick: PropTypes.func
+  onCardClick: PropTypes.func,
+  onCardHover: PropTypes.func
 };
 
 export default PlaceCard;

@@ -2,8 +2,9 @@ import React from "react";
 import {shallow} from "enzyme";
 import PlaceCard from "components/place-card/place-card";
 
-it(`click on card title works correctly`, () => {
+it(`click on card image works correctly`, () => {
   const clickHandler = jest.fn();
+  const hoverHandler = jest.fn();
   const wrapper = shallow(
       <PlaceCard
         offer={{
@@ -14,11 +15,12 @@ it(`click on card title works correctly`, () => {
           type: `Apartment`,
           url: `img/apartment-01.jpg`
         }}
-        onCardTitleClick={clickHandler}
+        onCardClick={clickHandler}
+        onCardHover={hoverHandler}
       />
   );
-  const title = wrapper.find(`.place-card__name`);
+  const link = wrapper.find(`.place-card__image-wrapper a`);
   expect(clickHandler).toHaveBeenCalledTimes(0);
-  title.simulate(`click`);
+  link.simulate(`click`);
   expect(clickHandler).toHaveBeenCalledTimes(1);
 });

@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "components/header/header";
-import PlaceCard from "components/place-card/place-card";
-import {offers} from "src/mocks/offers";
+import OffersList from "components/offers-list/offers-list";
+import PropTypes from "prop-types";
 
-const App = () => (
+const App = ({offers}) => (
   <div>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,7 @@ const App = () => (
                   <use xlinkHref="#icon-arrow-select" />
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
+              {/*               <ul className="places__options places__options--custom places__options--opened">
                 <li
                   className="places__option places__option--active"
                   tabIndex="0"
@@ -96,7 +96,7 @@ const App = () => (
                 <li className="places__option" tabIndex="0">
                   Top rated first
                 </li>
-              </ul>
+              </ul> */}
 
               {/*               <select
                 className="places__sorting-type"
@@ -117,11 +117,7 @@ const App = () => (
                 </option>
               </select> */}
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer, index) => (
-                <PlaceCard offer={offer} key={`${offer.name}_${index}`} />
-              ))}
-            </div>
+            <OffersList offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
@@ -131,5 +127,18 @@ const App = () => (
     </main>
   </div>
 );
+
+App.propTypes = {
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
+        url: PropTypes.string.isRequired
+      })
+  ).isRequired
+};
 
 export default App;
