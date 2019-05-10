@@ -10,6 +10,10 @@ class OffersList extends React.PureComponent {
     };
   }
 
+  _setActiveCard(offer) {
+    this.setState({activeCard: offer});
+  }
+
   render() {
     const {offers} = this.props;
     return (
@@ -19,10 +23,10 @@ class OffersList extends React.PureComponent {
             offer={offer}
             key={`${offer.name}_${index}`}
             onCardClick={() => {
-              this.setState({activeCard: offer});
+              this._setActiveCard(offer);
             }}
             onCardHover={() => {
-              this.setState({activeCard: offer});
+              this._setActiveCard(offer);
             }}
           />
         ))}
@@ -36,10 +40,10 @@ OffersList.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
+        isPremium: PropTypes.bool,
+        rating: PropTypes.number,
         type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-        url: PropTypes.string.isRequired
+        url: PropTypes.string
       })
   ).isRequired
 };

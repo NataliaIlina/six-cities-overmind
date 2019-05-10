@@ -11,33 +11,41 @@ const mock = {
   url: `img/apartment-01.jpg`
 };
 
-it(`card handlers works correctly`, () => {
+describe(`PlaceCard works correctly`, () => {
   const hoverHandler = jest.fn();
-  const openNewPage = jest.fn();
   let offer = null;
+  const clickHandler = jest.fn((obj) => (offer = obj));
+  const openNewPage = jest.fn();
 
   const wrapper = mount(
       <PlaceCard
         offer={mock}
-        onCardClick={() => {
-          offer = mock;
-        }}
+        onCardClick={() => clickHandler(mock)}
         onCardHover={hoverHandler}
       />
   );
-
   const link = wrapper.find(`.place-card__link`);
   const card = wrapper.find(`.place-card`);
 
-  expect(openNewPage).toHaveBeenCalledTimes(0);
-  expect(hoverHandler).toHaveBeenCalledTimes(0);
-
-  link.simulate(`click`, {
-    preventDefault: openNewPage
+  it(`handlers works correctly`, () => {
+    expect(hoverHandler).toHaveBeenCalledTimes(0);
+    expect(clickHandler).toHaveBeenCalledTimes(0);
+    link.simulate(`click`);
+    card.simulate(`mouseEnter`);
+    expect(hoverHandler).toHaveBeenCalledTimes(1);
+    expect(clickHandler).toHaveBeenCalledTimes(1);
   });
-  card.simulate(`mouseEnter`);
 
-  expect(openNewPage).toHaveBeenCalledTimes(1);
-  expect(hoverHandler).toHaveBeenCalledTimes(1);
-  expect(offer).toEqual(mock);
+  it(`default function works correctly`, () => {
+    expect(openNewPage).toHaveBeenCalledTimes(0);
+    link.simulate(`click`, {
+      preventDefault: openNewPage
+    });
+    expect(openNewPage).toHaveBeenCalledTimes(1);
+  });
+
+  it(`update offer works correctly`, () => {
+    link.simulate(`click`);
+    expect(offer).toEqual(mock);
+  });
 });

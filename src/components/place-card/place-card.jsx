@@ -57,10 +57,10 @@ PlaceCard.propTypes = {
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
+    isPremium: PropTypes.bool,
+    rating: PropTypes.number,
     type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-    url: PropTypes.string.isRequired
+    url: PropTypes.string
   }),
   onCardClick: PropTypes.func,
   onCardHover: PropTypes.func
