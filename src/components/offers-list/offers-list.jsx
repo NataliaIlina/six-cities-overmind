@@ -8,6 +8,7 @@ class OffersList extends React.PureComponent {
     this.state = {
       activeCard: null
     };
+    this._setActiveCard = this._setActiveCard.bind(this);
   }
 
   _setActiveCard(offer) {
@@ -22,12 +23,8 @@ class OffersList extends React.PureComponent {
           <PlaceCard
             offer={offer}
             key={`${offer.name}_${index}`}
-            onCardClick={() => {
-              this._setActiveCard(offer);
-            }}
-            onCardHover={() => {
-              this._setActiveCard(offer);
-            }}
+            onCardClick={this._setActiveCard}
+            onCardHover={this._setActiveCard}
           />
         ))}
       </div>

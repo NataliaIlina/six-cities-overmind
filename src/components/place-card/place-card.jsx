@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PlaceCard = ({offer, onCardClick, onCardHover}) => (
-  <article className="cities__place-card place-card" onMouseEnter={onCardHover}>
+  <article
+    className="cities__place-card place-card"
+    onMouseEnter={() => onCardHover(offer)}
+  >
     {offer.isPremium && (
       <div className="place-card__mark">
         <span>Premium</span>
@@ -14,7 +17,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
         className="place-card__link"
         onClick={(e) => {
           e.preventDefault();
-          onCardClick();
+          onCardClick(offer);
         }}
       >
         <img
