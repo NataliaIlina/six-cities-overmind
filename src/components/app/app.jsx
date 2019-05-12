@@ -1,43 +1,9 @@
 import React from "react";
 import Header from "components/header/header";
-import PlaceCard from "components/place-card/place-card";
+import OffersList from "components/offers-list/offers-list";
+import PropTypes from "prop-types";
 
-const places = [
-  {
-    title: `Beautiful & luxurious apartment at great location`,
-    price: 120,
-    isPremium: true,
-    rating: 93,
-    type: `Apartment`,
-    url: `img/apartment-01.jpg`
-  },
-  {
-    title: `Wood and stone place`,
-    price: 80,
-    isPremium: false,
-    rating: 80,
-    type: `Private room`,
-    url: `img/room.jpg`
-  },
-  {
-    title: `Canal View Prinsengracht`,
-    price: 132,
-    isPremium: false,
-    rating: 80,
-    type: `Apartment`,
-    url: `img/apartment-02.jpg`
-  },
-  {
-    title: `Nice, cozy, warm big bed apartment`,
-    price: 180,
-    isPremium: true,
-    rating: 100,
-    type: `Apartment`,
-    url: `img/apartment-03.jpg`
-  }
-];
-
-const App = () => (
+const App = ({offers}) => (
   <div>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +80,7 @@ const App = () => (
                   <use xlinkHref="#icon-arrow-select" />
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
+              {/*               <ul className="places__options places__options--custom places__options--opened">
                 <li
                   className="places__option places__option--active"
                   tabIndex="0"
@@ -130,7 +96,7 @@ const App = () => (
                 <li className="places__option" tabIndex="0">
                   Top rated first
                 </li>
-              </ul>
+              </ul> */}
 
               {/*               <select
                 className="places__sorting-type"
@@ -151,11 +117,7 @@ const App = () => (
                 </option>
               </select> */}
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {places.map((place, index) => (
-                <PlaceCard place={place} key={`${place.name}_${index}`} />
-              ))}
-            </div>
+            <OffersList offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
@@ -165,5 +127,18 @@ const App = () => (
     </main>
   </div>
 );
+
+App.propTypes = {
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        isPremium: PropTypes.bool,
+        rating: PropTypes.number,
+        type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
+        url: PropTypes.string
+      })
+  ).isRequired
+};
 
 export default App;

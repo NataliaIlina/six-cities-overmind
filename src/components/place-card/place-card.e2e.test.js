@@ -1,24 +1,48 @@
 import React from "react";
-import {shallow} from "enzyme";
+import {mount} from "enzyme";
 import PlaceCard from "components/place-card/place-card";
 
-it(`click on card title works correctly`, () => {
+const mock = {
+  title: `title`,
+  price: 120,
+  isPremium: true,
+  rating: 93,
+  type: `Apartment`,
+  url: `img/apartment-01.jpg`
+};
+
+describe(`PlaceCard works correctly`, () => {
+  const hoverHandler = jest.fn();
   const clickHandler = jest.fn();
-  const wrapper = shallow(
+
+  const wrapper = mount(
       <PlaceCard
-        place={{
-          title: `title`,
-          price: 120,
-          isPremium: true,
-          rating: 93,
-          type: `Apartment`,
-          url: `img/apartment-01.jpg`
-        }}
-        onCardTitleClick={clickHandler}
+        offer={mock}
+        onCardClick={() => clickHandler(mock)}
+        onCardHover={() => hoverHandler(mock)}
       />
   );
-  const title = wrapper.find(`.place-card__name`);
-  expect(clickHandler).toHaveBeenCalledTimes(0);
-  title.simulate(`click`);
-  expect(clickHandler).toHaveBeenCalledTimes(1);
+  const link = wrapper.find(`.place-card__link`);
+  const card = wrapper.find(`.place-card`);
+
+  beforeEach(() => {
+    hoverHandler.mockReset();
+    clickHandler.mockReset();
+  });
+
+  it(`handlers get params correctly`, () => {
+    link.simulate(`click`);
+    card.simulate(`mouseEnter`);
+    expect(hoverHandler).toHaveBeenCalledWith(mock);
+    expect(clickHandler).toHaveBeenCalledWith(mock);
+  });
+
+  it(`handlers works correctly`, () => {
+    expect(hoverHandler).toHaveBeenCalledTimes(0);
+    expect(clickHandler).toHaveBeenCalledTimes(0);
+    link.simulate(`click`);
+    card.simulate(`mouseEnter`);
+    expect(hoverHandler).toHaveBeenCalledTimes(1);
+    expect(clickHandler).toHaveBeenCalledTimes(1);
+  });
 });
