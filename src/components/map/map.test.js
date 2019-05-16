@@ -1,7 +1,6 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import App from "components/app/app";
 import Map from "components/map/map";
+import renderer from "react-test-renderer";
 
 const mock = [
   {
@@ -10,7 +9,8 @@ const mock = [
     isPremium: true,
     rating: 93,
     type: `Apartment`,
-    url: `img/apartment-01.jpg`
+    url: `img/apartment-01.jpg`,
+    coords: [52.3909553943508, 4.85309666406198]
   },
   {
     title: `title`,
@@ -18,12 +18,13 @@ const mock = [
     isPremium: false,
     rating: 80,
     type: `Private room`,
-    url: `img/room.jpg`
+    url: `img/room.jpg`,
+    coords: [52.3909553943508, 4.85309666406198]
   }
 ];
 
-it(`App rendered correctly`, () => {
+it(`Map rendered correctly`, () => {
   Map.prototype.componentDidMount = jest.fn();
-  const tree = renderer.create(<App offers={mock} />).toJSON();
+  const tree = renderer.create(<Map offers={mock} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

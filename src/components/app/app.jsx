@@ -2,6 +2,7 @@ import React from "react";
 import Header from "components/header/header";
 import OffersList from "components/offers-list/offers-list";
 import PropTypes from "prop-types";
+import Map from "components/map/map";
 
 const App = ({offers}) => (
   <div>
@@ -120,7 +121,9 @@ const App = ({offers}) => (
             <OffersList offers={offers} />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <section className="cities__map map">
+              <Map offers={offers} />
+            </section>
           </div>
         </div>
       </div>
@@ -136,7 +139,8 @@ App.propTypes = {
         isPremium: PropTypes.bool,
         rating: PropTypes.number,
         type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-        url: PropTypes.string
+        url: PropTypes.string,
+        coords: PropTypes.arrayOf(PropTypes.number)
       })
   ).isRequired
 };
