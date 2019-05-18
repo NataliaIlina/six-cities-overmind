@@ -40,7 +40,8 @@ OffersList.propTypes = {
         isPremium: PropTypes.bool,
         rating: PropTypes.number,
         type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-        url: PropTypes.string
+        url: PropTypes.string,
+        coords: PropTypes.arrayOf(PropTypes.number)
       })
   ).isRequired
 };
