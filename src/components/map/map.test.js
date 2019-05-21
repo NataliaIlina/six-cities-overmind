@@ -25,6 +25,6 @@ const mock = [
 
 it(`Map rendered correctly`, () => {
   Map.prototype.componentDidMount = jest.fn();
-  const tree = renderer.create(<Map offers={mock} />).toJSON();
+  const tree = renderer.create(<Map offers={mock} city="Paris" />).toJSON();
   expect(tree).toMatchSnapshot();
 });

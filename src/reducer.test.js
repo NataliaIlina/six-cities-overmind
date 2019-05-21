@@ -4,8 +4,8 @@ import {cities} from "src/mocks/cities";
 describe(`Reducer works correct`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
-      city: `Amsterdam`,
-      offers: cities[`Amsterdam`].offers
+      city: `Paris`,
+      offers: cities[`Paris`].offers
     });
   });
 
@@ -41,10 +41,10 @@ describe(`Reducer works correct`, () => {
 
   it(`Reducer should correctly reset app state`, () => {
     expect(
-        reducer({city: `Paris`, offers: []}, {type: ActionType.RESET_STATE})
+        reducer({city: ``, offers: []}, {type: ActionType.RESET_STATE})
     ).toEqual({
-      city: `Amsterdam`,
-      offers: cities[`Amsterdam`].offers
+      city: `Paris`,
+      offers: cities[`Paris`].offers
     });
   });
 });
