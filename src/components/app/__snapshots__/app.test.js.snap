@@ -115,8 +115,9 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Paris
@@ -127,8 +128,9 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Cologne
@@ -139,11 +141,12 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
-                Brussels
+                Bruccels
               </span>
             </a>
           </li>
@@ -151,7 +154,9 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className="locations__item-link tabs__item "
+              href="#"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -162,8 +167,9 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Hamburg
@@ -174,8 +180,9 @@ exports[`App rendered correctly 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Dusseldorf
@@ -202,7 +209,8 @@ exports[`App rendered correctly 1`] = `
           <b
             className="places__found"
           >
-            312 places to stay in Amsterdam
+            2
+             places to stay in 
           </b>
           <form
             action="#"
@@ -329,7 +337,6 @@ exports[`App rendered correctly 1`] = `
                     href="#"
                   >
                     title
-                    t
                   </a>
                 </h2>
                 <p
@@ -428,7 +435,6 @@ exports[`App rendered correctly 1`] = `
                     href="#"
                   >
                     title
-                    t
                   </a>
                 </h2>
                 <p

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "components/app/app";
+import {App} from "components/app/app";
 import Map from "components/map/map";
 
 const mock = [

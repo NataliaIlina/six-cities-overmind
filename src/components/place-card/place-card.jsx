@@ -49,7 +49,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{offer.title}t</a>
+        <a href="#">{offer.title}</a>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
