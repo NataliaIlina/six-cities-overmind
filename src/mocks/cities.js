@@ -1,6 +1,5 @@
 export const cities = {
   Paris: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -9,7 +8,7 @@ export const cities = {
         rating: 93,
         type: `Apartment`,
         url: `img/apartment-01.jpg`,
-        coords: [52.3909553943508, 4.85309666406198]
+        coords: [48.8909553943508, 2.34309666406198]
       },
       {
         title: `Wood and stone place`,
@@ -18,7 +17,7 @@ export const cities = {
         rating: 80,
         type: `Private room`,
         url: `img/room.jpg`,
-        coords: [52.369553943508, 4.85309666406198]
+        coords: [48.869553943508, 2.344309666406198]
       },
       {
         title: `One more Place`,
@@ -27,12 +26,11 @@ export const cities = {
         rating: 60,
         type: `Private room`,
         url: `img/room.jpg`,
-        coords: [52.369553943508, 4.85309666405558]
+        coords: [48.869553943508, 2.33309666405558]
       }
     ]
   },
   Cologne: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -41,12 +39,11 @@ export const cities = {
         rating: 93,
         type: `Apartment`,
         url: `img/apartment-01.jpg`,
-        coords: [52.3909553943508, 4.85309666406198]
+        coords: [50.9309553943508, 6.95309666406198]
       }
     ]
   },
   Bruccels: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -55,7 +52,7 @@ export const cities = {
         rating: 93,
         type: `Apartment`,
         url: `img/apartment-01.jpg`,
-        coords: [52.3909553943508, 4.85309666406198]
+        coords: [50.8509553943508, 4.34309666406198]
       },
       {
         title: `Wood and stone place`,
@@ -64,12 +61,11 @@ export const cities = {
         rating: 80,
         type: `Private room`,
         url: `img/room.jpg`,
-        coords: [52.369553943508, 4.85309666406198]
+        coords: [50.859553943508, 4.34309666406198]
       }
     ]
   },
   Amsterdam: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -110,7 +106,6 @@ export const cities = {
     ]
   },
   Hamburg: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -119,7 +114,7 @@ export const cities = {
         rating: 93,
         type: `Apartment`,
         url: `img/apartment-01.jpg`,
-        coords: [52.3909553943508, 4.85309666406198]
+        coords: [53.5709553943508, 10.01309666406198]
       },
       {
         title: `Wood and stone place`,
@@ -128,7 +123,7 @@ export const cities = {
         rating: 80,
         type: `Private room`,
         url: `img/room.jpg`,
-        coords: [52.369553943508, 4.85309666406198]
+        coords: [53.579553943508, 10.01309666406198]
       },
       {
         title: `Nice, cozy, warm big bed apartment`,
@@ -137,12 +132,11 @@ export const cities = {
         rating: 100,
         type: `Apartment`,
         url: `img/apartment-03.jpg`,
-        coords: [52.3809553943508, 4.939309666406198]
+        coords: [53.5709553943508, 10.019309666406198]
       }
     ]
   },
   Dusseldorf: {
-    coords: [],
     offers: [
       {
         title: `Beautiful & luxurious apartment at great location`,
@@ -151,7 +145,7 @@ export const cities = {
         rating: 93,
         type: `Apartment`,
         url: `img/apartment-01.jpg`,
-        coords: [52.3909553943508, 4.85309666406198]
+        coords: [51.2209553943508, 6.77309666406198]
       },
       {
         title: `Wood and stone place`,
@@ -160,7 +154,7 @@ export const cities = {
         rating: 80,
         type: `Private room`,
         url: `img/room.jpg`,
-        coords: [52.369553943508, 4.85309666406198]
+        coords: [51.229553943508, 6.77309666406198]
       }
     ]
   }

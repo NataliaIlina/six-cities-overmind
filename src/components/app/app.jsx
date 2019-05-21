@@ -92,7 +92,7 @@ const App = ({offers, onCityChange, city}) => (
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map offers={offers} />
+              <Map offers={offers} city={city} key={city} />
             </section>
           </div>
         </div>

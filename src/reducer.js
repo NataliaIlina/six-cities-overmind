@@ -1,6 +1,6 @@
 import {cities} from "src/mocks/cities";
 
-const DEFAULT_CITY = `Amsterdam`;
+const DEFAULT_CITY = `Paris`;
 
 const initialState = {
   city: DEFAULT_CITY,
