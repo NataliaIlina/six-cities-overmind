@@ -1,6 +1,6 @@
 import {cities} from "src/mocks/cities";
 
-const DEFAULT_CITY = `Paris`;
+const DEFAULT_CITY = `Amsterdam`;
 
 const initialState = {
   city: DEFAULT_CITY,
@@ -47,4 +47,4 @@ const ActionCreator = {
   }
 };
 
-export {reducer, ActionCreator};
+export {reducer, ActionCreator, ActionType};
