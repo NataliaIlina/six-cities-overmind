@@ -1,11 +1,14 @@
 import {ActionCreator, ActionType, reducer} from "./reducer";
 import {offers} from "src/mocks/offers";
 
+const cities = Object.keys(offers);
+
 describe(`Reducer works correct`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
       city: `Paris`,
-      offers: offers[`Paris`]
+      offers: offers[`Paris`],
+      cities
     });
   });
 
@@ -20,22 +23,7 @@ describe(`Reducer works correct`, () => {
         )
     ).toEqual({
       city: `Amsterdam`,
-      offers: []
-    });
-  });
-
-  it(`Reducer should change offers by a given value`, () => {
-    expect(
-        reducer(
-            {city: `Paris`, offers: []},
-            {
-              type: ActionType.CHANGE_OFFERS,
-              payload: [{title: ``}]
-            }
-        )
-    ).toEqual({
-      city: `Paris`,
-      offers: [{title: ``}]
+      offers: offers[`Amsterdam`]
     });
   });
 
@@ -44,7 +32,8 @@ describe(`Reducer works correct`, () => {
         reducer({city: ``, offers: []}, {type: ActionType.RESET_STATE})
     ).toEqual({
       city: `Paris`,
-      offers: offers[`Paris`]
+      offers: offers[`Paris`],
+      cities
     });
   });
 });
@@ -54,13 +43,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.changeCity(`Paris`)).toEqual({
       type: ActionType.CHANGE_CITY,
       payload: `Paris`
-    });
-  });
-
-  it(`actionCreator change offers returns correct action`, () => {
-    expect(ActionCreator.changeOffers(`Paris`)).toEqual({
-      type: ActionType.CHANGE_OFFERS,
-      payload: offers[`Paris`]
     });
   });
 });

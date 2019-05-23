@@ -4,7 +4,8 @@ const DEFAULT_CITY = `Paris`;
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: offers[DEFAULT_CITY]
+  offers: offers[DEFAULT_CITY],
+  cities: Object.keys(offers)
 };
 
 const ActionType = {
@@ -17,12 +18,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
-        city: action.payload
-      });
-
-    case ActionType.CHANGE_OFFERS:
-      return Object.assign({}, state, {
-        offers: action.payload
+        city: action.payload,
+        offers: offers[action.payload]
       });
 
     case ActionType.RESET_STATE:
@@ -37,12 +34,6 @@ const ActionCreator = {
     return {
       type: ActionType.CHANGE_CITY,
       payload: city
-    };
-  },
-  changeOffers: (city) => {
-    return {
-      type: ActionType.CHANGE_OFFERS,
-      payload: offers[city]
     };
   }
 };

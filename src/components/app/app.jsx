@@ -7,7 +7,7 @@ import CitiesList from "components/cities-list/cities-list";
 import {connect} from "react-redux";
 import {ActionCreator} from "src/reducer";
 
-const App = ({offers, onCityChange, city}) => (
+const App = ({offers, onCityChange, city, cities}) => (
   <div>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,11 @@ const App = ({offers, onCityChange, city}) => (
 
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <CitiesList onCityChange={onCityChange} currentCity={city} />
+      <CitiesList
+        onCityChange={onCityChange}
+        currentCity={city}
+        cities={cities}
+      />
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
@@ -114,19 +118,20 @@ App.propTypes = {
       })
   ).isRequired,
   onCityChange: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
     city: state.city,
-    offers: state.offers
+    offers: state.offers,
+    cities: state.cities
   });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange: (city) => {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.changeOffers(city));
   }
 });
 

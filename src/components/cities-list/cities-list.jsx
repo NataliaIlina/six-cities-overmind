@@ -1,12 +1,11 @@
 import React from "react";
-import {offers} from "src/mocks/offers";
 import PropTypes from "prop-types";
 
-const CitiesList = ({onCityChange, currentCity}) => (
+const CitiesList = ({onCityChange, currentCity, cities}) => (
   <div className="cities tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {Object.keys(offers).map((city) => (
+        {cities.map((city) => (
           <li className="locations__item" key={city}>
             <a
               className={`locations__item-link tabs__item ${
@@ -29,7 +28,8 @@ const CitiesList = ({onCityChange, currentCity}) => (
 
 CitiesList.propTypes = {
   onCityChange: PropTypes.func.isRequired,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default CitiesList;
