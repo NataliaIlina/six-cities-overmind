@@ -1,12 +1,12 @@
 import React from "react";
-import {cities} from "src/mocks/cities";
+import {offers} from "src/mocks/offers";
 import PropTypes from "prop-types";
 
 const CitiesList = ({onCityChange, currentCity}) => (
   <div className="cities tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {Object.keys(cities).map((city) => (
+        {Object.keys(offers).map((city) => (
           <li className="locations__item" key={city}>
             <a
               className={`locations__item-link tabs__item ${

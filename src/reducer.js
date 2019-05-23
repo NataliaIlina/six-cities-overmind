@@ -1,10 +1,10 @@
-import {cities} from "src/mocks/cities";
+import {offers} from "src/mocks/offers";
 
 const DEFAULT_CITY = `Paris`;
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: cities[DEFAULT_CITY].offers
+  offers: offers[DEFAULT_CITY]
 };
 
 const ActionType = {
@@ -42,7 +42,7 @@ const ActionCreator = {
   changeOffers: (city) => {
     return {
       type: ActionType.CHANGE_OFFERS,
-      payload: cities[city].offers
+      payload: offers[city]
     };
   }
 };

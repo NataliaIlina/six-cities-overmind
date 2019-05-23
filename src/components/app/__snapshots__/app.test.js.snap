@@ -146,7 +146,7 @@ exports[`App rendered correctly 1`] = `
               onClick={[Function]}
             >
               <span>
-                Bruccels
+                Brussels
               </span>
             </a>
           </li>

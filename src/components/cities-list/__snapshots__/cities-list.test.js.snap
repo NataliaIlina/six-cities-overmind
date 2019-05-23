@@ -45,7 +45,7 @@ exports[`Cities list rendered correctly 1`] = `
           onClick={[Function]}
         >
           <span>
-            Bruccels
+            Brussels
           </span>
         </a>
       </li>

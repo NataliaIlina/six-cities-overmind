@@ -1,11 +1,11 @@
 import {ActionCreator, ActionType, reducer} from "./reducer";
-import {cities} from "src/mocks/cities";
+import {offers} from "src/mocks/offers";
 
 describe(`Reducer works correct`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
       city: `Paris`,
-      offers: cities[`Paris`].offers
+      offers: offers[`Paris`]
     });
   });
 
@@ -44,7 +44,7 @@ describe(`Reducer works correct`, () => {
         reducer({city: ``, offers: []}, {type: ActionType.RESET_STATE})
     ).toEqual({
       city: `Paris`,
-      offers: cities[`Paris`].offers
+      offers: offers[`Paris`]
     });
   });
 });
@@ -60,7 +60,7 @@ describe(`Action creators work correctly`, () => {
   it(`actionCreator change offers returns correct action`, () => {
     expect(ActionCreator.changeOffers(`Paris`)).toEqual({
       type: ActionType.CHANGE_OFFERS,
-      payload: cities[`Paris`].offers
+      payload: offers[`Paris`]
     });
   });
 });
