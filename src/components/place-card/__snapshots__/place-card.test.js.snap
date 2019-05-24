@@ -97,7 +97,6 @@ exports[`PlaceCard rendered correctly 1`] = `
         href="#"
       >
         title
-        t
       </a>
     </h2>
     <p

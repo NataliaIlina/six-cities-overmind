@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "components/app/app";
+import {App} from "components/app/app";
 import Map from "components/map/map";
 
 const mock = [
@@ -24,6 +24,15 @@ const mock = [
 
 it(`App rendered correctly`, () => {
   Map.prototype.componentDidMount = jest.fn();
-  const tree = renderer.create(<App offers={mock} />).toJSON();
+  const tree = renderer
+    .create(
+        <App
+          offers={mock}
+          onCityChange={() => {}}
+          city="Paris"
+          cities={[`Paris`, `Amsterdam`]}
+        />
+    )
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });

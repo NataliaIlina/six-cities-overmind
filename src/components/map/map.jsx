@@ -2,9 +2,18 @@ import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 
-class Map extends React.Component {
+const CityCoords = {
+  Paris: [48.8534, 2.3488],
+  Cologne: [50.9333, 6.95],
+  Brussels: [50.8504, 4.34878],
+  Amsterdam: [52.38333, 4.9],
+  Hamburg: [53.5753, 10.0153],
+  Dusseldorf: [51.2217, 6.77616]
+};
+
+class Map extends React.PureComponent {
   _initCard() {
-    const city = [52.38333, 4.9];
+    const coords = CityCoords[this.props.city];
     const zoom = 12;
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -12,13 +21,13 @@ class Map extends React.Component {
     });
 
     const map = leaflet.map(`map`, {
-      center: city,
+      center: coords,
       zoom,
       zoomControl: false,
       marker: true
     });
 
-    map.setView(city, zoom);
+    map.setView(coords, zoom);
 
     leaflet
       .tileLayer(
@@ -33,9 +42,12 @@ class Map extends React.Component {
       leaflet.marker(offer.coords, {icon, title: offer.title}).addTo(map);
     });
   }
+
+  _addPinsOnCard() {}
   componentDidMount() {
     this._initCard();
   }
+
   render() {
     return <div id="map" style={{height: `100%`}} />;
   }
@@ -52,7 +64,8 @@ Map.propTypes = {
         url: PropTypes.string,
         coords: PropTypes.arrayOf(PropTypes.number)
       })
-  ).isRequired
+  ).isRequired,
+  city: PropTypes.string.isRequired
 };
 
 export default Map;
