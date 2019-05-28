@@ -37,8 +37,8 @@ const App = ({offers, onCityChange, city, cities}) => (
       <h1 className="visually-hidden">Cities</h1>
       <CitiesList
         onCityChange={onCityChange}
-        currentCity={city}
         cities={cities}
+        currentCity={city}
       />
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
