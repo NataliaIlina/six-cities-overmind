@@ -2,6 +2,8 @@ import React from "react";
 import PlaceCard from "components/place-card/place-card";
 import PropTypes from "prop-types";
 import withActiveItem from "src/hocs/with-active-item/with-active-item";
+import {connect} from "react-redux";
+import {getOffersForCurrentCity} from "src/reducer";
 
 const OffersList = ({offers, setActiveItem, activeItem}) => (
   <div className="cities__places-list places__list tabs__content">
@@ -24,7 +26,7 @@ OffersList.propTypes = {
         price: PropTypes.number.isRequired,
         isPremium: PropTypes.bool,
         rating: PropTypes.number,
-        type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
+        type: PropTypes.string.isRequired,
         url: PropTypes.string,
         coords: PropTypes.arrayOf(PropTypes.number)
       })
@@ -33,4 +35,11 @@ OffersList.propTypes = {
   setActiveItem: PropTypes.func.isRequired
 };
 
-export default withActiveItem(OffersList);
+export {OffersList};
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    offers: getOffersForCurrentCity(state)
+  });
+
+export default connect(mapStateToProps)(withActiveItem(OffersList));

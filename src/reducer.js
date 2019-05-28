@@ -1,29 +1,70 @@
-import {offers} from "src/mocks/offers";
+import {createSelector} from "reselect";
 
-const DEFAULT_CITY = `Paris`;
+const getCitiesFromOffers = (offers) => {
+  const cities = [];
+  offers.forEach((offer) => {
+    if (!cities.some((city) => city.name === offer.city.name)) {
+      cities.push(offer.city);
+    }
+    return;
+  });
+  return cities;
+};
+
+const getFirstCityFromOffers = (offers) => {
+  return offers[0].city;
+};
+
+export const getOffers = (state) => {
+  return state.offers;
+};
+export const getCurrentCity = (state) => {
+  return state.currentCity;
+};
+
+export const getOffersForCurrentCity = createSelector(
+    getOffers,
+    getCurrentCity,
+    (offers, city) => offers.filter((it) => it.city.name === city.name)
+);
 
 const initialState = {
-  city: DEFAULT_CITY,
-  offers: offers[DEFAULT_CITY],
-  cities: Object.keys(offers)
+  currentCity: ``,
+  offers: [],
+  cities: []
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   CHANGE_OFFERS: `CHANGE_OFFERS`,
-  RESET_STATE: `RESET_STATE`
+  RESET_STATE: `RESET_STATE`,
+  LOAD_OFFERS: `LOAD_OFFERS`
+};
+
+const Operation = {
+  loadOffers: () => (dispatch, _getState, api) => {
+    return api.get(`/hotels`).then((response) => {
+      dispatch(ActionCreator.loadOffers(response.data));
+    });
+  }
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
-        city: action.payload,
-        offers: offers[action.payload]
+        currentCity: action.payload
       });
 
     case ActionType.RESET_STATE:
       return Object.assign({}, initialState);
+
+    case ActionType.LOAD_OFFERS:
+      return Object.assign({}, state, {
+        offers: action.payload,
+        cities: getCitiesFromOffers(action.payload),
+        currentCity: getFirstCityFromOffers(action.payload)
+      });
   }
 
   return state;
@@ -35,7 +76,13 @@ const ActionCreator = {
       type: ActionType.CHANGE_CITY,
       payload: city
     };
+  },
+  loadOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_OFFERS,
+      payload: offers
+    };
   }
 };
 
-export {reducer, ActionCreator, ActionType};
+export {reducer, ActionCreator, ActionType, Operation};

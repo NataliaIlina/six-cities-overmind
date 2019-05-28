@@ -13,7 +13,7 @@ const CityCoords = {
 
 class Map extends React.PureComponent {
   _initCard() {
-    const coords = CityCoords[this.props.city];
+    /*     const coords = CityCoords[this.props.city];
     const zoom = 12;
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -40,7 +40,7 @@ class Map extends React.PureComponent {
 
     this.props.offers.forEach((offer) => {
       leaflet.marker(offer.coords, {icon, title: offer.title}).addTo(map);
-    });
+    }); */
   }
 
   _addPinsOnCard() {}
@@ -60,7 +60,7 @@ Map.propTypes = {
         price: PropTypes.number.isRequired,
         isPremium: PropTypes.bool,
         rating: PropTypes.number,
-        type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
+        type: PropTypes.string.isRequired,
         url: PropTypes.string,
         coords: PropTypes.arrayOf(PropTypes.number)
       })
