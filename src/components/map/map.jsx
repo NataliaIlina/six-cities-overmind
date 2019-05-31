@@ -1,6 +1,7 @@
 import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
+import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
 
 class Map extends React.PureComponent {
   _initCard() {
@@ -51,25 +52,8 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool,
-        rating: PropTypes.number,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string,
-        coords: PropTypes.arrayOf(PropTypes.number)
-      })
-  ).isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      zoom: PropTypes.number.isRequired,
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired
-    }).isRequired
-  }).isRequired
+  offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
+  currentCity: CITY_PROP_TYPES
 };
 
 export default Map;

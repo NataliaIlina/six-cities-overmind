@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {OFFER_PROP_TYPES} from "src/constants";
 
 const PlaceCard = ({offer, onCardClick, onCardHover}) => (
   <article
     className="cities__place-card place-card"
     onMouseEnter={() => onCardHover(offer)}
   >
-    {offer.is_premium && (
+    {offer.isPremium && (
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -22,7 +23,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
       >
         <img
           className="place-card__image"
-          src={offer.preview_image}
+          src={offer.previewImage}
           width="260"
           height="200"
           alt="Place image"
@@ -37,7 +38,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
         </div>
         <button
           className={`place-card__bookmark-button button ${
-            offer.is_favorite ? `place-card__bookmark-button--active` : ``
+            offer.isFavorite ? `place-card__bookmark-button--active` : ``
           }`}
           type="button"
         >
@@ -62,14 +63,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
 );
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    is_premium: PropTypes.bool,
-    rating: PropTypes.number,
-    type: PropTypes.string.isRequired,
-    preview_image: PropTypes.string
-  }),
+  offer: OFFER_PROP_TYPES,
   onCardClick: PropTypes.func,
   onCardHover: PropTypes.func
 };

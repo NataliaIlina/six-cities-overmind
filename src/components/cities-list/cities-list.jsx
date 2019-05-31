@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "src/reducer";
+import {CITY_PROP_TYPES} from "src/constants";
 
 const CitiesList = ({cities, currentCity, onCityChange}) => (
   <div className="cities tabs">
@@ -30,15 +31,8 @@ const CitiesList = ({cities, currentCity, onCityChange}) => (
 
 CitiesList.propTypes = {
   onCityChange: PropTypes.func.isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      zoom: PropTypes.number.isRequired,
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired
-    }).isRequired
-  }).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired
+  currentCity: CITY_PROP_TYPES,
+  cities: PropTypes.arrayOf(CITY_PROP_TYPES).isRequired
 };
 
 export {CitiesList};

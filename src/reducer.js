@@ -1,4 +1,5 @@
 import {createSelector} from "reselect";
+import {transformKeysToCamel} from "./helpers";
 
 const getCitiesFromOffers = (offers) => {
   const cities = [];
@@ -43,9 +44,14 @@ const ActionType = {
 
 const Operation = {
   loadOffers: () => (dispatch, _getState, api) => {
-    return api.get(`/hotels`).then((response) => {
-      dispatch(ActionCreator.loadOffers(response.data));
-    });
+    return api
+      .get(`/hotels`)
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadOffers(data));
+      });
   }
 };
 

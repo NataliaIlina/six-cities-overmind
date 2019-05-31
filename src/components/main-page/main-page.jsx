@@ -5,6 +5,7 @@ import Map from "components/map/map";
 import CitiesList from "components/cities-list/cities-list";
 import {connect} from "react-redux";
 import {getOffersForCurrentCity} from "src/reducer";
+import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
 
 const MainPage = ({offers, currentCity}) => (
   <main className="page__main page__main--index">
@@ -83,25 +84,8 @@ const MainPage = ({offers, currentCity}) => (
 );
 
 MainPage.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool,
-        rating: PropTypes.number,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string,
-        coords: PropTypes.arrayOf(PropTypes.number)
-      })
-  ).isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      zoom: PropTypes.number.isRequired,
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired
-    }).isRequired
-  }).isRequired
+  offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
+  currentCity: CITY_PROP_TYPES
 };
 
 const mapStateToProps = (state, ownProps) =>

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import withActiveItem from "src/hocs/with-active-item/with-active-item";
 import {connect} from "react-redux";
 import {getOffersForCurrentCity} from "src/reducer";
+import {OFFER_PROP_TYPES} from "src/constants";
 
 const OffersList = ({offers, setActiveItem, activeItem}) => (
   <div className="cities__places-list places__list tabs__content">
@@ -20,17 +21,7 @@ const OffersList = ({offers, setActiveItem, activeItem}) => (
 );
 
 OffersList.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool,
-        rating: PropTypes.number,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string,
-        coords: PropTypes.arrayOf(PropTypes.number)
-      })
-  ).isRequired,
+  offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
   activeItem: PropTypes.any,
   setActiveItem: PropTypes.func.isRequired
 };
