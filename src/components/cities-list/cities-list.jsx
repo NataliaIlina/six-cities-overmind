@@ -32,7 +32,11 @@ CitiesList.propTypes = {
   onCityChange: PropTypes.func.isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.shape({
+      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired
+    }).isRequired
   }).isRequired,
   cities: PropTypes.arrayOf(PropTypes.object).isRequired
 };

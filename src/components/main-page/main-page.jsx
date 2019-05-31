@@ -68,11 +68,13 @@ const MainPage = ({offers, currentCity}) => (
 
         <div className="cities__right-section">
           <section className="cities__map map">
-            <Map
-              offers={offers}
-              city={currentCity.name}
-              key={currentCity.name}
-            />
+            {currentCity ? (
+              <Map
+                offers={offers}
+                currentCity={currentCity}
+                key={currentCity.name}
+              />
+            ) : null}
           </section>
         </div>
       </div>
@@ -94,7 +96,11 @@ MainPage.propTypes = {
   ).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.shape({
+      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired
+    }).isRequired
   }).isRequired
 };
 

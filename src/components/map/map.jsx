@@ -2,19 +2,15 @@ import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 
-const CityCoords = {
-  Paris: [48.8534, 2.3488],
-  Cologne: [50.9333, 6.95],
-  Brussels: [50.8504, 4.34878],
-  Amsterdam: [52.38333, 4.9],
-  Hamburg: [53.5753, 10.0153],
-  Dusseldorf: [51.2217, 6.77616]
-};
-
 class Map extends React.PureComponent {
   _initCard() {
-    /*     const coords = CityCoords[this.props.city];
-    const zoom = 12;
+    const {currentCity, offers} = this.props;
+    const coords = [
+      currentCity.location.latitude,
+      currentCity.location.longitude
+    ];
+    const zoom = currentCity.location.zoom;
+
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
@@ -38,9 +34,10 @@ class Map extends React.PureComponent {
       )
       .addTo(map);
 
-    this.props.offers.forEach((offer) => {
-      leaflet.marker(offer.coords, {icon, title: offer.title}).addTo(map);
-    }); */
+    offers.forEach((offer) => {
+      const offerCoords = [offer.location.latitude, offer.location.longitude];
+      leaflet.marker(offerCoords, {icon, title: offer.title}).addTo(map);
+    });
   }
 
   _addPinsOnCard() {}
@@ -65,7 +62,14 @@ Map.propTypes = {
         coords: PropTypes.arrayOf(PropTypes.number)
       })
   ).isRequired,
-  city: PropTypes.string.isRequired
+  currentCity: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      zoom: PropTypes.number.isRequired,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default Map;
