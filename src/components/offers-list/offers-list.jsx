@@ -2,8 +2,6 @@ import React from "react";
 import PlaceCard from "components/place-card/place-card";
 import PropTypes from "prop-types";
 import withActiveItem from "src/hocs/with-active-item/with-active-item";
-import {connect} from "react-redux";
-import {getOffersForCurrentCity} from "src/reducer";
 import {OFFER_PROP_TYPES} from "src/constants";
 
 const OffersList = ({offers, setActiveItem, activeItem}) => (
@@ -28,9 +26,4 @@ OffersList.propTypes = {
 
 export {OffersList};
 
-const mapStateToProps = (state, ownProps) =>
-  Object.assign({}, ownProps, {
-    offers: getOffersForCurrentCity(state)
-  });
-
-export default connect(mapStateToProps)(withActiveItem(OffersList));
+export default withActiveItem(OffersList);

@@ -24,7 +24,7 @@ exports[`PlaceCard rendered correctly 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
+        src=""
         width="260"
       />
     </a>
@@ -42,7 +42,7 @@ exports[`PlaceCard rendered correctly 1`] = `
           className="place-card__price-value"
         >
           €
-          120
+          1200
         </b>
         <span
           className="place-card__price-text"
@@ -51,7 +51,7 @@ exports[`PlaceCard rendered correctly 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button button"
+        className="place-card__bookmark-button button "
         type="button"
       >
         <svg
@@ -79,7 +79,7 @@ exports[`PlaceCard rendered correctly 1`] = `
         <span
           style={
             Object {
-              "width": "93%",
+              "width": "96%",
             }
           }
         />
@@ -96,13 +96,13 @@ exports[`PlaceCard rendered correctly 1`] = `
       <a
         href="#"
       >
-        title
+        place
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      Apartment
+      house
     </p>
   </div>
 </article>

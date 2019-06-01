@@ -1,4 +1,4 @@
-import {ActionCreator, ActionType, reducer} from "./reducer";
+/* import {ActionCreator, ActionType, reducer} from "./reducer";
 import {offers} from "src/mocks/offers";
 
 const cities = Object.keys(offers);
@@ -46,3 +46,4 @@ describe(`Action creators work correctly`, () => {
     });
   });
 });
+ */

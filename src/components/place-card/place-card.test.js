@@ -1,21 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PlaceCard from "components/place-card/place-card";
+import {OFFER_MOCK} from "src/constants";
 
 it(`PlaceCard rendered correctly`, () => {
-  const tree = renderer
-    .create(
-        <PlaceCard
-          offer={{
-            title: `title`,
-            price: 120,
-            isPremium: true,
-            rating: 93,
-            type: `Apartment`,
-            url: `img/apartment-01.jpg`
-          }}
-        />
-    )
-    .toJSON();
+  const tree = renderer.create(<PlaceCard offer={OFFER_MOCK} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

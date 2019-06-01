@@ -1,15 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
 import PlaceCard from "components/place-card/place-card";
-
-const mock = {
-  title: `title`,
-  price: 120,
-  isPremium: true,
-  rating: 93,
-  type: `Apartment`,
-  url: `img/apartment-01.jpg`
-};
+import {OFFER_MOCK} from "src/constants";
 
 describe(`PlaceCard works correctly`, () => {
   const hoverHandler = jest.fn();
@@ -17,9 +9,9 @@ describe(`PlaceCard works correctly`, () => {
 
   const wrapper = mount(
       <PlaceCard
-        offer={mock}
-        onCardClick={() => clickHandler(mock)}
-        onCardHover={() => hoverHandler(mock)}
+        offer={OFFER_MOCK}
+        onCardClick={() => clickHandler(OFFER_MOCK)}
+        onCardHover={() => hoverHandler(OFFER_MOCK)}
       />
   );
   const link = wrapper.find(`.place-card__link`);
@@ -33,8 +25,8 @@ describe(`PlaceCard works correctly`, () => {
   it(`handlers get params correctly`, () => {
     link.simulate(`click`);
     card.simulate(`mouseEnter`);
-    expect(hoverHandler).toHaveBeenCalledWith(mock);
-    expect(clickHandler).toHaveBeenCalledWith(mock);
+    expect(hoverHandler).toHaveBeenCalledWith(OFFER_MOCK);
+    expect(clickHandler).toHaveBeenCalledWith(OFFER_MOCK);
   });
 
   it(`handlers works correctly`, () => {

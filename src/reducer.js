@@ -30,7 +30,7 @@ export const getOffersForCurrentCity = createSelector(
 );
 
 const initialState = {
-  currentCity: ``,
+  currentCity: {},
   offers: [],
   cities: []
 };

@@ -41,7 +41,6 @@ class Map extends React.PureComponent {
     });
   }
 
-  _addPinsOnCard() {}
   componentDidMount() {
     this._initCard();
   }

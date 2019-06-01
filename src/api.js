@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createAPI = (dispatch) => {
+export const createAPI = () => {
   const api = axios.create({
     baseURL: `https://es31-server.appspot.com/six-cities`,
     timeout: 5000,
