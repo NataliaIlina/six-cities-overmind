@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createAPI = () => {
+export const createAPI = (onLoginFail) => {
   const api = axios.create({
     baseURL: `https://es31-server.appspot.com/six-cities`,
     timeout: 5000,
@@ -10,7 +10,7 @@ export const createAPI = () => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === 403) {
-      /* dispatch(ActionCreator.requireAuthorization(true)); */
+      onLoginFail();
     }
     return err;
   };

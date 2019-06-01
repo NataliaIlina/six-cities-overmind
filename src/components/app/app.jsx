@@ -1,14 +1,16 @@
 import React from "react";
-import Header from "components/header/header";
 import MainPage from "components/main-page/main-page";
-import SvgSprite from "components/svg-sprite/svg-sprite";
+import Favorites from "components/favorites/favorites";
+import {Switch, Route} from "react-router-dom";
+import Login from "components/login/login";
 
 const App = () => (
-  <div>
-    <SvgSprite />
-    <Header userName="Oliver.conner@gmail.com" />
-    <MainPage />
-  </div>
+  <Switch>
+    <Route path="/" exact component={MainPage} />
+    <Route path="/login" component={Login} />
+    <Route path="/favorites" component={Favorites} />
+    <Route path="/offer/:id" component={MainPage} />
+  </Switch>
 );
 
 export default App;

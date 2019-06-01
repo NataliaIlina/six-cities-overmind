@@ -1,12 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {USER_PROP_TYPES} from "src/constants";
 
-const Header = ({userName}) => (
+const Header = ({user}) => (
   <header className="header">
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
-          <a className="header__logo-link header__logo-link--active">
+          <Link to="/" className="header__logo-link header__logo-link--active">
             <img
               className="header__logo"
               src="img/logo.svg"
@@ -14,18 +16,30 @@ const Header = ({userName}) => (
               width="81"
               height="41"
             />
-          </a>
+          </Link>
         </div>
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <a
+              <Link
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                to={`/${user ? `favorites` : `login`}`}
               >
-                <div className="header__avatar-wrapper user__avatar-wrapper" />
-                <span className="header__user-name user__name">{userName}</span>
-              </a>
+                <div
+                  className="header__avatar-wrapper user__avatar-wrapper"
+                  /*                   style={{
+                    backgroundImage:
+                      user && user.avatarUrl ? `url(..${user.avatarUrl})` : ``
+                  }} */
+                />
+                {user ? (
+                  <span className="header__user-name user__name">
+                    {user.name}
+                  </span>
+                ) : (
+                  <span className="header__login">Sign in</span>
+                )}
+              </Link>
             </li>
           </ul>
         </nav>
@@ -35,7 +49,12 @@ const Header = ({userName}) => (
 );
 
 Header.propTypes = {
-  userName: PropTypes.string,
+  user: USER_PROP_TYPES
 };
 
-export default Header;
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    user: state.user
+  });
+
+export default connect(mapStateToProps)(Header);

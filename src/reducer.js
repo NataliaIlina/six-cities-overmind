@@ -32,14 +32,18 @@ export const getOffersForCurrentCity = createSelector(
 const initialState = {
   currentCity: {},
   offers: [],
-  cities: []
+  cities: [],
+  favorite: [],
+  user: null
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   CHANGE_OFFERS: `CHANGE_OFFERS`,
   RESET_STATE: `RESET_STATE`,
-  LOAD_OFFERS: `LOAD_OFFERS`
+  LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_FAVORITE: `LOAD_FAVORITE`,
+  LOAD_USER: `LOAD_USER`
 };
 
 const Operation = {
@@ -51,6 +55,36 @@ const Operation = {
       })
       .then((data) => {
         dispatch(ActionCreator.loadOffers(data));
+      });
+  },
+  loadFavorite: () => (dispatch, _getState, api) => {
+    return api
+      .get(`/favorite`)
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadFavorite(data));
+      });
+  },
+  loadUser: () => (dispatch, _getState, api) => {
+    return api
+      .get(`/login`)
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadUser(data));
+      });
+  },
+  authorizeUser: (email, password) => (dispatch, _getState, api) => {
+    return api
+      .post(`/login`, {email, password})
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadUser(data));
       });
   }
 };
@@ -71,6 +105,16 @@ const reducer = (state = initialState, action) => {
         cities: getCitiesFromOffers(action.payload),
         currentCity: getFirstCityFromOffers(action.payload)
       });
+
+    case ActionType.LOAD_FAVORITE:
+      return Object.assign({}, state, {
+        favorite: action.payload
+      });
+
+    case ActionType.LOAD_USER:
+      return Object.assign({}, state, {
+        user: action.payload
+      });
   }
 
   return state;
@@ -87,6 +131,18 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_OFFERS,
       payload: offers
+    };
+  },
+  loadFavorite: (offers) => {
+    return {
+      type: ActionType.LOAD_FAVORITE,
+      payload: offers
+    };
+  },
+  loadUser: (user) => {
+    return {
+      type: ActionType.LOAD_USER,
+      payload: user
     };
   }
 };

@@ -9,6 +9,17 @@ export const CITY_PROP_TYPES = PropTypes.shape({
   })
 }).isRequired;
 
+export const USER_PROP_TYPES = PropTypes.oneOfType([
+  PropTypes.object,
+  PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string,
+    isPro: PropTypes.bool.isRequired
+  })
+]);
+
 export const OFFER_PROP_TYPES = PropTypes.shape({
   id: PropTypes.number.isRequired,
   previewImage: PropTypes.string,
