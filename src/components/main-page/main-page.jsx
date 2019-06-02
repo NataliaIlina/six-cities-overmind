@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Map from "components/map/map";
 import CitiesList from "components/cities-list/cities-list";
 import {connect} from "react-redux";
-import {getOffersForCurrentCity} from "src/reducer";
+import {getOffersForCurrentSorting} from "src/reducer";
 import {ActionCreator, Operation} from "src/reducer";
 import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
 import Layout from "components/layout/layout";
@@ -75,7 +75,7 @@ const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
     currentCity: state.currentCity,
     cities: state.cities,
-    offers: getOffersForCurrentCity(state)
+    offers: getOffersForCurrentSorting(state)
   });
 
 const mapDispatchToProps = (dispatch) => ({

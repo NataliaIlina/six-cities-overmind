@@ -1,6 +1,16 @@
 import React from "react";
+import {connect} from "react-redux";
+import {ActionCreator} from "src/reducer";
+import PropTypes from "prop-types";
 
-const Sorting = () => (
+const SORTING_OPTIONS = [
+  {value: `popular`, title: `Popular`},
+  {value: `to-high`, title: `Price: low to high`},
+  {value: `to-low`, title: `Price: high to low`},
+  {value: `top-rated`, title: `Top rated first`}
+];
+
+const Sorting = ({onSortingChange, sorting}) => (
   <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by</span>
     <span className="places__sorting-type" tabIndex="0">
@@ -9,43 +19,45 @@ const Sorting = () => (
         <use xlinkHref="#icon-arrow-select" />
       </svg>
     </span>
-    {/*               <ul className="places__options places__options--custom places__options--opened">
-<li
-className="places__option places__option--active"
-tabIndex="0"
->
-Popular
-</li>
-<li className="places__option" tabIndex="0">
-Price: low to high
-</li>
-<li className="places__option" tabIndex="0">
-Price: high to low
-</li>
-<li className="places__option" tabIndex="0">
-Top rated first
-</li>
-</ul> */}
-
-    {/*               <select
-className="places__sorting-type"
-id="places-sorting"
-defaultValue="popular"
->
-<option className="places__option" value="popular">
-Popular
-</option>
-<option className="places__option" value="to-high">
-Price: low to high
-</option>
-<option className="places__option" value="to-low">
-Price: high to low
-</option>
-<option className="places__option" value="top-rated">
-Top rated first
-</option>
-</select> */}
+    <ul className="places__options places__options--custom places__options--opened">
+      {SORTING_OPTIONS.map((option) => (
+        <li
+          key={option.value}
+          className={`places__option ${
+            option.value === sorting ? `places__option--active` : ``
+          }`}
+          tabIndex="0"
+          onClick={() => {
+            console.log(option.value);
+            onSortingChange(option.value);
+          }}
+        >
+          {option.title}
+        </li>
+      ))}
+    </ul>
   </form>
 );
 
-export default Sorting;
+Sorting.propTypes = {
+  sorting: PropTypes.string.isRequired,
+  onSortingChange: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    sorting: state.sorting
+  });
+
+const mapDispatchToProps = (dispatch) => ({
+  onSortingChange: (sortingValue) => {
+    dispatch(ActionCreator.changeSorting(sortingValue));
+  }
+});
+
+export {Sorting};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Sorting);

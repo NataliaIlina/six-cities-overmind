@@ -1,5 +1,9 @@
 import {createSelector} from "reselect";
-import {transformKeysToCamel, transformOffersForFavorite} from "./helpers";
+import {
+  transformKeysToCamel,
+  transformOffersForFavorite,
+  getRandomNumber
+} from "./helpers";
 
 const getCitiesFromOffers = (offers) => {
   const cities = [];
@@ -13,7 +17,7 @@ const getCitiesFromOffers = (offers) => {
 };
 
 const getFirstCityFromOffers = (offers) => {
-  return offers[0].city;
+  return offers[getRandomNumber(0, offers.length - 1)].city;
 };
 
 export const getOffers = (state) => {
@@ -22,6 +26,9 @@ export const getOffers = (state) => {
 export const getCurrentCity = (state) => {
   return state.currentCity;
 };
+export const getSorting = (state) => {
+  return state.sorting;
+};
 
 export const getOffersForCurrentCity = createSelector(
     getOffers,
@@ -29,16 +36,46 @@ export const getOffersForCurrentCity = createSelector(
     (offers, city) => offers.filter((it) => it.city.name === city.name)
 );
 
+export const getOffersForCurrentSorting = createSelector(
+    getOffers,
+    getCurrentCity,
+    getSorting,
+    (offers, city, sorting) =>
+      offers
+      .filter((it) => it.city.name === city.name)
+      .sort((a, b) => {
+        let sort;
+        switch (sorting) {
+          case `popular`:
+            break;
+          case `to-high`:
+            sort = a.price - b.price;
+            break;
+          case `to-low`:
+            sort = b.price - a.price;
+            break;
+          case `top-rated`:
+            sort = b.rating - a.rating;
+            break;
+          default:
+            break;
+        }
+        return sort;
+      })
+);
+
 const initialState = {
   currentCity: {},
   offers: [],
   cities: [],
   favorite: [],
-  user: null
+  user: null,
+  sorting: `popular`
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
+  CHANGE_SORTING: `CHANGE_SORTING`,
   CHANGE_OFFERS: `CHANGE_OFFERS`,
   RESET_STATE: `RESET_STATE`,
   LOAD_OFFERS: `LOAD_OFFERS`,
@@ -137,6 +174,11 @@ const reducer = (state = initialState, action) => {
           return offer;
         })
       });
+
+    case ActionType.CHANGE_SORTING:
+      return Object.assign({}, state, {
+        sorting: action.payload
+      });
   }
 
   return state;
@@ -171,6 +213,12 @@ const ActionCreator = {
     return {
       type: ActionType.REPLACE_OFFER,
       payload: offer
+    };
+  },
+  changeSorting: (value) => {
+    return {
+      type: ActionType.CHANGE_SORTING,
+      payload: value
     };
   }
 };
