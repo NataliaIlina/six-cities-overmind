@@ -28,3 +28,13 @@ export const transformKeysToCamel = (o) => {
 
   return o;
 };
+
+export const transformOffersForFavorite = (offers) => {
+  const cities = new Set();
+  offers.forEach((offer) => cities.add(offer.city.name));
+  const favorites = {};
+  for (let item of cities.keys()) {
+    favorites[item] = offers.filter((o) => o.city.name === item);
+  }
+  return favorites;
+};

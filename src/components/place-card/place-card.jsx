@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OFFER_PROP_TYPES} from "src/constants";
+import {Operation} from "src/reducer";
+import {connect} from "react-redux";
 
-const PlaceCard = ({offer, onCardClick, onCardHover}) => (
+const PlaceCard = ({offer, onCardClick, onCardHover, onBookmarkClick}) => (
   <article
     className="cities__place-card place-card"
     onMouseEnter={() => onCardHover(offer)}
@@ -41,6 +43,9 @@ const PlaceCard = ({offer, onCardClick, onCardHover}) => (
             offer.isFavorite ? `place-card__bookmark-button--active` : ``
           }`}
           type="button"
+          onClick={() => {
+            onBookmarkClick(offer.id, offer.isFavorite ? 0 : 1);
+          }}
         >
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark" />
@@ -68,4 +73,21 @@ PlaceCard.propTypes = {
   onCardHover: PropTypes.func
 };
 
-export default PlaceCard;
+export {PlaceCard};
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    favorite: state.favorite,
+    user: state.user
+  });
+
+const mapDispatchToProps = (dispatch) => ({
+  onBookmarkClick: (hotelId, status) => {
+    dispatch(Operation.toggleFavorite(hotelId, status));
+  }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PlaceCard);

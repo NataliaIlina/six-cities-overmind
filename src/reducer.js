@@ -1,5 +1,5 @@
 import {createSelector} from "reselect";
-import {transformKeysToCamel} from "./helpers";
+import {transformKeysToCamel, transformOffersForFavorite} from "./helpers";
 
 const getCitiesFromOffers = (offers) => {
   const cities = [];
@@ -43,7 +43,8 @@ const ActionType = {
   RESET_STATE: `RESET_STATE`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_FAVORITE: `LOAD_FAVORITE`,
-  LOAD_USER: `LOAD_USER`
+  LOAD_USER: `LOAD_USER`,
+  REPLACE_OFFER: `REPLACE_OFFER`
 };
 
 const Operation = {
@@ -61,7 +62,8 @@ const Operation = {
     return api
       .get(`/favorite`)
       .then((response) => {
-        return transformKeysToCamel(response.data);
+        const data = transformOffersForFavorite(response.data);
+        return transformKeysToCamel(data);
       })
       .then((data) => {
         dispatch(ActionCreator.loadFavorite(data));
@@ -85,6 +87,16 @@ const Operation = {
       })
       .then((data) => {
         dispatch(ActionCreator.loadUser(data));
+      });
+  },
+  toggleFavorite: (hotelId, status) => (dispatch, _getState, api) => {
+    return api
+      .post(`/favorite/${hotelId}/${status}`)
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((offer) => {
+        dispatch(ActionCreator.replaceOfferInState(offer));
       });
   }
 };
@@ -115,6 +127,16 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         user: action.payload
       });
+
+    case ActionType.REPLACE_OFFER:
+      return Object.assign({}, state, {
+        offers: state.offers.map((offer) => {
+          if (offer.id === action.payload.id) {
+            return action.payload;
+          }
+          return offer;
+        })
+      });
   }
 
   return state;
@@ -143,6 +165,12 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_USER,
       payload: user
+    };
+  },
+  replaceOfferInState: (offer) => {
+    return {
+      type: ActionType.REPLACE_OFFER,
+      payload: offer
     };
   }
 };
