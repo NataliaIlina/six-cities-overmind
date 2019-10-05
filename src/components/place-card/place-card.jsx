@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import {OFFER_PROP_TYPES} from "src/constants";
 import {Operation} from "src/reducer";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-const PlaceCard = ({offer, onCardClick, onCardHover, onBookmarkClick}) => (
-  <article
-    className="cities__place-card place-card"
-    onMouseEnter={() => onCardHover(offer)}
-  >
+const PlaceCard = ({offer, onCardClick, onBookmarkClick}) => (
+  <article className="cities__place-card place-card">
     {offer.isPremium && (
       <div className="place-card__mark">
         <span>Premium</span>
@@ -20,7 +18,7 @@ const PlaceCard = ({offer, onCardClick, onCardHover, onBookmarkClick}) => (
         className="place-card__link"
         onClick={(e) => {
           e.preventDefault();
-          onCardClick(offer);
+          onCardClick(offer.id);
         }}
       >
         <img
@@ -60,7 +58,9 @@ const PlaceCard = ({offer, onCardClick, onCardHover, onBookmarkClick}) => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{offer.title}</a>
+        <Link to={`/offer/${offer.id}`} onClick={() => onCardClick(offer.id)}>
+          {offer.title}
+        </Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>

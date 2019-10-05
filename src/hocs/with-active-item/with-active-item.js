@@ -1,31 +1,31 @@
-import React, {PureComponent} from "react";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { ActionCreator, Operation } from "src/reducer";
 
-const withActiveItem = (Component) => {
-  class WithActiveItem extends PureComponent {
-    constructor(props) {
-      super(props);
-      this.state = {
-        activeItem: null
-      };
-      this._setActiveItem = this.setActiveItem.bind(this);
+const withActiveOffer = (Component) => {
+  const WithActiveItem = ({ activeOffer, setActiveOffer, ...props }) => (
+    <Component
+      {...props}
+      activeOffer={activeOffer}
+      setActiveOffer={setActiveOffer}
+    />
+  );
+
+  const mapStateToProps = (state, ownProps) =>
+    Object.assign({}, ownProps, {
+      activeOffer: state.activeOffer
+    });
+
+  const mapDispatchToProps = (dispatch) => ({
+    setActiveOffer: (offer) => {
+      dispatch(ActionCreator.setActiveOffer(offer));
     }
+  });
 
-    setActiveItem(item) {
-      this.setState({activeItem: item});
-    }
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          activeItem={this.state.activeItem}
-          setActiveItem={this._setActiveItem}
-        />
-      );
-    }
-  }
-
-  return WithActiveItem;
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(WithActiveItem);
 };
 
-export default withActiveItem;
+export default withActiveOffer;

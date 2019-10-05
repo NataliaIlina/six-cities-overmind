@@ -28,7 +28,6 @@ const Sorting = ({onSortingChange, sorting}) => (
           }`}
           tabIndex="0"
           onClick={() => {
-            console.log(option.value);
             onSortingChange(option.value);
           }}
         >

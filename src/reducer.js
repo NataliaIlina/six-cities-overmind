@@ -30,10 +30,21 @@ export const getSorting = (state) => {
   return state.sorting;
 };
 
+export const getActiveOffer = (state, props) => {
+  return props.match.params.id;
+};
+
 export const getOffersForCurrentCity = createSelector(
     getOffers,
     getCurrentCity,
     (offers, city) => offers.filter((it) => it.city.name === city.name)
+);
+
+export const getCurrentOfferById = createSelector(
+    getOffers,
+    getActiveOffer,
+    (offers, activeOffer) =>
+      offers.find((offer) => offer.id === parseInt(activeOffer, 10))
 );
 
 export const getOffersForCurrentSorting = createSelector(
@@ -70,7 +81,8 @@ const initialState = {
   cities: [],
   favorite: [],
   user: null,
-  sorting: `popular`
+  sorting: `popular`,
+  activeOffer: null
 };
 
 const ActionType = {
@@ -81,7 +93,8 @@ const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_FAVORITE: `LOAD_FAVORITE`,
   LOAD_USER: `LOAD_USER`,
-  REPLACE_OFFER: `REPLACE_OFFER`
+  REPLACE_OFFER: `REPLACE_OFFER`,
+  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`
 };
 
 const Operation = {
@@ -179,6 +192,11 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         sorting: action.payload
       });
+
+    case ActionType.SET_ACTIVE_OFFER:
+      return Object.assign({}, state, {
+        activeOffer: action.payload
+      });
   }
 
   return state;
@@ -219,6 +237,12 @@ const ActionCreator = {
     return {
       type: ActionType.CHANGE_SORTING,
       payload: value
+    };
+  },
+  setActiveOffer: (id) => {
+    return {
+      type: ActionType.SET_ACTIVE_OFFER,
+      payload: id
     };
   }
 };
