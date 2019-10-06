@@ -1,8 +1,9 @@
 import axios from "axios";
+import {SERVER_URL} from "./constants";
 
 export const createAPI = () => {
   const api = axios.create({
-    baseURL: `https://es31-server.appspot.com/six-cities`,
+    baseURL: SERVER_URL,
     timeout: 5000,
     withCredentials: true
   });

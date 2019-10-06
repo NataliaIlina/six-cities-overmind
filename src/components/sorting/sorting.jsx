@@ -1,20 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "src/reducer";
+import {ActionCreator} from "reducer/data/data";
 import PropTypes from "prop-types";
+import {getSorting} from "reducer/data/selectors";
+import {SORTING_OPTIONS, SORTING_TITLE} from "src/constants";
 
-const SORTING_OPTIONS = [
-  {value: `popular`, title: `Popular`},
-  {value: `to-high`, title: `Price: low to high`},
-  {value: `to-low`, title: `Price: high to low`},
-  {value: `top-rated`, title: `Top rated first`}
-];
-
-const Sorting = ({onSortingChange, sorting}) => (
+const SortingSelect = ({onSortingChange, sorting}) => (
   <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by</span>
     <span className="places__sorting-type" tabIndex="0">
-      Popular
+      {SORTING_TITLE[sorting]}
       <svg className="places__sorting-arrow" width="7" height="4">
         <use xlinkHref="#icon-arrow-select" />
       </svg>
@@ -22,30 +17,30 @@ const Sorting = ({onSortingChange, sorting}) => (
     <ul className="places__options places__options--custom places__options--opened">
       {SORTING_OPTIONS.map((option) => (
         <li
-          key={option.value}
+          key={option}
           className={`places__option ${
-            option.value === sorting ? `places__option--active` : ``
+            option === sorting ? `places__option--active` : ``
           }`}
           tabIndex="0"
           onClick={() => {
-            onSortingChange(option.value);
+            onSortingChange(option);
           }}
         >
-          {option.title}
+          {SORTING_TITLE[option]}
         </li>
       ))}
     </ul>
   </form>
 );
 
-Sorting.propTypes = {
+SortingSelect.propTypes = {
   sorting: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    sorting: state.sorting
+    sorting: getSorting(state)
   });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -54,9 +49,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Sorting};
+export {SortingSelect};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Sorting);
+)(SortingSelect);

@@ -1,21 +1,17 @@
 import React from "react";
 import Footer from "components/footer/footer";
-import {Operation} from "src/reducer";
+import {Operation} from "reducer/data/data";
 import {connect} from "react-redux";
 import Layout from "components/layout/layout";
-import {Redirect} from "react-router-dom";
 import FavoriteCard from "components/favorite-card/favorite-card";
 import FavoritesEmpty from "components/favorites-empty/favorites-empty";
 
-class Favorites extends React.Component {
+class FavoritePage extends React.Component {
   componentDidMount() {
     this.props.loadFavorite();
   }
   render() {
-    const {favorite, user} = this.props;
-    /*     if (!user) {
-      return <Redirect to="/login" />;
-    } */
+    const {favorite} = this.props;
     return (
       <Layout>
         <main className="page__main page__main--favorites">
@@ -58,8 +54,7 @@ class Favorites extends React.Component {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    favorite: state.favorite,
-    user: state.user
+    favorite: state.favorite
   });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,4 +66,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Favorites);
+)(FavoritePage);

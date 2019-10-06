@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "components/layout/layout";
 import {connect} from "react-redux";
-import {getCurrentOfferById} from "../../reducer";
+import {getCurrentOfferById} from "reducer/data/selectors";
 
 class OfferPage extends React.Component {
   render() {

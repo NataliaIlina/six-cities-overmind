@@ -1,5 +1,26 @@
 import PropTypes from "prop-types";
 
+export const SERVER_URL = `https://es31-server.appspot.com/six-cities`;
+
+export const SORTING_VALUE_POPULAR = `popular`;
+export const SORTING_VALUE_PRICE_TO_HIGH = `to-high`;
+export const SORTING_VALUE_PRICE_TO_LOW = `to-low`;
+export const SORTING_VALUE_TOP_RATED = `top-rated`;
+
+export const SORTING_OPTIONS = [
+  SORTING_VALUE_POPULAR,
+  SORTING_VALUE_PRICE_TO_HIGH,
+  SORTING_VALUE_PRICE_TO_LOW,
+  SORTING_VALUE_TOP_RATED
+];
+
+export const SORTING_TITLE = {
+  [SORTING_VALUE_POPULAR]: `Popular`,
+  [SORTING_VALUE_PRICE_TO_HIGH]: `Price: low to high`,
+  [SORTING_VALUE_PRICE_TO_LOW]: `Price: high to low`,
+  [SORTING_VALUE_TOP_RATED]: `Top rated first`
+};
+
 export const CITY_PROP_TYPES = PropTypes.shape({
   name: PropTypes.string,
   location: PropTypes.shape({

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OFFER_PROP_TYPES} from "src/constants";
-import {Operation} from "src/reducer";
+import {Operation} from "reducer/data/data";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 

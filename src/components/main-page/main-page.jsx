@@ -4,11 +4,15 @@ import PropTypes from "prop-types";
 import Map from "components/map/map";
 import CitiesList from "components/cities-list/cities-list";
 import {connect} from "react-redux";
-import {getOffersForCurrentSorting} from "src/reducer";
-import {ActionCreator, Operation} from "src/reducer";
+import {ActionCreator, Operation} from "reducer/data/data";
 import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
 import Layout from "components/layout/layout";
 import Sorting from "components/sorting/sorting";
+import {
+  getCitiesList,
+  getCurrentCity,
+  getOffersForCurrentSorting
+} from "reducer/data/selectors";
 
 class MainPage extends React.PureComponent {
   componentDidMount() {
@@ -17,7 +21,6 @@ class MainPage extends React.PureComponent {
 
   render() {
     const {offers, cities, currentCity, onCityChange} = this.props;
-
     return (
       <Layout type="main">
         <main className="page__main page__main--index">
@@ -73,8 +76,8 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    currentCity: state.currentCity,
-    cities: state.cities,
+    currentCity: getCurrentCity(state),
+    cities: getCitiesList(state),
     offers: getOffersForCurrentSorting(state)
   });
 

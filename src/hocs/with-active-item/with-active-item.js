@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { ActionCreator, Operation } from "src/reducer";
+import { ActionCreator, Operation } from "reducer/data/data";
 
 const withActiveOffer = (Component) => {
   const WithActiveItem = ({ activeOffer, setActiveOffer, ...props }) => (

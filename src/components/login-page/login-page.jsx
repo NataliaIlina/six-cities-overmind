@@ -1,11 +1,14 @@
 import React from "react";
 import Layout from "components/layout/layout";
 import {connect} from "react-redux";
-import {Operation} from "src/reducer";
+import {Operation} from "reducer/user/user";
 import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
+import {getUserData} from "reducer/user/selectors";
+import {USER_PROP_TYPES} from "src/constants";
 
-const Login = ({onFormSubmit, user}) =>
-  user ? (
+const LoginPage = ({onFormSubmit, userData}) =>
+  userData ? (
     <Redirect to="/" />
   ) : (
     <Layout type="login">
@@ -62,18 +65,23 @@ const Login = ({onFormSubmit, user}) =>
     </Layout>
   );
 
+LoginPage.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+  userData: USER_PROP_TYPES
+};
+
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    user: state.user
+    userData: getUserData(state)
   });
 
 const mapDispatchToProps = (dispatch) => ({
   onFormSubmit: (email, password) => {
-    dispatch(dispatch(Operation.authorizeUser(email, password)));
+    dispatch(Operation.authorizeUser(email, password));
   }
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login);
+)(LoginPage);
