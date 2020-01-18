@@ -25,7 +25,8 @@ const initialState = {
   cities: [],
   favorite: [],
   sorting: `popular`,
-  activeOffer: null
+  activeOffer: null,
+  comments: []
 };
 
 const ActionType = {
@@ -36,7 +37,8 @@ const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_FAVORITE: `LOAD_FAVORITE`,
   REPLACE_OFFER: `REPLACE_OFFER`,
-  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`
+  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`
 };
 
 const Operation = {
@@ -69,6 +71,16 @@ const Operation = {
       })
       .then((offer) => {
         dispatch(ActionCreator.replaceOfferInState(offer));
+      });
+  },
+  loadComments: (hotelId) => (dispatch, _getState, api) => {
+    return api
+      .post(`/comments/${hotelId}`)
+      .then((response) => {
+        return transformKeysToCamel(response.data);
+      })
+      .then((comments) => {
+        dispatch(ActionCreator.loadComments(comments));
       });
   }
 };
@@ -114,6 +126,11 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         activeOffer: action.payload
       });
+
+    case ActionType.LOAD_COMMENTS:
+      return Object.assign({}, state, {
+        hotelId: action.payload
+      });
   }
 
   return state;
@@ -153,6 +170,12 @@ const ActionCreator = {
   setActiveOffer: (id) => {
     return {
       type: ActionType.SET_ACTIVE_OFFER,
+      payload: id
+    };
+  },
+  loadComments: (id) => {
+    return {
+      type: ActionType.LOAD_COMMENTS,
       payload: id
     };
   }

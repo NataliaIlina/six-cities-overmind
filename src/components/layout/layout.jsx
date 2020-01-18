@@ -1,9 +1,8 @@
 import React from "react";
-import Header from "components/header/header";
-import SvgSprite from "components/svg-sprite/svg-sprite";
+import { Header, SvgSprite } from "components";
 import PropTypes from "prop-types";
 
-const Layout = ({children, type}) => (
+const Layout = ({ children, type }) => (
   <div
     className={`page
     ${type === `login` ? `page--login page--gray` : ``}
@@ -16,11 +15,8 @@ const Layout = ({children, type}) => (
 );
 
 Layout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element
-  ]),
-  type: PropTypes.string
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+  type: PropTypes.string,
 };
 
 export default Layout;

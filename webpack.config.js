@@ -4,14 +4,14 @@ module.exports = {
   entry: `./src/index.js`,
   output: {
     filename: `bundle.js`,
-    path: path.join(__dirname, `public`)
+    path: path.join(__dirname, `public`),
   },
   devServer: {
     contentBase: path.join(__dirname, `public`),
     compress: false,
     port: 8080,
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -19,19 +19,20 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: `babel-loader`
-        }
-      }
-    ]
+          loader: `babel-loader`,
+        },
+      },
+    ],
   },
   resolve: {
     alias: {
+      containers: path.resolve(__dirname, `src/containers/`),
       components: path.resolve(__dirname, `src/components/`),
       reducer: path.resolve(__dirname, `src/reducer`),
       hocs: path.resolve(__dirname, `src/hocs`),
-      src: path.resolve(__dirname, `src/`)
+      src: path.resolve(__dirname, `src/`),
     },
-    extensions: [`.js`, `.jsx`]
+    extensions: [`.js`, `.jsx`],
   },
-  devtool: `source-map`
+  devtool: `source-map`,
 };
