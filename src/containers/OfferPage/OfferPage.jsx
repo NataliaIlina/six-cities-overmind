@@ -2,13 +2,13 @@ import React from "react";
 import { Layout } from "components";
 import { connect } from "react-redux";
 import { getCurrentOfferById } from "reducer/data/selectors";
+import { Redirect } from "react-router-dom";
 
 class OfferPage extends React.Component {
   render() {
     const { offer } = this.props;
-    console.log(offer);
     if (!offer) {
-      return <div>loading</div>;
+      return <Redirect to="/" />;
     }
     return (
       <Layout>
@@ -43,7 +43,7 @@ class OfferPage extends React.Component {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: `96%` }} />
+                    <span style={{ width: `${(offer.rating * 100) / 5}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">{offer.rating}</span>

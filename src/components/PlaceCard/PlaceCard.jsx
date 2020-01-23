@@ -5,7 +5,7 @@ import { Operation } from "reducer/data/data";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const PlaceCard = ({ offer, onCardClick, onBookmarkClick }) => (
+const PlaceCard = ({ offer, onBookmarkClick }) => (
   <article className="cities__place-card place-card">
     {offer.isPremium && (
       <div className="place-card__mark">
@@ -13,16 +13,9 @@ const PlaceCard = ({ offer, onCardClick, onBookmarkClick }) => (
       </div>
     )}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a
-        href="#"
-        className="place-card__link"
-        onClick={e => {
-          e.preventDefault();
-          onCardClick(offer.id);
-        }}
-      >
+      <Link to={`/offer/${offer.id}`} className="place-card__link">
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -50,9 +43,7 @@ const PlaceCard = ({ offer, onCardClick, onBookmarkClick }) => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`/offer/${offer.id}`} onClick={() => onCardClick(offer.id)}>
-          {offer.title}
-        </Link>
+        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
@@ -61,7 +52,6 @@ const PlaceCard = ({ offer, onCardClick, onBookmarkClick }) => (
 
 PlaceCard.propTypes = {
   offer: OFFER_PROP_TYPES,
-  onCardClick: PropTypes.func,
   onCardHover: PropTypes.func,
   onBookmarkClick: PropTypes.func,
 };
