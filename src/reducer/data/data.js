@@ -31,6 +31,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
         currentCity: action.payload,
+        activeOffer: null
       });
 
     case ActionType.RESET_STATE:

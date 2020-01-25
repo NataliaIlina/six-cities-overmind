@@ -1,78 +1,83 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
-import { OFFER_PROP_TYPES, CITY_PROP_TYPES } from "src/constants";
+import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
 
-class Map extends React.PureComponent {
-  super() {
-    this._group = null;
-    this._map = null;
-  }
+const Map = ({currentCity, offers, activeOffer}) => {
+  const mapRef = useRef();
+  const markersRef = useRef();
 
-  _initCard() {
-    const { currentCity, offers } = this.props;
-    const coords = [currentCity.location.latitude, currentCity.location.longitude];
-    const zoom = currentCity.location.zoom;
+  const coords = [currentCity.location.latitude, currentCity.location.longitude];
+  const zoom = currentCity.location.zoom;
+  const icon = leaflet.icon({
+    iconUrl: `/img/pin.svg`,
+    iconSize: [30, 30]
+  });
+  const activeIcon = leaflet.icon({
+    iconUrl: `/img/pin-active.svg`,
+    iconSize: [30, 30]
+  });
 
-    this._map = leaflet.map(`map`, {
+  const highlightCurrentOfferMarker = () => {
+    markersRef.current
+          .find((marker) => marker.options.offerId === activeOffer)
+          .setIcon(activeIcon);
+  };
+
+  const paintOverMarkers = () => {
+    markersRef.current.forEach((m) => m.setIcon(icon));
+  };
+
+  useEffect(() => {
+    const map = leaflet.map(mapRef.current, {
       center: coords,
       zoom,
       zoomControl: false,
-      marker: true,
+      scrollWheelZoom: false,
+      marker: true
     });
 
-    this._map.setView(coords, zoom);
+    map.setView(coords, zoom);
 
     leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
-      })
-      .addTo(this._map);
-
-    this._group = leaflet.layerGroup().addTo(this._map);
-
-    offers.forEach(offer =>
-      leaflet
-        .marker([offer.location.latitude, offer.location.longitude], {
-          icon: leaflet.icon({
-            iconUrl: `img/pin.svg`,
-            iconSize: [30, 30],
-          }),
-          title: offer.title,
+        .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+          attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
-        .addTo(this._group),
-    );
-  }
+      .addTo(map);
 
-  componentDidMount() {
-    this._initCard();
-  }
+    const markers = offers.map((offer) => {
+      return leaflet.marker(
+          [offer.location.latitude, offer.location.longitude],
+          {
+            icon,
+            offerId: offer.id
+          });
+    });
 
-  componentDidUpdate(prevProps) {
-    const { offers, activeOffer } = this.props;
-    if (prevProps.activeOffer === activeOffer) {
-      return;
+    leaflet.layerGroup(markers).addTo(map);
+    markersRef.current = markers;
+
+    if (activeOffer) {
+      highlightCurrentOfferMarker();
     }
 
-    this._group.clearLayers();
+    return () => {
+      map.off();
+      map.remove();
+    };
+  }, [currentCity, offers]);
 
-    offers.forEach(offer =>
-      leaflet
-        .marker([offer.location.latitude, offer.location.longitude], {
-          icon: leaflet.icon({
-            iconUrl: `img/${offer.id === activeOffer ? "pin-active" : "pin"}.svg`,
-            iconSize: [30, 30],
-          }),
-          title: offer.title,
-        })
-        .addTo(this._group),
-    );
-  }
+  useEffect(() => {
+    if (activeOffer) {
+      paintOverMarkers();
+      highlightCurrentOfferMarker();
+    } else {
+      paintOverMarkers();
+    }
+  }, [activeOffer]);
 
-  render() {
-    return <div id="map" style={{ height: `100%` }} />;
-  }
-}
+  return <div id="map" style={{height: `100%`}} ref={mapRef}/>;
+};
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
