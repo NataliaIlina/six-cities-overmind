@@ -8,6 +8,10 @@ export const getFavorite = state => {
   return state[`DATA`].favorite;
 };
 
+export const getComments = state => {
+  return state[`DATA`].comments;
+};
+
 export const getCitiesList = createSelector(
   getOffers,
   offers => {
@@ -29,8 +33,12 @@ export const getSorting = state => {
   return state[`DATA`].sorting;
 };
 
-export const getActiveOffer = (state, props) => {
-  return props.match.params.id;
+export const getActiveOffer = state => {
+  return state[`DATA`].activeOffer;
+};
+
+export const getCurrentOffer = (state, props) => {
+  return parseInt(props.match.params.id, 10);
 };
 
 export const getOffersForCurrentCity = createSelector(
@@ -41,8 +49,8 @@ export const getOffersForCurrentCity = createSelector(
 
 export const getCurrentOfferById = createSelector(
   getOffers,
-  getActiveOffer,
-  (offers, activeOffer) => offers.find(offer => offer.id === parseInt(activeOffer, 10)),
+  getCurrentOffer,
+  (offers, currentOffer) => offers.find(offer => offer.id === currentOffer),
 );
 
 export const getOffersForCurrentSorting = createSelector(

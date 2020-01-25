@@ -1,7 +1,7 @@
 import React from "react";
-import { Layout } from "components";
+import {Layout} from 'containers';
 import { connect } from "react-redux";
-import { Operation } from "reducer/user/user";
+import { authorizeUser } from "src/actions";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getUserData } from "reducer/user/selectors";
@@ -69,7 +69,7 @@ const mapStateToProps = (state, ownProps) =>
 
 const mapDispatchToProps = dispatch => ({
   onFormSubmit: (email, password) => {
-    dispatch(Operation.authorizeUser(email, password));
+    dispatch(authorizeUser(email, password));
   },
 });
 

@@ -1,36 +1,10 @@
-import {transformKeysToCamel} from "src/helpers";
+import {ActionType} from 'src/constants';
 
 const initialState = {
   userData: null,
   isUserAuth: false
 };
 
-const ActionType = {
-  LOAD_USER: `LOAD_USER`
-};
-
-const Operation = {
-  loadUser: () => (dispatch, _getState, api) => {
-    return api
-      .get(`/login`)
-      .then((response) => {
-        return transformKeysToCamel(response.data);
-      })
-      .then((data) => {
-        dispatch(ActionCreator.loadUser(data));
-      });
-  },
-  authorizeUser: (email, password) => (dispatch, _getState, api) => {
-    return api
-      .post(`/login`, {email, password})
-      .then((response) => {
-        return transformKeysToCamel(response.data);
-      })
-      .then((data) => {
-        dispatch(ActionCreator.loadUser(data));
-      });
-  }
-};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -44,13 +18,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const ActionCreator = {
-  loadUser: (userData) => {
-    return {
-      type: ActionType.LOAD_USER,
-      payload: userData
-    };
-  }
-};
-
-export {reducer, ActionCreator, ActionType, Operation};
+export {reducer};

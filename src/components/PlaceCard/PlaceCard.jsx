@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { OFFER_PROP_TYPES } from "src/constants";
-import { Operation } from "reducer/data/data";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import {OFFER_PROP_TYPES} from "src/constants";
+import {Link} from "react-router-dom";
 
-const PlaceCard = ({ offer, onBookmarkClick }) => (
+const PlaceCard = ({offer, toggleFavoriteStatus, setActiveOffer}) => (
   <article className="cities__place-card place-card">
     {offer.isPremium && (
       <div className="place-card__mark">
@@ -13,9 +11,15 @@ const PlaceCard = ({ offer, onBookmarkClick }) => (
       </div>
     )}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={`/offer/${offer.id}`} className="place-card__link">
+      <a
+        className="place-card__link"
+        onClick={(e) => {
+          e.preventDefault();
+          setActiveOffer(offer.id);
+        }}
+      >
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
-      </Link>
+      </a>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -27,7 +31,7 @@ const PlaceCard = ({ offer, onBookmarkClick }) => (
           className={`place-card__bookmark-button button ${offer.isFavorite ? `place-card__bookmark-button--active` : ``}`}
           type="button"
           onClick={() => {
-            onBookmarkClick(offer.id, offer.isFavorite ? 0 : 1);
+            toggleFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
           }}
         >
           <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -38,7 +42,7 @@ const PlaceCard = ({ offer, onBookmarkClick }) => (
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{ width: `${(offer.rating * 100) / 5}%` }} />
+          <span style={{width: `${(offer.rating * 100) / 5}%`}} />
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
@@ -52,25 +56,8 @@ const PlaceCard = ({ offer, onBookmarkClick }) => (
 
 PlaceCard.propTypes = {
   offer: OFFER_PROP_TYPES,
-  onCardHover: PropTypes.func,
-  onBookmarkClick: PropTypes.func,
+  setActiveOffer: PropTypes.func.isRequired,
+  toggleFavoriteStatus: PropTypes.func.isRequired,
 };
 
-export { PlaceCard };
-
-const mapStateToProps = (state, ownProps) =>
-  Object.assign({}, ownProps, {
-    favorite: state.favorite,
-    user: state.user,
-  });
-
-const mapDispatchToProps = dispatch => ({
-  onBookmarkClick: (hotelId, status) => {
-    dispatch(Operation.toggleFavorite(hotelId, status));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PlaceCard);
+export default PlaceCard;

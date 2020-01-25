@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { SORTING_OPTIONS, SORTING_TITLE } from "src/constants";
+import {SORTING_OPTIONS, SORTING_TITLE} from "src/constants";
 
-const SortingSelect = ({ onSortingChange, sorting }) => {
+const SortingSelect = ({onSortingChange, sorting}) => {
   const [isSelectOpen, openSelect] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const SortingSelect = ({ onSortingChange, sorting }) => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isSelectOpen ? `places__options--opened` : ``}`}>
-        {SORTING_OPTIONS.map(option => (
+        {SORTING_OPTIONS.map((option) => (
           <li
             key={option}
             className={`places__option ${option === sorting ? `places__option--active` : ``}`}

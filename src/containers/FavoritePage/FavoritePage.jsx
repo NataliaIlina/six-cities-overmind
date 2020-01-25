@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Footer, Layout, FavoriteCard, FavoritesEmpty } from "components";
-import { Operation } from "reducer/data/data";
+import { Footer, FavoriteCard, FavoritesEmpty } from "components";
+import {Layout} from 'containers';
+import { fetchFavorite } from "src/actions";
 import { connect } from "react-redux";
 import { getFavorite } from "reducer/data/selectors";
 
@@ -51,7 +52,7 @@ const mapStateToProps = (state, ownProps) =>
 
 const mapDispatchToProps = dispatch => ({
   loadFavorite: () => {
-    dispatch(Operation.loadFavorite());
+    dispatch(fetchFavorite());
   },
 });
 

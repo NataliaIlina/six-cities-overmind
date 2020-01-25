@@ -1,5 +1,19 @@
 import PropTypes from "prop-types";
 
+export const ActionType = {
+  CHANGE_CITY: `CHANGE_CITY`,
+  CHANGE_SORTING: `CHANGE_SORTING`,
+  CHANGE_OFFERS: `CHANGE_OFFERS`,
+  RESET_STATE: `RESET_STATE`,
+  LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_FAVORITE: `LOAD_FAVORITE`,
+  REPLACE_OFFER: `REPLACE_OFFER`,
+  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`,
+  LOAD_USER: `LOAD_USER`
+};
+
+
 export const SERVER_URL = `https://es31-server.appspot.com/six-cities`;
 
 export const SORTING_VALUE_POPULAR = `popular`;

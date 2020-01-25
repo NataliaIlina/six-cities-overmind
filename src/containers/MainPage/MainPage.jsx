@@ -1,54 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { CitiesList, OffersList, Map, Layout, SortingSelect } from "components";
+import { CitiesList, OffersList, Map, SortingSelect } from "components";
 import { connect } from "react-redux";
-import { ActionCreator, Operation } from "reducer/data/data";
 import { OFFER_PROP_TYPES, CITY_PROP_TYPES } from "src/constants";
-import { getCitiesList, getCurrentCity, getOffersForCurrentSorting, getSorting } from "reducer/data/selectors";
+import { getCitiesList, getCurrentCity, getOffersForCurrentSorting, getSorting, getActiveOffer } from "reducer/data/selectors";
+import {changeSorting, changeCity, fetchOffers, setActiveOffer, toggleFavoriteStatus} from 'src/actions';
+import {Layout} from 'containers';
 
-class MainPage extends React.PureComponent {
-  componentDidMount() {
-    this.props.loadOffers();
-  }
+const MainPage = ({
+  loadOffers,
+  offers,
+  currentCity,
+  cities,
+  sorting,
+  onSortingChange,
+  setActiveOffer,
+  onCityChange,
+  activeOffer,
+  toggleFavoriteStatus
+}) => {
+  useEffect(() => {
+    loadOffers();
+  }, []);
 
-  render() {
-    const { offers, cities, currentCity, onCityChange, sorting, onSortingChange } = this.props;
-    return (
-      <Layout type="main">
-        <main className="page__main page__main--index">
-          {offers.length ? (
-            <React.Fragment>
-              <h1 className="visually-hidden">Cities</h1>
-              <CitiesList cities={cities} currentCity={currentCity} onCityChange={onCityChange} />
-              <div className="cities__places-wrapper">
-                <div className="cities__places-container container">
-                  <section className="cities__places places">
-                    <h2 className="visually-hidden">Places</h2>
-                    <b className="places__found">
-                      {offers.length} places to stay in {currentCity.name}
-                    </b>
-                    <SortingSelect sorting={sorting} onSortingChange={onSortingChange} />
-                    <OffersList offers={offers} />
+  return (
+    <Layout type="main">
+      <main className="page__main page__main--index">
+        {offers.length ? (
+          <React.Fragment>
+            <h1 className="visually-hidden">Cities</h1>
+            <CitiesList cities={cities} currentCity={currentCity} onCityChange={onCityChange} />
+            <div className="cities__places-wrapper">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">
+                    {offers.length} places to stay in {currentCity.name}
+                  </b>
+                  <SortingSelect sorting={sorting} onSortingChange={onSortingChange} />
+                  <OffersList offers={offers} setActiveOffer={setActiveOffer} toggleFavoriteStatus={toggleFavoriteStatus} />
+                </section>
+
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map offers={offers} currentCity={currentCity} key={currentCity.name} activeOffer={activeOffer} />
                   </section>
-
-                  <div className="cities__right-section">
-                    <section className="cities__map map">
-                      <Map offers={offers} currentCity={currentCity} key={currentCity.name} />
-                    </section>
-                  </div>
                 </div>
               </div>
-            </React.Fragment>
-          ) : (
-            <div>
-              <p style={{ textAlign: `center` }}>Loading...</p>
             </div>
-          )}
-        </main>
-      </Layout>
-    );
-  }
-}
+          </React.Fragment>
+        ) : (
+          <div>
+            <p style={{ textAlign: `center` }}>Loading...</p>
+          </div>
+        )}
+      </main>
+    </Layout>
+  );
+};
 
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
@@ -58,6 +67,8 @@ MainPage.propTypes = {
   cities: PropTypes.arrayOf(CITY_PROP_TYPES).isRequired,
   sorting: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
+  setActiveOffer: PropTypes.func.isRequired,
+  activeOffer: PropTypes.number,
 };
 
 const mapStateToProps = (state, ownProps) =>
@@ -66,17 +77,24 @@ const mapStateToProps = (state, ownProps) =>
     cities: getCitiesList(state),
     offers: getOffersForCurrentSorting(state),
     sorting: getSorting(state),
+    activeOffer: getActiveOffer(state),
   });
 
 const mapDispatchToProps = dispatch => ({
   onCityChange: city => {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
   loadOffers: () => {
-    dispatch(Operation.loadOffers());
+    dispatch(fetchOffers());
   },
   onSortingChange: sortingValue => {
-    dispatch(ActionCreator.changeSorting(sortingValue));
+    dispatch(changeSorting(sortingValue));
+  },
+  setActiveOffer: id => {
+    dispatch(setActiveOffer(id));
+  },
+  toggleFavoriteStatus: (hotelId, status) => {
+    dispatch(toggleFavoriteStatus(hotelId, status));
   },
 });
 
