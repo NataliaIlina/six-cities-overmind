@@ -12,20 +12,6 @@ export const getComments = state => {
   return state[`DATA`].comments;
 };
 
-export const getCitiesList = createSelector(
-  getOffers,
-  offers => {
-    const cities = [];
-    offers.forEach(offer => {
-      if (!cities.some(city => city.name === offer.city.name)) {
-        cities.push(offer.city);
-      }
-      return;
-    });
-    return cities;
-  },
-);
-
 export const getCurrentCity = state => {
   return state[`DATA`].currentCity;
 };
@@ -41,16 +27,41 @@ export const getCurrentOffer = (state, props) => {
   return parseInt(props.match.params.id, 10);
 };
 
+export const getCitiesList = createSelector(getOffers, offers => {
+  const cities = [];
+  offers.forEach(offer => {
+    if (!cities.some(city => city.name === offer.city.name)) {
+      cities.push(offer.city);
+    }
+    return;
+  });
+  return cities;
+});
+
 export const getOffersForCurrentCity = createSelector(
   getOffers,
   getCurrentCity,
-  (offers, city) => offers.filter(it => it.city.name === city.name),
+  (offers, city) => offers.filter(it => it.city.name === city.name)
+);
+
+export const getOffersByCount = createSelector(
+  getOffers,
+  getCurrentCity,
+  getCurrentOffer,
+  (offers, city, currentOfferId) => {
+    const currentOffer = offers.find(it => it.id === currentOfferId);
+    const nearOffers = offers
+      .filter(it => it.city.name === city.name && it.id !== currentOfferId)
+      .slice(0, 3);
+    nearOffers.push(currentOffer);
+    return nearOffers;
+  }
 );
 
 export const getCurrentOfferById = createSelector(
   getOffers,
   getCurrentOffer,
-  (offers, currentOffer) => offers.find(offer => offer.id === currentOffer),
+  (offers, currentOffer) => offers.find(offer => offer.id === currentOffer)
 );
 
 export const getOffersForCurrentSorting = createSelector(
@@ -78,5 +89,5 @@ export const getOffersForCurrentSorting = createSelector(
             break;
         }
         return sort;
-      }),
+      })
 );

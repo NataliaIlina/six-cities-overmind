@@ -1,13 +1,16 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
-import {OFFER_PROP_TYPES, CITY_PROP_TYPES} from "src/constants";
+import { OFFER_PROP_TYPES, CITY_PROP_TYPES } from "src/constants";
 
-const Map = ({currentCity, offers, activeOffer}) => {
+const Map = ({ currentCity, offers, activeOffer }) => {
   const mapRef = useRef();
   const markersRef = useRef();
 
-  const coords = [currentCity.location.latitude, currentCity.location.longitude];
+  const coords = [
+    currentCity.location.latitude,
+    currentCity.location.longitude
+  ];
   const zoom = currentCity.location.zoom;
   const icon = leaflet.icon({
     iconUrl: `/img/pin.svg`,
@@ -20,12 +23,12 @@ const Map = ({currentCity, offers, activeOffer}) => {
 
   const highlightCurrentOfferMarker = () => {
     markersRef.current
-          .find((marker) => marker.options.offerId === activeOffer)
-          .setIcon(activeIcon);
+      .find(marker => marker.options.offerId === activeOffer)
+      .setIcon(activeIcon);
   };
 
   const paintOverMarkers = () => {
-    markersRef.current.forEach((m) => m.setIcon(icon));
+    markersRef.current.forEach(m => m.setIcon(icon));
   };
 
   useEffect(() => {
@@ -40,18 +43,22 @@ const Map = ({currentCity, offers, activeOffer}) => {
     map.setView(coords, zoom);
 
     leaflet
-        .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+      .tileLayer(
+        `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
+        {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-        })
+        }
+      )
       .addTo(map);
 
-    const markers = offers.map((offer) => {
+    const markers = offers.map(offer => {
       return leaflet.marker(
-          [offer.location.latitude, offer.location.longitude],
-          {
-            icon,
-            offerId: offer.id
-          });
+        [offer.location.latitude, offer.location.longitude],
+        {
+          icon,
+          offerId: offer.id
+        }
+      );
     });
 
     leaflet.layerGroup(markers).addTo(map);
@@ -76,13 +83,13 @@ const Map = ({currentCity, offers, activeOffer}) => {
     }
   }, [activeOffer]);
 
-  return <div id="map" style={{height: `100%`}} ref={mapRef}/>;
+  return <div id="map" style={{ height: `100%` }} ref={mapRef} />;
 };
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
   currentCity: CITY_PROP_TYPES,
-  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
 export default Map;

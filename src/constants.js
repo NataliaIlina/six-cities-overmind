@@ -1,5 +1,16 @@
 import PropTypes from "prop-types";
 
+export const RATINGS = [
+  { value: 5, title: "perfect" },
+  { value: 4, title: "good" },
+  { value: 3, title: "not bad" },
+  { value: 2, title: "badly" },
+  { value: 1, title: "terribly" }
+];
+
+export const MIN_REVIEW_LENGTH = 50;
+export const MAX_REVIEW_LENGTH = 300;
+
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   CHANGE_SORTING: `CHANGE_SORTING`,
@@ -12,7 +23,6 @@ export const ActionType = {
   LOAD_COMMENTS: `LOAD_COMMENTS`,
   LOAD_USER: `LOAD_USER`
 };
-
 
 export const SERVER_URL = `https://es31-server.appspot.com/six-cities`;
 

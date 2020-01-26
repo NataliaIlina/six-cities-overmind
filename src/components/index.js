@@ -10,5 +10,4 @@ export { default as SortingSelect } from "./SortingSelect/SortingSelect";
 export { default as SvgSprite } from "./SvgSprite/SvgSprite";
 export { default as Reviews } from "./Reviews/Reviews";
 export { default as ReviewForm } from "./ReviewForm/ReviewForm";
-
-
+export { default as RatingStar } from "./RatingStar/RatingStar";
