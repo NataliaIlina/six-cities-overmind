@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
+import { OFFER_PROP_TYPES, CITY_PROP_TYPES } from "src/constants";
 
-const CityCoords = {
-  Paris: [48.8534, 2.3488],
-  Cologne: [50.9333, 6.95],
-  Brussels: [50.8504, 4.34878],
-  Amsterdam: [52.38333, 4.9],
-  Hamburg: [53.5753, 10.0153],
-  Dusseldorf: [51.2217, 6.77616]
-};
+const Map = ({ currentCity, offers, activeOffer }) => {
+  const mapRef = useRef();
+  const markersRef = useRef();
 
-class Map extends React.PureComponent {
-  _initCard() {
-    const coords = CityCoords[this.props.city];
-    const zoom = 12;
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+  const coords = [
+    currentCity.location.latitude,
+    currentCity.location.longitude
+  ];
+  const zoom = currentCity.location.zoom;
+  const icon = leaflet.icon({
+    iconUrl: `/img/pin.svg`,
+    iconSize: [30, 30]
+  });
+  const activeIcon = leaflet.icon({
+    iconUrl: `/img/pin-active.svg`,
+    iconSize: [30, 30]
+  });
 
-    const map = leaflet.map(`map`, {
+  const highlightCurrentOfferMarker = () => {
+    markersRef.current
+      .find(marker => marker.options.offerId === activeOffer)
+      .setIcon(activeIcon);
+  };
+
+  const paintOverMarkers = () => {
+    markersRef.current.forEach(m => m.setIcon(icon));
+  };
+
+  useEffect(() => {
+    const map = leaflet.map(mapRef.current, {
       center: coords,
       zoom,
       zoomControl: false,
+      scrollWheelZoom: false,
       marker: true
     });
 
@@ -31,41 +44,52 @@ class Map extends React.PureComponent {
 
     leaflet
       .tileLayer(
-          `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
-          {
-            attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-          }
+        `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
+        {
+          attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+        }
       )
       .addTo(map);
 
-    this.props.offers.forEach((offer) => {
-      leaflet.marker(offer.coords, {icon, title: offer.title}).addTo(map);
+    const markers = offers.map(offer => {
+      return leaflet.marker(
+        [offer.location.latitude, offer.location.longitude],
+        {
+          icon,
+          offerId: offer.id
+        }
+      );
     });
-  }
 
-  _addPinsOnCard() {}
-  componentDidMount() {
-    this._initCard();
-  }
+    leaflet.layerGroup(markers).addTo(map);
+    markersRef.current = markers;
 
-  render() {
-    return <div id="map" style={{height: `100%`}} />;
-  }
-}
+    if (activeOffer) {
+      highlightCurrentOfferMarker();
+    }
+
+    return () => {
+      map.off();
+      map.remove();
+    };
+  }, [currentCity, offers]);
+
+  useEffect(() => {
+    if (activeOffer) {
+      paintOverMarkers();
+      highlightCurrentOfferMarker();
+    } else {
+      paintOverMarkers();
+    }
+  }, [activeOffer]);
+
+  return <div id="map" style={{ height: `100%` }} ref={mapRef} />;
+};
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        isPremium: PropTypes.bool,
-        rating: PropTypes.number,
-        type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-        url: PropTypes.string,
-        coords: PropTypes.arrayOf(PropTypes.number)
-      })
-  ).isRequired,
-  city: PropTypes.string.isRequired
+  offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
+  currentCity: CITY_PROP_TYPES,
+  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
 export default Map;
