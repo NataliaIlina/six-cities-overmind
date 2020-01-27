@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import leaflet from "leaflet";
-import PropTypes from "prop-types";
-import { OFFER_PROP_TYPES, CITY_PROP_TYPES } from "src/constants";
+import { ICity, IOffer } from "src/interfaces";
 
-const Map = ({ currentCity, offers, activeOffer }) => {
-  const mapRef = useRef();
-  const markersRef = useRef();
+interface MapProps {
+  currentCity: ICity;
+  offers: IOffer[];
+  activeOffer: number | null;
+}
+
+const Map: React.FC<MapProps> = ({ currentCity, offers, activeOffer }) => {
+  const mapRef = useRef<HTMLDivElement>();
+  const markersRef = useRef<any>();
 
   const coords = [
     currentCity.location.latitude,
@@ -84,12 +89,6 @@ const Map = ({ currentCity, offers, activeOffer }) => {
   }, [activeOffer]);
 
   return <div id="map" style={{ height: `100%` }} ref={mapRef} />;
-};
-
-Map.propTypes = {
-  offers: PropTypes.arrayOf(OFFER_PROP_TYPES),
-  currentCity: CITY_PROP_TYPES,
-  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
 export default Map;

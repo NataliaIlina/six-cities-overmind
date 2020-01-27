@@ -1,11 +1,16 @@
 import React, { useState, useMemo } from "react";
 import { RATINGS, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from "src/constants";
-import { RatingStar } from "components";
 import PropTypes from "prop-types";
+import { RatingStar } from "src/components";
 
-const ReviewForm = ({ addComment, hotelId }) => {
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
+interface ReviewFormProps {
+  addComment: (id: number, rating: number, review: string) => void;
+  hotelId: number;
+}
+
+const ReviewForm: React.FC<ReviewFormProps> = ({ addComment, hotelId }) => {
+  const [review, setReview] = useState<string>("");
+  const [rating, setRating] = useState<number>(0);
 
   const isFormValid = useMemo(
     () =>
@@ -16,19 +21,21 @@ const ReviewForm = ({ addComment, hotelId }) => {
     [rating, review]
   );
 
+  const onFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (isFormValid) {
+      addComment(hotelId, rating, review);
+      setReview("");
+      setRating(0);
+    }
+  };
+
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={e => {
-        e.preventDefault();
-        if (isFormValid) {
-          addComment(hotelId, rating, review);
-          setReview("");
-          setRating(0);
-        }
-      }}
+      onSubmit={onFormSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review

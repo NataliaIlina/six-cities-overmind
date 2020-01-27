@@ -1,7 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const RatingStar = ({ value, title, onChange, isActive }) => {
+interface RatingStarProps {
+  value: number;
+  title: string;
+  onChange: () => void;
+  isActive: boolean;
+}
+
+const RatingStar: React.FC<RatingStarProps> = ({
+  value,
+  title,
+  onChange,
+  isActive
+}) => {
   return (
     <>
       <input
@@ -28,13 +39,6 @@ const RatingStar = ({ value, title, onChange, isActive }) => {
       </label>
     </>
   );
-};
-
-RatingStar.propTypes = {
-  value: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired
 };
 
 export default RatingStar;

@@ -1,9 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { OFFER_PROP_TYPES } from "src/constants";
 import { Link } from "react-router-dom";
+import { IOffer } from "src/interfaces";
 
-const PlaceCard = ({
+interface PlaceCardProps {
+  offer: IOffer;
+  setActiveOffer?: (id: number) => void;
+  toggleFavoriteStatus: (id: number, status: number) => void;
+  isUserAuth: boolean;
+}
+
+const PlaceCard: React.FC<PlaceCardProps> = ({
   offer,
   toggleFavoriteStatus,
   setActiveOffer,
@@ -18,7 +24,7 @@ const PlaceCard = ({
     <div className="cities__image-wrapper place-card__image-wrapper">
       <a
         className="place-card__link"
-        onClick={e => {
+        onClick={(e: React.MouseEvent) => {
           e.preventDefault();
           if (setActiveOffer && typeof setActiveOffer === "function") {
             setActiveOffer(offer.id);
@@ -70,12 +76,5 @@ const PlaceCard = ({
     </div>
   </article>
 );
-
-PlaceCard.propTypes = {
-  offer: OFFER_PROP_TYPES,
-  setActiveOffer: PropTypes.func,
-  toggleFavoriteStatus: PropTypes.func.isRequired,
-  isUserAuth: PropTypes.bool.isRequired
-};
 
 export default PlaceCard;

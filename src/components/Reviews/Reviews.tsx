@@ -1,6 +1,11 @@
 import React from "react";
+import { IComment } from "src/interfaces";
 
-const Reviews = ({ comments }) => (
+interface ReviewsProps {
+  comments: IComment[];
+}
+
+const Reviews: React.FC<ReviewsProps> = ({ comments }) => (
   <ul className="reviews__list">
     <h2 className="reviews__title">
       Reviews &middot;

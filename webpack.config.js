@@ -4,10 +4,10 @@ module.exports = {
   entry: `./src/index.js`,
   output: {
     filename: `bundle.js`,
-    path: path.join(__dirname, `public`, "js")
+    path: path.join(__dirname, `public`)
   },
   devServer: {
-    contentBase: path.join(__dirname, `public`, "js"),
+    contentBase: path.join(__dirname, `public`),
     compress: false,
     port: 8080,
     open: true,
@@ -21,6 +21,10 @@ module.exports = {
         use: {
           loader: `babel-loader`
         }
+      },
+      {
+        test: /\.(tsx|ts)?$/,
+        loader: `ts-loader`
       }
     ]
   },
@@ -32,7 +36,7 @@ module.exports = {
       hocs: path.resolve(__dirname, `src/hocs`),
       src: path.resolve(__dirname, `src/`)
     },
-    extensions: [`.js`, `.jsx`]
+    extensions: [`.js`, `.jsx`, `.ts`, `.tsx`]
   },
   devtool: `source-map`
 };

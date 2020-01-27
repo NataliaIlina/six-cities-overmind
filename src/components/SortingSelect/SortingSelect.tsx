@@ -1,16 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {SORTING_OPTIONS, SORTING_TITLE} from "src/constants";
+import { SORTING_OPTIONS, SORTING_TITLE } from "src/constants";
 
-const SortingSelect = ({onSortingChange, sorting}) => {
-  const [isSelectOpen, openSelect] = useState(false);
+interface SortingSelectProps {
+  onSortingChange: (option: string) => void;
+  sorting: string;
+}
+
+const SortingSelect: React.FC<SortingSelectProps> = ({
+  onSortingChange,
+  sorting
+}) => {
+  const [isSelectOpen, openSelect] = useState<boolean>(false);
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span
         className="places__sorting-type"
-        tabIndex="0"
+        tabIndex={0}
         onClick={() => {
           openSelect(!isSelectOpen);
         }}
@@ -20,12 +28,18 @@ const SortingSelect = ({onSortingChange, sorting}) => {
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isSelectOpen ? `places__options--opened` : ``}`}>
-        {SORTING_OPTIONS.map((option) => (
+      <ul
+        className={`places__options places__options--custom ${
+          isSelectOpen ? `places__options--opened` : ``
+        }`}
+      >
+        {SORTING_OPTIONS.map((option: string) => (
           <li
             key={option}
-            className={`places__option ${option === sorting ? `places__option--active` : ``}`}
-            tabIndex="0"
+            className={`places__option ${
+              option === sorting ? `places__option--active` : ``
+            }`}
+            tabIndex={0}
             onClick={() => {
               onSortingChange(option);
               openSelect(!isSelectOpen);
@@ -41,7 +55,7 @@ const SortingSelect = ({onSortingChange, sorting}) => {
 
 SortingSelect.propTypes = {
   sorting: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
+  onSortingChange: PropTypes.func.isRequired
 };
 
 export default SortingSelect;

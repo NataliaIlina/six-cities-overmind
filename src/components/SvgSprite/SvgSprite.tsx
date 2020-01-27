@@ -4,7 +4,11 @@ const SvgSprite = () => (
   <div style={{ display: `none` }}>
     <svg xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-arrow-select" viewBox="0 0 7 4">
-        <path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z"
+        />
       </symbol>
       <symbol id="icon-bookmark" viewBox="0 0 17 18">
         <path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" />
