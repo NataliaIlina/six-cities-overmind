@@ -21,7 +21,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ addComment, hotelId }) => {
     [rating, review]
   );
 
-  const onFormSubmit = (e: React.SyntheticEvent) => {
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isFormValid) {
       addComment(hotelId, rating, review);
@@ -46,7 +46,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ addComment, hotelId }) => {
             key={value}
             value={value}
             title={title}
-            onChange={e => setRating(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRating(parseInt(e.target.value, 10))
+            }
             isActive={value <= rating}
           />
         ))}
@@ -57,7 +59,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ addComment, hotelId }) => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review}
-        onChange={e => setReview(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+          setReview(e.target.value)
+        }
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

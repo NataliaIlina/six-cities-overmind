@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { SORTING_OPTIONS, SORTING_TITLE } from "src/constants";
+import { getSorting } from "reducer/data/selectors";
+import { changeSorting } from "src/actions";
 
 interface SortingSelectProps {
   onSortingChange: (option: string) => void;
@@ -53,9 +55,17 @@ const SortingSelect: React.FC<SortingSelectProps> = ({
   );
 };
 
-SortingSelect.propTypes = {
-  sorting: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired
-};
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    sorting: getSorting(state)
+  });
 
-export default SortingSelect;
+const mapDispatchToProps = dispatch => ({
+  onSortingChange: sortingValue => {
+    dispatch(changeSorting(sortingValue));
+  }
+});
+
+export { SortingSelect };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SortingSelect);

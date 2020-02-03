@@ -1,5 +1,8 @@
 import React from "react";
 import { ICity } from "src/interfaces";
+import { connect } from "react-redux";
+import { getCitiesList, getCurrentCity } from "reducer/data/selectors";
+import { changeCity } from "src/actions";
 
 interface CitiesListProps {
   cities: ICity[];
@@ -36,4 +39,18 @@ const CitiesList: React.FC<CitiesListProps> = ({
   </div>
 );
 
-export default CitiesList;
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    currentCity: getCurrentCity(state),
+    cities: getCitiesList(state)
+  });
+
+const mapDispatchToProps = dispatch => ({
+  onCityChange: city => {
+    dispatch(changeCity(city));
+  }
+});
+
+export { CitiesList };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

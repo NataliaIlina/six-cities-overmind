@@ -1,15 +1,21 @@
-import React from "react";
-import {Layout} from 'containers';
+import React, { useState } from "react";
+import { Layout } from "containers";
 import { connect } from "react-redux";
 import { authorizeUser } from "src/actions";
 import { Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
-import { getUserData } from "reducer/user/selectors";
-import { USER_PROP_TYPES } from "src/constants";
+import { getUserAuth } from "reducer/user/selectors";
 import { Link } from "react-router-dom";
 
-const LoginPage = ({ onFormSubmit, userData }) =>
-  userData ? (
+interface LoginPageProps {
+  onFormSubmit: (email: string, password: string) => void;
+  isUserAuth: boolean;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  return isUserAuth ? (
     <Redirect to="/" />
   ) : (
     <Layout type="login">
@@ -19,16 +25,27 @@ const LoginPage = ({ onFormSubmit, userData }) =>
             <h1 className="login__title">Sign in</h1>
             <form
               className="login__form form"
+              autoComplete="off"
               action="#"
               method="post"
-              onSubmit={e => {
+              onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                onFormSubmit(e.target.email.value, e.target.password.value);
+                onFormSubmit(email, password);
               }}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" />
+                <input
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required={true}
+                  value={email}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                    setEmail(e.target.value)
+                  }
+                />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
@@ -37,10 +54,17 @@ const LoginPage = ({ onFormSubmit, userData }) =>
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required=""
+                  required={true}
+                  value={password}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                    setPassword(e.target.value)
+                  }
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+              >
                 Sign in
               </button>
             </form>
@@ -56,24 +80,17 @@ const LoginPage = ({ onFormSubmit, userData }) =>
       </main>
     </Layout>
   );
-
-LoginPage.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
-  userData: USER_PROP_TYPES,
 };
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    userData: getUserData(state),
+    isUserAuth: getUserAuth(state)
   });
 
 const mapDispatchToProps = dispatch => ({
-  onFormSubmit: (email, password) => {
+  onFormSubmit: (email: string, password: string) => {
     dispatch(authorizeUser(email, password));
-  },
+  }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

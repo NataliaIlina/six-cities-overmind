@@ -1,32 +1,31 @@
-import {getRandomNumber} from "src/helpers";
-import {ActionType} from 'src/constants';
+import { getCitiesFromOffers, getRandomCityFromOffers } from "src/helpers";
+import { ActionType } from "src/constants";
+import { ICity, IOffer, IComment } from "src/interfaces";
 
-const getCitiesFromOffers = (offers) => {
-  const cities = [];
-  offers.forEach((offer) => {
-    if (!cities.some((city) => city.name === offer.city.name)) {
-      cities.push(offer.city);
-    }
-    return;
-  });
-  return cities;
+type State = {
+  currentCity: ICity | {};
+  offers: IOffer[];
+  cities: ICity[];
+  favorite: IOffer[];
+  sorting: string;
+  activeOffer: IOffer | null;
+  comments: IComment[];
 };
 
-const getRandomCityFromOffers = (offers) => {
-  return offers[getRandomNumber(0, offers.length - 1)].city;
-};
-
-const initialState = {
+const initialState: State = {
   currentCity: {},
   offers: [],
   cities: [],
   favorite: [],
   sorting: `popular`,
   activeOffer: null,
-  comments: [],
+  comments: []
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (
+  state = initialState,
+  action: { type: ActionType; payload: any }
+) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {
@@ -41,41 +40,41 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         offers: action.payload,
         cities: getCitiesFromOffers(action.payload),
-        currentCity: getRandomCityFromOffers(action.payload),
+        currentCity: getRandomCityFromOffers(action.payload)
       });
 
     case ActionType.LOAD_FAVORITE:
       return Object.assign({}, state, {
-        favorite: action.payload,
+        favorite: action.payload
       });
 
     case ActionType.REPLACE_OFFER:
       return Object.assign({}, state, {
-        offers: state.offers.map((offer) => {
+        offers: state.offers.map(offer => {
           if (offer.id === action.payload.id) {
             return action.payload;
           }
           return offer;
-        }),
+        })
       });
 
     case ActionType.CHANGE_SORTING:
       return Object.assign({}, state, {
-        sorting: action.payload,
+        sorting: action.payload
       });
 
     case ActionType.SET_ACTIVE_OFFER:
       return Object.assign({}, state, {
-        activeOffer: action.payload,
+        activeOffer: action.payload
       });
 
     case ActionType.LOAD_COMMENTS:
       return Object.assign({}, state, {
-        comments: action.payload,
+        comments: action.payload
       });
   }
 
   return state;
 };
 
-export {reducer};
+export { reducer };

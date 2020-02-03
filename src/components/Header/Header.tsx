@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { USER_PROP_TYPES } from "src/constants";
 import { IUser } from "src/interfaces";
 
 interface HeaderProps {
@@ -45,9 +44,5 @@ const Header: React.FC<HeaderProps> = ({ userData }) => (
     </div>
   </header>
 );
-
-Header.propTypes = {
-  userData: USER_PROP_TYPES
-};
 
 export default Header;

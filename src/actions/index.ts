@@ -1,5 +1,6 @@
 import { transformKeysToCamel, transformOffersForFavorite } from "src/helpers";
 import { ActionType } from "src/constants";
+import { ICity, IOffer, IUser } from "src/interfaces";
 
 export const fetchUser = () => (dispatch, _getState, api) => {
   return api
@@ -91,52 +92,52 @@ export const addComment = (hotelId, rating, comment) => (
     });
 };
 
-export const changeCity = city => {
+export const changeCity = (city: ICity) => {
   return {
     type: ActionType.CHANGE_CITY,
     payload: city
   };
 };
-export const getOffers = offers => {
+export const getOffers = (offers: IOffer[]) => {
   return {
     type: ActionType.LOAD_OFFERS,
     payload: offers
   };
 };
-export const getFavorite = offers => {
+export const getFavorite = (offers: IOffer[]) => {
   return {
     type: ActionType.LOAD_FAVORITE,
     payload: offers
   };
 };
-export const replaceOfferInState = offer => {
+export const replaceOfferInState = (offer: IOffer) => {
   return {
     type: ActionType.REPLACE_OFFER,
     payload: offer
   };
 };
-export const changeSorting = value => {
+export const changeSorting = (value: string) => {
   return {
     type: ActionType.CHANGE_SORTING,
     payload: value
   };
 };
 
-export const setActiveOffer = id => {
+export const setActiveOffer = (id: number) => {
   return {
     type: ActionType.SET_ACTIVE_OFFER,
     payload: id
   };
 };
 
-export const getComments = id => {
+export const getComments = (id: number) => {
   return {
     type: ActionType.LOAD_COMMENTS,
     payload: id
   };
 };
 
-export const getUser = userData => {
+export const getUser = (userData: IUser) => {
   return {
     type: ActionType.LOAD_USER,
     payload: userData

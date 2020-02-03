@@ -3,7 +3,7 @@ import React from "react";
 interface RatingStarProps {
   value: number;
   title: string;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isActive: boolean;
 }
 

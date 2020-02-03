@@ -9,9 +9,9 @@ import {
 } from "reducer/data/selectors";
 import { getUserAuth } from "reducer/user/selectors";
 import { Redirect } from "react-router-dom";
-import { Reviews, ReviewForm, Map, PlaceCard } from "components";
+import { Reviews, ReviewForm, PlaceCard } from "components";
 import { addComment, fetchComments, toggleFavoriteStatus } from "src/actions";
-import { Layout } from "containers";
+import { Layout, Map } from "containers";
 
 const OfferPage = ({
   fetchComments,
