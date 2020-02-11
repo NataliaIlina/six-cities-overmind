@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
 import { Footer, FavoriteCard, FavoritesEmpty } from "components";
-import {Layout} from 'containers';
+import { Layout } from "containers";
 import { fetchFavorite } from "src/actions";
 import { connect } from "react-redux";
 import { getFavorite } from "reducer/data/selectors";
+import { IOffer } from "src/interfaces";
 
-const FavoritePage = ({ favorite, loadFavorite }) => {
+interface FavoritePageProps {
+  favorite: { string: IOffer[] };
+  loadFavorite: () => void;
+}
+
+const FavoritePage: React.FC<FavoritePageProps> = ({
+  favorite,
+  loadFavorite
+}) => {
   useEffect(() => {
     loadFavorite();
   }, []);
@@ -18,7 +27,10 @@ const FavoritePage = ({ favorite, loadFavorite }) => {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {Object.keys(favorite).map((key, index) => (
-                  <li className="favorites__locations-items" key={`${key}_${index}`}>
+                  <li
+                    className="favorites__locations-items"
+                    key={`${key}_${index}`}
+                  >
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
@@ -27,7 +39,7 @@ const FavoritePage = ({ favorite, loadFavorite }) => {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {favorite[key].map(it => (
+                      {favorite[key].map((it: IOffer) => (
                         <FavoriteCard offer={it} key={it.id} />
                       ))}
                     </div>
@@ -47,16 +59,13 @@ const FavoritePage = ({ favorite, loadFavorite }) => {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    favorite: getFavorite(state),
+    favorite: getFavorite(state)
   });
 
 const mapDispatchToProps = dispatch => ({
   loadFavorite: () => {
     dispatch(fetchFavorite());
-  },
+  }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FavoritePage);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);

@@ -1,11 +1,15 @@
 import React from "react";
 import { Header, SvgSprite } from "components";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { USER_PROP_TYPES } from "src/constants";
 import { getUserData } from "reducer/user/selectors";
+import { IUser } from "src/interfaces";
 
-const Layout = ({ children, type, userData }) => (
+interface LayoutProps {
+  type: string;
+  userData: IUser | null;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, type, userData }) => (
   <div
     className={`page
     ${type === `login` ? `page--login page--gray` : ``}
@@ -17,16 +21,9 @@ const Layout = ({ children, type, userData }) => (
   </div>
 );
 
-Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
-  type: PropTypes.string,
-  userData: USER_PROP_TYPES,
-};
-
-
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    userData: getUserData(state),
+    userData: getUserData(state)
   });
 
 export default connect(mapStateToProps)(Layout);

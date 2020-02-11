@@ -10,20 +10,40 @@ import {
 import { getUserAuth } from "reducer/user/selectors";
 import { Redirect } from "react-router-dom";
 import { Reviews, ReviewForm, PlaceCard } from "components";
-import { addComment, fetchComments, toggleFavoriteStatus } from "src/actions";
-import { Layout, Map } from "containers";
-
-const OfferPage = ({
+import {
+  addComment,
   fetchComments,
-  match,
+  toggleFavoriteStatus,
+  setActiveOffer
+} from "src/actions";
+import { Layout, Map } from "containers";
+import { IOffer, IComment } from "src/interfaces";
+import { RouteComponentProps } from "react-router-dom";
+
+interface OfferPageProps {
+  fetchComments: (id: number) => void;
+  addComment: (id: number, rating: number, comment: string) => void;
+  toggleFavoriteStatus: (id: number, status: number) => void;
+  setActiveOffer: (id: number) => void;
+  offers: IOffer[];
+  offer: IOffer;
+  comments: IComment[];
+  isUserAuth: boolean;
+  currentOfferId: number;
+}
+
+const OfferPage: React.FC<OfferPageProps &
+  RouteComponentProps<{ id?: string }>> = ({
+  fetchComments,
   offer,
   comments,
   addComment,
   offers,
-  currentCity,
   currentOfferId,
   isUserAuth,
-  toggleFavoriteStatus
+  toggleFavoriteStatus,
+  setActiveOffer,
+  match
 }) => {
   useEffect(() => {
     fetchComments(match.params.id);
@@ -151,12 +171,7 @@ const OfferPage = ({
             </div>
           </div>
           <section className="property__map map">
-            <Map
-              offers={offers}
-              currentCity={currentCity}
-              key={currentCity.name}
-              activeOffer={currentOfferId}
-            />
+            <Map offers={offers} />
           </section>
         </section>
 
@@ -174,6 +189,7 @@ const OfferPage = ({
                     offer={offer}
                     toggleFavoriteStatus={toggleFavoriteStatus}
                     isUserAuth={isUserAuth}
+                    setActiveOffer={setActiveOffer}
                   />
                 ))}
             </div>
@@ -199,14 +215,17 @@ const mapStateToProps = (state, ownProps) =>
   });
 
 const mapDispatchToProps = dispatch => ({
-  fetchComments: id => {
+  fetchComments: (id: number) => {
     dispatch(fetchComments(id));
   },
-  addComment: (id, rating, comment) => {
+  addComment: (id: number, rating: number, comment: string) => {
     dispatch(addComment(id, rating, comment));
   },
-  toggleFavoriteStatus: (id, status) => {
+  toggleFavoriteStatus: (id: number, status: number) => {
     dispatch(toggleFavoriteStatus(id, status));
+  },
+  setActiveOffer: (id: number) => {
+    dispatch(setActiveOffer(id));
   }
 });
 

@@ -2,7 +2,7 @@ import { getCitiesFromOffers, getRandomCityFromOffers } from "src/helpers";
 import { ActionType } from "src/constants";
 import { ICity, IOffer, IComment } from "src/interfaces";
 
-type State = {
+export type State = {
   currentCity: ICity | {};
   offers: IOffer[];
   cities: ICity[];

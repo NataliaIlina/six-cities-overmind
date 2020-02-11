@@ -5,7 +5,11 @@ import { withPrivateRoute } from "hocs";
 import { connect } from "react-redux";
 import { fetchUser } from "src/actions";
 
-const App = ({ loadUser }) => {
+interface AppProps {
+  loadUser: () => void;
+}
+
+const App: React.FC<AppProps> = ({ loadUser }) => {
   useEffect(() => {
     loadUser();
   }, []);

@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
 import { RATINGS, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from "src/constants";
-import PropTypes from "prop-types";
 import { RatingStar } from "src/components";
 
 interface ReviewFormProps {
@@ -81,11 +80,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ addComment, hotelId }) => {
       </div>
     </form>
   );
-};
-
-ReviewForm.propTypes = {
-  hotelId: PropTypes.number.isRequired,
-  addComment: PropTypes.func.isRequired
 };
 
 export default ReviewForm;
