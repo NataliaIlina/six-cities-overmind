@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "lib": ["dom"],
+    "sourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "pages/*": ["src/pages/*"],
+      "containers/*": ["src/containers/*"],
+      "components/*": ["src/components/*"],
+      "reducer/*": ["src/reducer/*"],
+      "hocs/*": ["src/hocs/*"],
+      "src/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
