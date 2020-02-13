@@ -46,7 +46,7 @@ const OfferPage: React.FC<OfferPageProps &
   match
 }) => {
   useEffect(() => {
-    fetchComments(match.params.id);
+    fetchComments(parseInt(match.params.id, 10));
   }, []);
 
   return offer ? (
