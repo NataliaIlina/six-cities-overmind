@@ -34,10 +34,10 @@ module.exports = {
   entry: `./index.tsx`,
   output: {
     filename: filename("js"),
-    path: path.resolve(__dirname, `dist`)
+    path: path.resolve(__dirname, `docs`)
   },
   devServer: {
-    contentBase: path.resolve(__dirname, `dist`),
+    contentBase: path.resolve(__dirname, `docs`),
     compress: false,
     port: 8080,
     open: true,
