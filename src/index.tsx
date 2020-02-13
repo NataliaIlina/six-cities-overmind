@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
+import { App } from "containers";
 import reducer from "reducer/index";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { compose } from "recompose";
 import { createAPI } from "./api";
 import { BrowserRouter } from "react-router-dom";
-import { App } from "containers";
 import "./assets/styles/styles.css";
 import { UserState } from "reducer/user/user";
 import { State } from "reducer/data/data";
