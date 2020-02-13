@@ -8,6 +8,7 @@ import { compose } from "recompose";
 import { createAPI } from "./api";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "containers";
+import "./assets/styles/styles.css";
 
 const init = () => {
   const api = createAPI();
@@ -15,8 +16,9 @@ const init = () => {
     reducer,
     compose(
       applyMiddleware(thunk.withExtraArgument(api)),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    ),
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
   );
 
   ReactDOM.render(
@@ -25,7 +27,7 @@ const init = () => {
         <App />
       </BrowserRouter>
     </Provider>,
-    document.querySelector(`#root`),
+    document.querySelector(`#root`)
   );
 };
 
