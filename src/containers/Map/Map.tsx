@@ -3,6 +3,7 @@ import leaflet from "leaflet";
 import { ICity, IOffer } from "src/interfaces";
 import { connect } from "react-redux";
 import { getCurrentCity, getActiveOffer } from "reducer/data/selectors";
+import { BASE_URL } from "src/constants";
 
 interface MapProps {
   currentCity: ICity;
@@ -20,11 +21,11 @@ const Map: React.FC<MapProps> = ({ currentCity, offers, activeOffer }) => {
   ];
   const zoom = currentCity.location.zoom;
   const icon = leaflet.icon({
-    iconUrl: `/img/pin.svg`,
+    iconUrl: `${BASE_URL}/img/pin.svg`,
     iconSize: [30, 30]
   });
   const activeIcon = leaflet.icon({
-    iconUrl: `/img/pin-active.svg`,
+    iconUrl: `${BASE_URL}/img/pin-active.svg`,
     iconSize: [30, 30]
   });
 

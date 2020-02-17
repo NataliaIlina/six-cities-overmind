@@ -24,6 +24,9 @@ export enum ActionType {
 
 export const SERVER_URL = `https://es31-server.appspot.com/six-cities`;
 
+export const BASE_URL =
+  process.env.NODE_ENV === "development" ? "" : "/six-cities";
+
 export const SORTING_VALUE_POPULAR = `popular`;
 export const SORTING_VALUE_PRICE_TO_HIGH = `to-high`;
 export const SORTING_VALUE_PRICE_TO_LOW = `to-low`;

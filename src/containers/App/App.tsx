@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { withPrivateRoute } from "hocs";
 import { connect } from "react-redux";
 import { fetchUser } from "src/actions";
+import { BASE_URL } from "src/constants";
 
 interface AppProps {
   loadUser: () => void;
@@ -15,14 +16,14 @@ const App: React.FC<AppProps> = ({ loadUser }) => {
   }, []);
   return (
     <Switch>
-      <Route path="/" exact component={MainPage} />
-      <Route path="/login" exact component={LoginPage} />
+      <Route path={`${BASE_URL}/`} exact component={MainPage} />
+      <Route path={`${BASE_URL}/login`} exact component={LoginPage} />
       <Route
-        path="/favorites"
+        path={`${BASE_URL}/favorites`}
         exact
         component={withPrivateRoute(FavoritePage)}
       />
-      <Route path="/offer/:id" exact component={OfferPage} />
+      <Route path={`${BASE_URL}/offer/:id`} exact component={OfferPage} />
     </Switch>
   );
 };

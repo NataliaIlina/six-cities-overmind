@@ -5,6 +5,7 @@ import { authorizeUser } from "src/actions";
 import { Redirect } from "react-router-dom";
 import { getUserAuth } from "reducer/user/selectors";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "src/constants";
 
 interface LoginPageProps {
   onFormSubmit: (email: string, password: string) => void;
@@ -16,7 +17,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
   const [password, setPassword] = useState<string>("");
 
   return isUserAuth ? (
-    <Redirect to="/" />
+    <Redirect to={BASE_URL} />
   ) : (
     <Layout type="login">
       <main className="page__main page__main--login">
@@ -71,7 +72,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
+              <Link className="locations__item-link" to={BASE_URL}>
                 <span>Amsterdam</span>
               </Link>
             </div>

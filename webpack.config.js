@@ -6,10 +6,13 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const baseUrl = "/six-cities";
+
 const isDev = process.env.NODE_ENV === "development";
 const isProd = !isDev;
 
 const filename = ext => (isDev ? `[name].${ext}` : `[name].[hash].${ext}`);
+
 const optimization = () => {
   const config = {
     splitChunks: {
@@ -34,10 +37,11 @@ module.exports = {
   entry: `./index.tsx`,
   output: {
     filename: filename("js"),
-    path: path.resolve(__dirname, `docs`)
+    path: path.resolve(__dirname, `dist`),
+    publicPath: isDev ? "" : baseUrl
   },
   devServer: {
-    contentBase: path.resolve(__dirname, `docs`),
+    contentBase: path.resolve(__dirname, `dist`),
     compress: false,
     port: 8080,
     open: true,
@@ -75,11 +79,17 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|svg)$/,
-        use: ["file-loader"]
+        loader: "file-loader",
+        options: {
+          publicPath: isDev ? "" : "/six-cities/"
+        }
       },
       {
         test: /\.(ttf|woff|woff2)$/,
-        use: ["file-loader"]
+        loader: "file-loader",
+        options: {
+          publicPath: isDev ? "" : "/six-cities/"
+        }
       }
     ]
   },

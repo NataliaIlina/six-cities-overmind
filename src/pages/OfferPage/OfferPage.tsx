@@ -19,6 +19,7 @@ import {
 import { Layout, Map } from "containers";
 import { IOffer, IComment } from "src/interfaces";
 import { RouteComponentProps } from "react-router-dom";
+import { BASE_URL } from "src/constants";
 
 interface OfferPageProps {
   fetchComments: (id: number) => void;
@@ -198,7 +199,7 @@ const OfferPage: React.FC<OfferPageProps &
       </main>
     </Layout>
   ) : (
-    <Redirect to="/" />
+    <Redirect to={BASE_URL} />
   );
 };
 

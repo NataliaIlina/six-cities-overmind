@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IOffer } from "src/interfaces";
+import { BASE_URL } from "src/constants";
 
 interface PlaceCardProps {
   offer: IOffer;
@@ -70,7 +71,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+        <Link to={`${BASE_URL}/offer/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
