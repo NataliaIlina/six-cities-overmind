@@ -149,7 +149,7 @@ const OfferPage: React.FC<OfferPageProps &
                   >
                     <img
                       className="property__avatar user__avatar"
-                      src={`${BASE_URL}${offer.host.avatarUrl}`}
+                      src={`${BASE_URL}/${offer.host.avatarUrl}`}
                       width="74"
                       height="74"
                       alt="Host avatar"
