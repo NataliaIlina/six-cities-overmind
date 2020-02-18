@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { IUser } from "src/interfaces";
 import { BASE_URL } from "src/constants";
 
@@ -12,10 +12,7 @@ const Header: React.FC<HeaderProps> = ({ userData }) => (
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
-          <Link
-            to={BASE_URL}
-            className="header__logo-link header__logo-link--active"
-          >
+          <Link to="/" className="header__logo-link header__logo-link--active">
             <img
               className="header__logo"
               src={`${BASE_URL}/img/logo.svg`}
@@ -30,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ userData }) => (
             <li className="header__nav-item user">
               <Link
                 className="header__nav-link header__nav-link--profile"
-                to={`${BASE_URL}/${userData ? `favorites` : `login`}`}
+                to={`/${userData ? `favorites` : `login`}`}
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper" />
                 {userData ? (

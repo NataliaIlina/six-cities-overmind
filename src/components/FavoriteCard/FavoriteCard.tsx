@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { IOffer } from "src/interfaces";
-import { BASE_URL } from "src/constants";
 
 interface FavoriteCardProps {
   offer: IOffer;
@@ -10,7 +9,7 @@ interface FavoriteCardProps {
 const FavoriteCard: React.FC<FavoriteCardProps> = ({ offer }) => (
   <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
-      <Link to={`${BASE_URL}/offer/${offer.id}`}>
+      <Link to={`/offer/${offer.id}`}>
         <img
           className="place-card__image"
           src={offer.previewImage}
@@ -43,7 +42,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ offer }) => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`${BASE_URL}/offer/${offer.id}`}>{offer.title}</Link>
+        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>

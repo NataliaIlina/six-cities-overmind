@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { authorizeUser } from "src/actions";
 import { Redirect } from "react-router-dom";
 import { getUserAuth } from "reducer/user/selectors";
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { BASE_URL } from "src/constants";
 
 interface LoginPageProps {
@@ -72,7 +72,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={BASE_URL}>
+              <Link className="locations__item-link" to="/">
                 <span>Amsterdam</span>
               </Link>
             </div>

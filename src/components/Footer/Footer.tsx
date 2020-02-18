@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { BASE_URL } from "src/constants";
 
 const Footer: React.FC = () => (
   <footer className="footer container">
-    <Link className="footer__logo-link" to={BASE_URL}>
+    <Link className="footer__logo-link" to="/">
       <img
         className="footer__logo"
         src={`${BASE_URL}/img/logo.svg`}

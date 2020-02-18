@@ -7,3 +7,4 @@ export { default as SvgSprite } from "./SvgSprite/SvgSprite";
 export { default as Reviews } from "./Reviews/Reviews";
 export { default as ReviewForm } from "./ReviewForm/ReviewForm";
 export { default as RatingStar } from "./RatingStar/RatingStar";
+export { default as Link } from "./Link/Link";
