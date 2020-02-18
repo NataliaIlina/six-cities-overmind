@@ -1,4 +1,4 @@
-import { getCitiesFromOffers, getRandomCityFromOffers } from "src/helpers";
+import { getCitiesFromOffers } from "src/helpers";
 import { ActionType } from "src/constants";
 import { ICity, IOffer, IComment } from "src/interfaces";
 
@@ -40,7 +40,7 @@ const reducer = (
       return Object.assign({}, state, {
         offers: action.payload,
         cities: getCitiesFromOffers(action.payload),
-        currentCity: getRandomCityFromOffers(action.payload)
+        currentCity: action.payload[0].city
       });
 
     case ActionType.LOAD_FAVORITE:

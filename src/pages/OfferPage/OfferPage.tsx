@@ -48,6 +48,7 @@ const OfferPage: React.FC<OfferPageProps &
 }) => {
   useEffect(() => {
     fetchComments(parseInt(match.params.id, 10));
+    setActiveOffer(parseInt(match.params.id, 10));
   }, []);
 
   return offer ? (
@@ -148,7 +149,7 @@ const OfferPage: React.FC<OfferPageProps &
                   >
                     <img
                       className="property__avatar user__avatar"
-                      src={offer.host.avatarUrl}
+                      src={`${BASE_URL}${offer.host.avatarUrl}`}
                       width="74"
                       height="74"
                       alt="Host avatar"

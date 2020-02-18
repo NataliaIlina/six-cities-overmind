@@ -4,7 +4,7 @@ import {
   getCurrentCity,
   getOffersForCurrentSorting
 } from "reducer/data/selectors";
-import { fetchOffers } from "src/actions";
+import { fetchOffers, setActiveOffer } from "src/actions";
 import { Layout, CitiesList, OffersList, SortingSelect, Map } from "containers";
 import { IOffer, ICity } from "src/interfaces";
 
@@ -12,15 +12,18 @@ interface MainPageProps {
   loadOffers: () => void;
   offers: IOffer[];
   currentCity: ICity;
+  setActiveOffer: (id: number | null) => void;
 }
 
 const MainPage: React.FC<MainPageProps> = ({
   loadOffers,
   offers,
-  currentCity
+  currentCity,
+  setActiveOffer
 }) => {
   useEffect(() => {
     loadOffers();
+    setActiveOffer(null);
   }, []);
 
   return (
@@ -68,6 +71,9 @@ const mapStateToProps = (state, ownProps) =>
 const mapDispatchToProps = dispatch => ({
   loadOffers: () => {
     dispatch(fetchOffers());
+  },
+  setActiveOffer: id => {
+    dispatch(setActiveOffer(id));
   }
 });
 
