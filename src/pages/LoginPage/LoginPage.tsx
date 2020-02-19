@@ -6,13 +6,10 @@ import { Redirect } from "react-router-dom";
 import { getUserAuth } from "reducer/user/selectors";
 import { Link } from "components";
 import { BASE_URL } from "src/constants";
+import { RootStateType } from "src/reducer";
+import { ComponentProps, LoginPageProps } from "./types";
 
-interface LoginPageProps {
-  onFormSubmit: (email: string, password: string) => void;
-  isUserAuth: boolean;
-}
-
-const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ authorizeUser, isUserAuth }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -31,7 +28,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
               method="post"
               onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                onFormSubmit(email, password);
+                authorizeUser(email, password);
               }}
             >
               <div className="login__input-wrapper form__input-wrapper">
@@ -83,15 +80,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onFormSubmit, isUserAuth }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     isUserAuth: getUserAuth(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  onFormSubmit: (email: string, password: string) => {
-    dispatch(authorizeUser(email, password));
-  }
-});
+const mapDispatchToProps = { authorizeUser };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -5,13 +5,8 @@ import { getOffersForCurrentSorting } from "reducer/data/selectors";
 import { getUserAuth } from "reducer/user/selectors";
 import { connect } from "react-redux";
 import { setActiveOffer, toggleFavoriteStatus } from "src/actions";
-
-interface OffersListProps {
-  offers: IOffer[];
-  setActiveOffer: () => void;
-  toggleFavoriteStatus: () => void;
-  isUserAuth: boolean;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, OffersListProps } from "./types";
 
 const OffersList: React.FC<OffersListProps> = ({
   offers,
@@ -32,20 +27,13 @@ const OffersList: React.FC<OffersListProps> = ({
   </div>
 );
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     offers: getOffersForCurrentSorting(state),
     isUserAuth: getUserAuth(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  setActiveOffer: id => {
-    dispatch(setActiveOffer(id));
-  },
-  toggleFavoriteStatus: (hotelId, status) => {
-    dispatch(toggleFavoriteStatus(hotelId, status));
-  }
-});
+const mapDispatchToProps = { setActiveOffer, toggleFavoriteStatus };
 
 export { OffersList };
 

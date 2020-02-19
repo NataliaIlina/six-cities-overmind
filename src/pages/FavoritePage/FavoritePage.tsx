@@ -5,18 +5,15 @@ import { fetchFavorite } from "src/actions";
 import { connect } from "react-redux";
 import { getFavorite } from "reducer/data/selectors";
 import { IOffer } from "src/interfaces";
-
-interface FavoritePageProps {
-  favorite: { string: IOffer[] };
-  loadFavorite: () => void;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, FavoritePageProps } from "./types";
 
 const FavoritePage: React.FC<FavoritePageProps> = ({
   favorite,
-  loadFavorite
+  fetchFavorite
 }) => {
   useEffect(() => {
-    loadFavorite();
+    fetchFavorite();
   }, []);
   return (
     <Layout>
@@ -57,15 +54,11 @@ const FavoritePage: React.FC<FavoritePageProps> = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     favorite: getFavorite(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  loadFavorite: () => {
-    dispatch(fetchFavorite());
-  }
-});
+const mapDispatchToProps = { fetchFavorite };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);

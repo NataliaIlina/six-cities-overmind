@@ -3,14 +3,11 @@ import { connect } from "react-redux";
 import { SORTING_OPTIONS, SORTING_TITLE } from "src/constants";
 import { getSorting } from "reducer/data/selectors";
 import { changeSorting } from "src/actions";
-
-interface SortingSelectProps {
-  onSortingChange: (option: string) => void;
-  sorting: string;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, SortingSelectProps } from "./types";
 
 const SortingSelect: React.FC<SortingSelectProps> = ({
-  onSortingChange,
+  changeSorting,
   sorting
 }) => {
   const [isSelectOpen, openSelect] = useState<boolean>(false);
@@ -43,7 +40,7 @@ const SortingSelect: React.FC<SortingSelectProps> = ({
             }`}
             tabIndex={0}
             onClick={() => {
-              onSortingChange(option);
+              changeSorting(option);
               openSelect(!isSelectOpen);
             }}
           >
@@ -55,16 +52,12 @@ const SortingSelect: React.FC<SortingSelectProps> = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     sorting: getSorting(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  onSortingChange: sortingValue => {
-    dispatch(changeSorting(sortingValue));
-  }
-});
+const mapDispatchToProps = { changeSorting };
 
 export { SortingSelect };
 

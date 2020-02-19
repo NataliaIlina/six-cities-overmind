@@ -2,12 +2,8 @@ import React from "react";
 import { Header, SvgSprite } from "components";
 import { connect } from "react-redux";
 import { getUserData } from "reducer/user/selectors";
-import { IUser } from "src/interfaces";
-
-interface LayoutProps {
-  type: string;
-  userData: IUser | null;
-}
+import { LayoutProps, ComponentProps } from "./types";
+import { RootStateType } from "src/reducer";
 
 const Layout: React.FC<LayoutProps> = ({ children, type, userData }) => (
   <div
@@ -21,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children, type, userData }) => (
   </div>
 );
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     userData: getUserData(state)
   });

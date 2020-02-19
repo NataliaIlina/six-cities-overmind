@@ -7,12 +7,12 @@ import { fetchUser } from "src/actions";
 import { BASE_URL } from "src/constants";
 
 interface AppProps {
-  loadUser: () => void;
+  fetchUser: () => void;
 }
 
-const App: React.FC<AppProps> = ({ loadUser }) => {
+const App: React.FC<AppProps> = ({ fetchUser }) => {
   useEffect(() => {
-    loadUser();
+    fetchUser();
   }, []);
   return (
     <Switch>
@@ -28,10 +28,6 @@ const App: React.FC<AppProps> = ({ loadUser }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  loadUser: () => {
-    dispatch(fetchUser());
-  }
-});
+const mapDispatchToProps = { fetchUser };
 
 export default connect(null, mapDispatchToProps)(App);

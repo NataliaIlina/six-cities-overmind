@@ -1,15 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import leaflet from "leaflet";
-import { ICity, IOffer } from "src/interfaces";
 import { connect } from "react-redux";
 import { getCurrentCity, getActiveOffer } from "reducer/data/selectors";
 import { BASE_URL } from "src/constants";
-
-interface MapProps {
-  currentCity: ICity;
-  offers: IOffer[];
-  activeOffer: number | null;
-}
+import { MapProps, ComponentProps } from "./types";
+import { RootStateType } from "src/reducer";
 
 const Map: React.FC<MapProps> = ({ currentCity, offers, activeOffer }) => {
   const mapRef = useRef<HTMLDivElement>();
@@ -94,7 +89,7 @@ const Map: React.FC<MapProps> = ({ currentCity, offers, activeOffer }) => {
   return <div id="map" style={{ height: `100%` }} ref={mapRef} />;
 };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     currentCity: getCurrentCity(state),
     activeOffer: getActiveOffer(state)

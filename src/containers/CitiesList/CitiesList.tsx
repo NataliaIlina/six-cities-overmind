@@ -3,17 +3,13 @@ import { ICity } from "src/interfaces";
 import { connect } from "react-redux";
 import { getCitiesList, getCurrentCity } from "reducer/data/selectors";
 import { changeCity } from "src/actions";
-
-interface CitiesListProps {
-  cities: ICity[];
-  currentCity: ICity;
-  onCityChange: (city: ICity) => void;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, CitiesListProps } from "./types";
 
 const CitiesList: React.FC<CitiesListProps> = ({
   cities,
   currentCity,
-  onCityChange
+  changeCity
 }) => (
   <div className="cities tabs">
     <section className="locations container">
@@ -27,7 +23,7 @@ const CitiesList: React.FC<CitiesListProps> = ({
               href="#"
               onClick={(e: React.MouseEvent) => {
                 e.preventDefault();
-                onCityChange(city);
+                changeCity(city);
               }}
             >
               <span>{city.name}</span>
@@ -39,17 +35,15 @@ const CitiesList: React.FC<CitiesListProps> = ({
   </div>
 );
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     currentCity: getCurrentCity(state),
     cities: getCitiesList(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  onCityChange: city => {
-    dispatch(changeCity(city));
-  }
-});
+const mapDispatchToProps = {
+  changeCity
+};
 
 export { CitiesList };
 

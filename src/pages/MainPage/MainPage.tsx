@@ -6,23 +6,17 @@ import {
 } from "reducer/data/selectors";
 import { fetchOffers, setActiveOffer } from "src/actions";
 import { Layout, CitiesList, OffersList, SortingSelect, Map } from "containers";
-import { IOffer, ICity } from "src/interfaces";
-
-interface MainPageProps {
-  loadOffers: () => void;
-  offers: IOffer[];
-  currentCity: ICity;
-  setActiveOffer: (id: number | null) => void;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, MainPageProps } from "./types";
 
 const MainPage: React.FC<MainPageProps> = ({
-  loadOffers,
+  fetchOffers,
   offers,
   currentCity,
   setActiveOffer
 }) => {
   useEffect(() => {
-    loadOffers();
+    fetchOffers();
     setActiveOffer(null);
   }, []);
 
@@ -62,20 +56,13 @@ const MainPage: React.FC<MainPageProps> = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     currentCity: getCurrentCity(state),
     offers: getOffersForCurrentSorting(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  loadOffers: () => {
-    dispatch(fetchOffers());
-  },
-  setActiveOffer: id => {
-    dispatch(setActiveOffer(id));
-  }
-});
+const mapDispatchToProps = { fetchOffers, setActiveOffer };
 
 export { MainPage };
 

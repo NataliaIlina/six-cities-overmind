@@ -1,31 +1,31 @@
 import { createSelector } from "reselect";
-import { State } from "./data";
+import { RootStateType } from "src/reducer";
 import { IOffer, IComment, ICity } from "src/interfaces";
 
-export const getOffers = (state: State): IOffer[] => {
+export const getOffers = (state: RootStateType): IOffer[] => {
   return state[`DATA`].offers;
 };
 
-export const getFavorite = (state: State): IOffer[] => {
+export const getFavorite = (state: RootStateType): IOffer[] => {
   return state[`DATA`].favorite;
 };
 
-export const getComments = (state: State): IComment[] => {
+export const getComments = (state: RootStateType): IComment[] => {
   return state[`DATA`].comments;
 };
 
-export const getCurrentCity = (state: State): ICity => {
+export const getCurrentCity = (state: RootStateType): ICity => {
   return state[`DATA`].currentCity;
 };
-export const getSorting = (state: State): string => {
+export const getSorting = (state: RootStateType): string => {
   return state[`DATA`].sorting;
 };
 
-export const getActiveOffer = (state: State): IOffer => {
+export const getActiveOffer = (state: RootStateType): IOffer => {
   return state[`DATA`].activeOffer;
 };
 
-export const getCurrentOffer = (state: State, props: any): number => {
+export const getCurrentOffer = (state: RootStateType, props: any): number => {
   return parseInt(props.match.params.id, 10);
 };
 

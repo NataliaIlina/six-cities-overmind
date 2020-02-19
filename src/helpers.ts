@@ -1,4 +1,6 @@
-const toCamel = s => {
+import { IOffer, ICity } from "./interfaces";
+
+const toCamel = (s: string) => {
   return s.replace(/([-_][a-z])/gi, $1 => {
     return $1
       .toUpperCase()
@@ -7,11 +9,11 @@ const toCamel = s => {
   });
 };
 
-const isObject = o => {
+const isObject = (o: any) => {
   return o === Object(o) && !Array.isArray(o) && typeof o !== `function`;
 };
 
-export const transformKeysToCamel = o => {
+export const transformKeysToCamel = (o: any) => {
   if (isObject(o)) {
     const n = {};
 
@@ -29,8 +31,8 @@ export const transformKeysToCamel = o => {
   return o;
 };
 
-export const transformOffersForFavorite = offers => {
-  const cities = new Set();
+export const transformOffersForFavorite = (offers: IOffer[]) => {
+  const cities = new Set<string>();
   offers.forEach(offer => cities.add(offer.city.name));
   const favorites = {};
   for (let item of cities.keys()) {
@@ -39,11 +41,11 @@ export const transformOffersForFavorite = offers => {
   return favorites;
 };
 
-export const getRandomNumber = (min, max) =>
+export const getRandomNumber = (min: number, max: number) =>
   Math.floor(min + Math.random() * (max + 1 - min));
 
-export const getCitiesFromOffers = offers => {
-  const cities = [];
+export const getCitiesFromOffers = (offers: IOffer[]) => {
+  const cities: ICity[] = [];
   offers.forEach(offer => {
     if (!cities.some(city => city.name === offer.city.name)) {
       cities.push(offer.city);
@@ -51,8 +53,4 @@ export const getCitiesFromOffers = offers => {
     return;
   });
   return cities;
-};
-
-export const getRandomCityFromOffers = offers => {
-  return offers[getRandomNumber(0, offers.length - 1)].city;
 };

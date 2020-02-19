@@ -17,21 +17,10 @@ import {
   setActiveOffer
 } from "src/actions";
 import { Layout, Map } from "containers";
-import { IOffer, IComment } from "src/interfaces";
 import { RouteComponentProps } from "react-router-dom";
 import { BASE_URL } from "src/constants";
-
-interface OfferPageProps {
-  fetchComments: (id: number) => void;
-  addComment: (id: number, rating: number, comment: string) => void;
-  toggleFavoriteStatus: (id: number, status: number) => void;
-  setActiveOffer: (id: number) => void;
-  offers: IOffer[];
-  offer: IOffer;
-  comments: IComment[];
-  isUserAuth: boolean;
-  currentOfferId: number;
-}
+import { RootStateType } from "src/reducer";
+import { ComponentProps, OfferPageProps } from "./types";
 
 const OfferPage: React.FC<OfferPageProps &
   RouteComponentProps<{ id?: string }>> = ({
@@ -206,7 +195,7 @@ const OfferPage: React.FC<OfferPageProps &
 
 export { OfferPage };
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
     offer: getCurrentOfferById(state, ownProps),
     comments: getComments(state),
@@ -216,19 +205,11 @@ const mapStateToProps = (state, ownProps) =>
     isUserAuth: getUserAuth(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  fetchComments: (id: number) => {
-    dispatch(fetchComments(id));
-  },
-  addComment: (id: number, rating: number, comment: string) => {
-    dispatch(addComment(id, rating, comment));
-  },
-  toggleFavoriteStatus: (id: number, status: number) => {
-    dispatch(toggleFavoriteStatus(id, status));
-  },
-  setActiveOffer: (id: number) => {
-    dispatch(setActiveOffer(id));
-  }
-});
+const mapDispatchToProps = {
+  fetchComments,
+  addComment,
+  toggleFavoriteStatus,
+  setActiveOffer
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
