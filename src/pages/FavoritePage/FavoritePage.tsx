@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
-import { Footer, FavoriteCard, FavoritesEmpty } from "components";
-import { Layout } from "containers";
-import { fetchFavorite } from "src/actions";
-import { connect } from "react-redux";
-import { getFavorite } from "reducer/data/selectors";
-import { IOffer } from "src/interfaces";
-import { RootStateType } from "src/reducer";
-import { ComponentProps, FavoritePageProps } from "./types";
+import React, { useEffect } from 'react';
+import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
+import { fetchFavorite } from 'src/actions';
+import { connect } from 'react-redux';
+import { getFavorite } from 'reducer/data/selectors';
+import { IOffer } from 'src/interfaces';
+import { RootStateType } from 'src/reducer';
+import { ComponentProps, FavoritePageProps } from './types';
 
-const FavoritePage: React.FC<FavoritePageProps> = ({
-  favorite,
-  fetchFavorite
-}) => {
+const FavoritePage: React.FC<FavoritePageProps> = ({ favorite, fetchFavorite }) => {
   useEffect(() => {
     fetchFavorite();
   }, []);
   return (
     <Layout>
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
+      <main className='page__main page__main--favorites'>
+        {/*<div className="page__favorites-container container">
           {Object.keys(favorite).length ? (
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
@@ -47,7 +43,7 @@ const FavoritePage: React.FC<FavoritePageProps> = ({
           ) : (
             <FavoritesEmpty />
           )}
-        </div>
+        </div>*/}
       </main>
       <Footer />
     </Layout>
@@ -56,7 +52,7 @@ const FavoritePage: React.FC<FavoritePageProps> = ({
 
 const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
   Object.assign({}, ownProps, {
-    favorite: getFavorite(state)
+    favorite: getFavorite(state),
   });
 
 const mapDispatchToProps = { fetchFavorite };

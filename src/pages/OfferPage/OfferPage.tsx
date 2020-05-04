@@ -1,29 +1,22 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
   getCurrentOfferById,
   getComments,
   getCurrentCity,
   getOffersByCount,
-  getCurrentOffer
-} from "reducer/data/selectors";
-import { getUserAuth } from "reducer/user/selectors";
-import { Redirect } from "react-router-dom";
-import { Reviews, ReviewForm, PlaceCard } from "components";
-import {
-  addComment,
-  fetchComments,
-  toggleFavoriteStatus,
-  setActiveOffer
-} from "src/actions";
-import { Layout, Map } from "containers";
-import { RouteComponentProps } from "react-router-dom";
-import { BASE_URL } from "src/constants";
-import { RootStateType } from "src/reducer";
-import { ComponentProps, OfferPageProps } from "./types";
+  getCurrentOffer,
+} from 'reducer/data/selectors';
+import { getUserAuth } from 'reducer/user/selectors';
+import { Redirect } from 'react-router-dom';
+import { Reviews, ReviewForm, PlaceCard, Layout } from 'src/components';
+import { addComment, fetchComments, toggleFavoriteStatus, setActiveOffer } from 'src/actions';
+import { RouteComponentProps } from 'react-router-dom';
+import { BASE_URL } from 'src/constants';
+import { RootStateType } from 'src/reducer';
+import { ComponentProps, OfferPageProps } from './types';
 
-const OfferPage: React.FC<OfferPageProps &
-  RouteComponentProps<{ id?: string }>> = ({
+const OfferPage: React.FC<OfferPageProps & RouteComponentProps<{ id?: string }>> = ({
   fetchComments,
   offer,
   comments,
@@ -33,7 +26,7 @@ const OfferPage: React.FC<OfferPageProps &
   isUserAuth,
   toggleFavoriteStatus,
   setActiveOffer,
-  match
+  match,
 }) => {
   useEffect(() => {
     fetchComments(parseInt(match.params.id, 10));
@@ -42,8 +35,8 @@ const OfferPage: React.FC<OfferPageProps &
 
   return offer ? (
     <Layout>
-      <main className="page__main page__main--property">
-        <section className="property">
+      <main className='page__main page__main--property'>
+        {/*<section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {offer.images.map((img, index) =>
@@ -185,7 +178,7 @@ const OfferPage: React.FC<OfferPageProps &
                 ))}
             </div>
           </section>
-        </div>
+        </div>*/}
       </main>
     </Layout>
   ) : (
@@ -202,14 +195,14 @@ const mapStateToProps = (state: RootStateType, ownProps: ComponentProps) =>
     offers: getOffersByCount(state, ownProps),
     currentCity: getCurrentCity(state),
     currentOfferId: getCurrentOffer(state, ownProps),
-    isUserAuth: getUserAuth(state)
+    isUserAuth: getUserAuth(state),
   });
 
 const mapDispatchToProps = {
   fetchComments,
   addComment,
   toggleFavoriteStatus,
-  setActiveOffer
+  setActiveOffer,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
