@@ -13,6 +13,8 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
   const { isUserAuth } = state;
   const { toggleFavoriteStatus, setActiveOffer } = actions;
 
+  console.log(state);
+
   return (
     <article className='cities__place-card place-card'>
       {offer.isPremium && (
@@ -25,9 +27,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
           className='place-card__link'
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
-            if (setActiveOffer && typeof setActiveOffer === 'function') {
-              setActiveOffer(offer.id);
-            }
+            setActiveOffer(offer.id);
           }}
         >
           <img

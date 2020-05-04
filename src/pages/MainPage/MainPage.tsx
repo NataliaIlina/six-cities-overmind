@@ -1,9 +1,11 @@
 import React from 'react';
 import { useOvermind } from 'src/overmind';
 import { Layout, CitiesList, SortingSelect, OffersList, Map } from '../../components';
+import useAuth from 'src/hooks/useAuth';
 
 const MainPage: React.FC = () => {
   const { state } = useOvermind();
+  useAuth();
 
   const { currentOffers, currentOffersCount, currentCity, isLoading } = state;
 

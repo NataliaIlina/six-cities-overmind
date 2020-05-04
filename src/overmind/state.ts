@@ -7,7 +7,7 @@ type State = {
   currentCity: ICity | null;
   offers: IOffer[] | [];
   cities: ICity[] | null;
-  favorite: IOffer[] | null;
+  favorite: { [key: string]: IOffer[] } | {};
   sorting: string;
   activeOffer: number | null;
   comments: IComment[] | null;
@@ -22,7 +22,7 @@ export const state: State = {
   currentCity: null,
   offers: [],
   cities: null,
-  favorite: null,
+  favorite: {},
   sorting: `popular`,
   activeOffer: null,
   comments: null,

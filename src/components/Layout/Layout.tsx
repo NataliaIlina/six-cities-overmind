@@ -7,7 +7,6 @@ interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ children, type }) => {
-  const { state } = useOvermind();
   return (
     <div
       className={`page
@@ -15,7 +14,7 @@ const Layout: React.FC<ILayoutProps> = ({ children, type }) => {
     ${type === `main` ? `page--main page--gray` : ``}`}
     >
       <SvgSprite />
-      <Header userData={state.user} />
+      <Header />
       {children}
     </div>
   );

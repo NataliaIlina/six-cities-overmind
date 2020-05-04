@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useOvermind } from 'src/overmind';
 import { Redirect } from 'react-router-dom';
 
-const usePrivateRoute = () => {
+const useAuth = () => {
   const { actions, state } = useOvermind();
 
   useEffect(() => {
@@ -14,4 +14,4 @@ const usePrivateRoute = () => {
   return isUserAuth;
 };
 
-export default usePrivateRoute;
+export default useAuth;

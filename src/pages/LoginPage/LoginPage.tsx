@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Link, Layout } from 'src/components';
 import { BASE_URL } from 'src/constants';
 import { useOvermind } from 'src/overmind';
-import usePrivateRoute from 'src/hooks/usePrivateRoute';
+import useAuth from 'src/hooks/useAuth';
 
 const LoginPage: React.FC = () => {
   const { actions } = useOvermind();
@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const isUserAuth = usePrivateRoute();
+  const isUserAuth = useAuth();
 
   if (isUserAuth) {
     return <Redirect to={BASE_URL} />;

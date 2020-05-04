@@ -1,4 +1,4 @@
-import { transformKeysToCamel } from 'src/helpers';
+import { transformKeysToCamel, transformOffersForFavorite } from 'src/helpers';
 import { Action, AsyncAction } from './index';
 import { getCitiesFromOffers } from 'src/helpers';
 import { ICity, IOffer, IUser } from 'src/interfaces';
@@ -35,6 +35,10 @@ export const setActiveOffer = ({ state }, id: number) => {
   state.activeOffer = id;
 };
 
+export const setFavorite = ({ state }, favorite: any) => {
+  state.favorite = favorite;
+};
+
 export const replaceOfferInState = ({ state }, offer: IOffer) => {
   state.offers = state.offers.map((item) => {
     if (item.id === offer.id) {
@@ -45,20 +49,32 @@ export const replaceOfferInState = ({ state }, offer: IOffer) => {
 };
 
 export const getCurrentUser: AsyncAction = ({ state, effects, actions }) => {
-  return effects.api.getCurrentUser().then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
+  return effects.api
+    .getCurrentUser()
+    .then((response) => {
+      const data = transformKeysToCamel(response.data);
+      actions.setUser(data);
+      actions.setUserAuth(true);
+    })
+    .catch(() => {
+      actions.setUserAuth(false);
+    });
 };
 
 export const authorizeUser: AsyncAction<{ email: string; password: string }> = (
   { state, effects, actions },
   { email, password }
 ) => {
-  return effects.api.authorizeUser(email, password).then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
+  return effects.api
+    .authorizeUser(email, password)
+    .then((response) => {
+      const data = transformKeysToCamel(response.data);
+      actions.setUser(data);
+      actions.setUserAuth(true);
+    })
+    .catch(() => {
+      actions.setUserAuth(false);
+    });
 };
 
 export const fetchOffers: AsyncAction = ({ state, effects, actions }) => {
@@ -76,6 +92,13 @@ export const changeCity: Action<ICity> = ({ actions }, value) => {
 
 export const changeSorting: Action<string> = ({ actions }, value) => {
   actions.setSorting(value);
+};
+
+export const fetchFavorite: AsyncAction = ({ effects, actions }) => {
+  return effects.api.fetchFavorite().then((response) => {
+    const data = transformOffersForFavorite(response.data);
+    actions.setFavorite(transformKeysToCamel(data));
+  });
 };
 
 export const changeActiveOffer: Action<number> = ({ actions }, value) => {
