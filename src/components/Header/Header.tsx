@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'src/components';
-import { IUser } from 'src/interfaces';
+import { IUser } from 'src/types';
 import { BASE_URL } from 'src/constants';
 import { useOvermind } from 'src/overmind';
 

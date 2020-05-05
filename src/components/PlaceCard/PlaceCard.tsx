@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'src/components';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 interface PlaceCardProps {

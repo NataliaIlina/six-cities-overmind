@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import { BASE_URL } from 'src/constants';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 export interface IMapProps {

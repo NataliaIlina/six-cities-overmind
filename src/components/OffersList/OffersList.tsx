@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlaceCard } from 'src/components';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 const OffersList: React.FC = () => {

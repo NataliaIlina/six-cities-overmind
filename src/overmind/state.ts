@@ -1,4 +1,4 @@
-import { ICity, IComment, IOffer, IUser } from 'src/interfaces';
+import { ICity, IComment, IOffer, IUser } from 'src/types';
 import { Derive } from './index';
 
 type State = {

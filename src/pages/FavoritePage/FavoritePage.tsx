@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 import useAuth from 'src/hooks/useAuth';
 import { Redirect } from 'react-router-dom';

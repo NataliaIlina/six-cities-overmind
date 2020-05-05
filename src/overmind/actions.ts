@@ -1,7 +1,7 @@
 import { transformKeysToCamel, transformOffersForFavorite } from 'src/helpers';
 import { Action, AsyncAction } from './index';
 import { getCitiesFromOffers } from 'src/helpers';
-import { ICity, IOffer, IUser } from 'src/interfaces';
+import { ICity, IOffer, IUser } from 'src/types';
 
 export const setUser = ({ state }, user: IUser) => {
   state.user = user;
