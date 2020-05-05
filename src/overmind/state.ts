@@ -9,11 +9,13 @@ type State = {
   cities: ICity[] | null;
   favorite: { [key: string]: IOffer[] } | {};
   sorting: string;
-  activeOffer: number | null;
+  activeOfferId: number | null;
   comments: IComment[] | null;
   isLoading: boolean;
   currentOffers: Derive<State, IOffer[]>;
   currentOffersCount: Derive<State, number>;
+  activeOffer: Derive<State, IOffer>;
+  nearbyOffers: Derive<State, IOffer[]>;
 };
 
 export const state: State = {
@@ -24,7 +26,7 @@ export const state: State = {
   cities: null,
   favorite: {},
   sorting: `popular`,
-  activeOffer: null,
+  activeOfferId: null,
   comments: null,
   isLoading: false,
   currentOffers: ({ offers, currentCity, sorting }) => {
@@ -51,4 +53,14 @@ export const state: State = {
       });
   },
   currentOffersCount: ({ currentOffers }) => currentOffers?.length,
+  activeOffer: ({ activeOfferId, offers }) => {
+    return offers.find((offer) => offer.id === activeOfferId);
+  },
+  nearbyOffers: ({ activeOfferId, offers, currentCity, activeOffer }) => {
+    const nearbyOffers = offers
+      .filter((offer) => offer.city.name === currentCity.name && offer.id !== activeOfferId)
+      .slice(0, 3);
+    nearbyOffers.push(activeOffer);
+    return nearbyOffers;
+  },
 };

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Link, Layout } from 'src/components';
 import { BASE_URL } from 'src/constants';
 import { useOvermind } from 'src/overmind';
 import useAuth from 'src/hooks/useAuth';
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
   const { actions } = useOvermind();
 
   const [email, setEmail] = useState<string>('');
@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
               method='post'
               onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                actions.authorizeUser({ email, password }).then(() => window.location.assign('/'));
+                actions.authorizeUser({ email, password }).then(() => history.push('/'));
               }}
             >
               <div className='login__input-wrapper form__input-wrapper'>

@@ -11,7 +11,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
   const { state, actions } = useOvermind();
 
   const { isUserAuth } = state;
-  const { toggleFavoriteStatus, setActiveOffer } = actions;
+  const { toggleFavoriteStatus, setActiveOfferId } = actions;
 
   console.log(state);
 
@@ -27,7 +27,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
           className='place-card__link'
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
-            setActiveOffer(offer.id);
+            setActiveOfferId(offer.id);
           }}
         >
           <img

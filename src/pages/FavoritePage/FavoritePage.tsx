@@ -3,6 +3,8 @@ import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
 import { IOffer } from 'src/interfaces';
 import { useOvermind } from 'src/overmind';
 import useAuth from 'src/hooks/useAuth';
+import { Redirect } from 'react-router-dom';
+import { BASE_URL } from 'src/constants';
 
 const FavoritePage: React.FC = () => {
   const { state, actions } = useOvermind();
@@ -14,7 +16,11 @@ const FavoritePage: React.FC = () => {
     fetchFavorite();
   }, []);
 
-  useAuth();
+  const isUserAuth = useAuth();
+
+  if (!isUserAuth) {
+    return <Redirect to={BASE_URL} />;
+  }
 
   return (
     <Layout>

@@ -31,12 +31,16 @@ export const setLoading = ({ state }, value: boolean) => {
   state.isLoading = value;
 };
 
-export const setActiveOffer = ({ state }, id: number) => {
-  state.activeOffer = id;
+export const setActiveOfferId = ({ state }, id: number) => {
+  state.activeOfferId = id;
 };
 
 export const setFavorite = ({ state }, favorite: any) => {
   state.favorite = favorite;
+};
+
+export const setComments = ({ state }, comments: any) => {
+  state.comments = comments;
 };
 
 export const replaceOfferInState = ({ state }, offer: IOffer) => {
@@ -102,7 +106,7 @@ export const fetchFavorite: AsyncAction = ({ effects, actions }) => {
 };
 
 export const changeActiveOffer: Action<number> = ({ actions }, value) => {
-  actions.setActiveOffer(value);
+  actions.setActiveOfferId(value);
 };
 
 export const toggleFavoriteStatus: Action<{ hotelId: number; status: 0 | 1 }> = (
@@ -116,4 +120,21 @@ export const toggleFavoriteStatus: Action<{ hotelId: number; status: 0 | 1 }> = 
       actions.replaceOfferInState(data);
     })
     .catch((error) => console.log(error));
+};
+
+export const fetchComments: AsyncAction<number> = ({ actions, effects }, hotelId) => {
+  return effects.api.fetchComments(hotelId).then((response) => {
+    const data = transformKeysToCamel(response.data);
+    actions.setComments(data);
+  });
+};
+
+export const addComment: AsyncAction<{ hotelId: number; rating: number; comment: string }> = (
+  { actions, effects },
+  { hotelId, rating, comment }
+) => {
+  return effects.api.addComment(hotelId, rating, comment).then((response) => {
+    const data = transformKeysToCamel(response.data);
+    actions.setComments(data);
+  });
 };
