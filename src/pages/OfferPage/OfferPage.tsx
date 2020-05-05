@@ -9,7 +9,7 @@ const OfferPage: React.FC<RouteComponentProps<{ id?: string }>> = ({ match }) =>
   const { actions, state } = useOvermind();
 
   const { fetchComments, setActiveOfferId, toggleFavoriteStatus } = actions;
-  const { offers, isUserAuth, activeOffer, activeOfferId, comments, nearbyOffers } = state;
+  const { isUserAuth, activeOffer, activeOfferId, comments, nearbyOffers } = state;
 
   useEffect(() => {
     fetchComments(parseInt(match.params.id, 10));
@@ -116,7 +116,7 @@ const OfferPage: React.FC<RouteComponentProps<{ id?: string }>> = ({ match }) =>
                 </div>
               </div>
               <section className='property__reviews reviews'>
-                <Reviews comments={comments} />
+                <Reviews />
                 {isUserAuth ? <ReviewForm /> : null}
               </section>
             </div>

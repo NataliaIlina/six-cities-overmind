@@ -6,7 +6,7 @@ import { useOvermind } from 'src/overmind';
 
 const Header: React.FC = () => {
   const { state } = useOvermind();
-  console.log(state.user);
+
   return (
     <header className='header'>
       <div className='container'>

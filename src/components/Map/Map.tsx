@@ -26,9 +26,11 @@ const Map: React.FC<IMapProps> = ({ offers }) => {
   });
 
   const highlightCurrentOfferMarker = () => {
-    markersRef.current
-      .find((marker) => marker.options.offerId === activeOfferId)
-      .setIcon(activeIcon);
+    const current = markersRef.current.find((marker) => marker.options.offerId === activeOfferId);
+
+    if (current) {
+      current.setIcon(activeIcon);
+    }
   };
 
   const paintOverMarkers = () => {

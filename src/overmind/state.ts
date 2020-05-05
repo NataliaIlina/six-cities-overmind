@@ -10,7 +10,7 @@ type State = {
   favorite: { [key: string]: IOffer[] } | {};
   sorting: string;
   activeOfferId: number | null;
-  comments: IComment[] | null;
+  comments: IComment[] | [];
   isLoading: boolean;
   currentOffers: Derive<State, IOffer[]>;
   currentOffersCount: Derive<State, number>;
@@ -27,7 +27,7 @@ export const state: State = {
   favorite: {},
   sorting: `popular`,
   activeOfferId: null,
-  comments: null,
+  comments: [],
   isLoading: false,
   currentOffers: ({ offers, currentCity, sorting }) => {
     return offers

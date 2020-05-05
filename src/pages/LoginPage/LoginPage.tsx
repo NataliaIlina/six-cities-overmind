@@ -3,17 +3,14 @@ import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Link, Layout } from 'src/components';
 import { BASE_URL } from 'src/constants';
 import { useOvermind } from 'src/overmind';
-import useAuth from 'src/hooks/useAuth';
 
 const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
-  const { actions } = useOvermind();
+  const { actions, state } = useOvermind();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const isUserAuth = useAuth();
-
-  if (isUserAuth) {
+  if (state.isUserAuth) {
     return <Redirect to={BASE_URL} />;
   }
 

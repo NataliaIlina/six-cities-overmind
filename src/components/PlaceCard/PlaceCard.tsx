@@ -13,8 +13,6 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
   const { isUserAuth } = state;
   const { toggleFavoriteStatus, setActiveOfferId } = actions;
 
-  console.log(state);
-
   return (
     <article className='cities__place-card place-card'>
       {offer.isPremium && (

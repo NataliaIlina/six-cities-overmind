@@ -40,6 +40,9 @@ export const replaceOfferInState: Action<IOffer> = ({ state }, offer) => {
   const currentOffer = offers.find((item) => item.id === offer.id);
   const index = offers.indexOf(currentOffer);
   state.offers[index] = { ...offer };
+  if (state.activeOfferId === offer.id) {
+    state.activeOffer.isFavorite = offer.isFavorite;
+  }
 };
 
 export const changeCity: Action<ICity> = ({ state }, city) => {
