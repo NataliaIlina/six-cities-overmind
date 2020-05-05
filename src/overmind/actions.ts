@@ -7,10 +7,6 @@ export const setUser: Action<IUser> = ({ state }, user) => {
   state.user = user;
 };
 
-export const setUserAuth: Action<boolean> = ({ state }, value) => {
-  state.isUserAuth = value;
-};
-
 export const setOffers: Action<IOffer[]> = ({ state }, offers) => {
   state.offers = offers;
 };
@@ -55,32 +51,20 @@ export const changeSorting: Action<string> = ({ state }, sorting) => {
 };
 
 export const getCurrentUser: AsyncAction = ({ state, effects, actions }) => {
-  return effects.api
-    .getCurrentUser()
-    .then((response) => {
-      const data = transformKeysToCamel(response.data);
-      actions.setUser(data);
-      actions.setUserAuth(true);
-    })
-    .catch(() => {
-      actions.setUserAuth(false);
-    });
+  return effects.api.getCurrentUser().then((response) => {
+    const data = transformKeysToCamel(response.data);
+    actions.setUser(data);
+  });
 };
 
 export const authorizeUser: AsyncAction<{ email: string; password: string }> = (
   { state, effects, actions },
   { email, password }
 ) => {
-  return effects.api
-    .authorizeUser(email, password)
-    .then((response) => {
-      const data = transformKeysToCamel(response.data);
-      actions.setUser(data);
-      actions.setUserAuth(true);
-    })
-    .catch(() => {
-      actions.setUserAuth(false);
-    });
+  return effects.api.authorizeUser(email, password).then((response) => {
+    const data = transformKeysToCamel(response.data);
+    actions.setUser(data);
+  });
 };
 
 export const fetchOffers: AsyncAction = ({ state, effects, actions }) => {
@@ -88,7 +72,6 @@ export const fetchOffers: AsyncAction = ({ state, effects, actions }) => {
     const data = transformKeysToCamel(response.data);
     actions.setOffers(data);
     actions.changeCity(data[0].city);
-    actions.setCities(getCitiesFromOffers(data));
   });
 };
 

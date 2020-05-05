@@ -1,12 +1,11 @@
 import { ICity, IComment, IOffer, IUser } from 'src/types';
 import { Derive } from './index';
+import { getCitiesFromOffers } from 'src/helpers';
 
 type State = {
   user: IUser | null;
-  isUserAuth: boolean;
   currentCity: ICity | null;
   offers: IOffer[] | [];
-  cities: ICity[] | null;
   favorite: { [key: string]: IOffer[] } | {};
   sorting: string;
   activeOfferId: number | null;
@@ -16,19 +15,25 @@ type State = {
   currentOffersCount: Derive<State, number>;
   activeOffer: Derive<State, IOffer>;
   nearbyOffers: Derive<State, IOffer[]>;
+  isUserAuth: Derive<State, boolean>;
+  cities: Derive<State, ICity[]>;
 };
 
 export const state: State = {
   user: null,
-  isUserAuth: false,
-  currentCity: null,
   offers: [],
-  cities: null,
   favorite: {},
+  comments: [],
+  currentCity: null,
   sorting: `popular`,
   activeOfferId: null,
-  comments: [],
   isLoading: false,
+  cities: ({ offers }) => {
+    return getCitiesFromOffers(offers);
+  },
+  isUserAuth: ({ user }) => {
+    return user === null ? false : true;
+  },
   currentOffers: ({ offers, currentCity, sorting }) => {
     return offers
       .filter((offer) => offer?.city.name === currentCity.name)
