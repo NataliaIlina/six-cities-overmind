@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Link, Layout } from 'src/components';
 import { BASE_URL } from 'src/constants';
 import { useOvermind } from 'src/overmind';
-import usePrivateRoute from 'src/hooks/usePrivateRoute';
 
-const LoginPage: React.FC = () => {
-  const { actions } = useOvermind();
+const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
+  const { actions, state } = useOvermind();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const isUserAuth = usePrivateRoute();
-
-  if (isUserAuth) {
+  if (state.isUserAuth) {
     return <Redirect to={BASE_URL} />;
   }
 
@@ -30,7 +27,7 @@ const LoginPage: React.FC = () => {
               method='post'
               onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                actions.authorizeUser({ email, password }).then(() => window.location.assign('/'));
+                actions.authorizeUser({ email, password }).then(() => history.push('/'));
               }}
             >
               <div className='login__input-wrapper form__input-wrapper'>

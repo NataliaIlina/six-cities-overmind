@@ -1,13 +1,13 @@
 {
   "name": "six-cities",
-  "homepage": "https://nataliailina.github.io/six-cities",
+  "homepage": "https://nataliailina.github.io/six-cities-overmind",
   "version": "1.0.0",
   "private": true,
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "start": "concurrently \"overmind-devtools\" \"cross-env NODE_ENV=development webpack-dev-server\"",
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest",
     "updateSnapshot": "npm test -- -u",
@@ -44,7 +44,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "2.0.5",
     "react-test-renderer": "16.8.6",
-    "redux-mock-store": "^1.5.4",
     "style-loader": "^1.1.3",
     "terser-webpack-plugin": "^2.3.4",
     "ts-jest": "25.0.0",
@@ -60,25 +59,21 @@
   },
   "dependencies": {
     "axios": "0.19.2",
+    "concurrently": "^5.2.0",
     "leaflet": "1.5.1",
     "overmind": "^23.0.1",
+    "overmind-devtools": "^24.0.1",
     "overmind-react": "^24.0.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-redux": "7.0.3",
-    "react-router-dom": "5.0.0",
-    "recompose": "0.30.0",
-    "redux": "4.0.1",
-    "redux-thunk": "2.3.0",
-    "reselect": "4.0.0"
+    "react-router-dom": "5.0.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/test-setup.js"
     ],
     "moduleNameMapper": {
-      "^components(.*)$": "<rootDir>/src/components$1",
       "^src(.*)$": "<rootDir>/src$1"
     }
   }

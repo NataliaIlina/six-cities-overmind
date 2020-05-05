@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import { BASE_URL } from 'src/constants';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 export interface IMapProps {
@@ -10,7 +10,7 @@ export interface IMapProps {
 
 const Map: React.FC<IMapProps> = ({ offers }) => {
   const { state } = useOvermind();
-  const { currentCity, activeOffer } = state;
+  const { currentCity, activeOfferId } = state;
   const mapRef = useRef<HTMLDivElement>();
   const markersRef = useRef<any>();
 
@@ -26,7 +26,11 @@ const Map: React.FC<IMapProps> = ({ offers }) => {
   });
 
   const highlightCurrentOfferMarker = () => {
-    markersRef.current.find((marker) => marker.options.offerId === activeOffer).setIcon(activeIcon);
+    const current = markersRef.current.find((marker) => marker.options.offerId === activeOfferId);
+
+    if (current) {
+      current.setIcon(activeIcon);
+    }
   };
 
   const paintOverMarkers = () => {
@@ -60,7 +64,7 @@ const Map: React.FC<IMapProps> = ({ offers }) => {
     leaflet.layerGroup(markers).addTo(map);
     markersRef.current = markers;
 
-    if (activeOffer) {
+    if (activeOfferId) {
       highlightCurrentOfferMarker();
     }
 
@@ -71,13 +75,13 @@ const Map: React.FC<IMapProps> = ({ offers }) => {
   }, [currentCity, offers]);
 
   useEffect(() => {
-    if (activeOffer) {
+    if (activeOfferId) {
       paintOverMarkers();
       highlightCurrentOfferMarker();
     } else {
       paintOverMarkers();
     }
-  }, [activeOffer]);
+  }, [activeOfferId]);
 
   return <div id='map' style={{ height: `100%` }} ref={mapRef} />;
 };

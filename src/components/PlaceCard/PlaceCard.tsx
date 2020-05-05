@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'src/components';
-import { IOffer } from 'src/interfaces';
+import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 interface PlaceCardProps {
@@ -11,7 +11,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
   const { state, actions } = useOvermind();
 
   const { isUserAuth } = state;
-  const { toggleFavoriteStatus, setActiveOffer } = actions;
+  const { toggleFavoriteStatus, setActiveOfferId } = actions;
 
   return (
     <article className='cities__place-card place-card'>
@@ -25,9 +25,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
           className='place-card__link'
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
-            if (setActiveOffer && typeof setActiveOffer === 'function') {
-              setActiveOffer(offer.id);
-            }
+            setActiveOfferId(offer.id);
           }}
         >
           <img

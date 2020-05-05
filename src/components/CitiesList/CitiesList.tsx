@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICity } from 'src/interfaces';
+import { ICity } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
 const CitiesList: React.FC = () => {

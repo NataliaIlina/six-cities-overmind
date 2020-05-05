@@ -1,4 +1,4 @@
-import { ICity, IComment, IOffer, IUser } from 'src/interfaces';
+import { ICity, IComment, IOffer, IUser } from 'src/types';
 import { Derive } from './index';
 
 type State = {
@@ -7,13 +7,15 @@ type State = {
   currentCity: ICity | null;
   offers: IOffer[] | [];
   cities: ICity[] | null;
-  favorite: IOffer[] | null;
+  favorite: { [key: string]: IOffer[] } | {};
   sorting: string;
-  activeOffer: number | null;
-  comments: IComment[] | null;
+  activeOfferId: number | null;
+  comments: IComment[] | [];
   isLoading: boolean;
   currentOffers: Derive<State, IOffer[]>;
   currentOffersCount: Derive<State, number>;
+  activeOffer: Derive<State, IOffer>;
+  nearbyOffers: Derive<State, IOffer[]>;
 };
 
 export const state: State = {
@@ -22,10 +24,10 @@ export const state: State = {
   currentCity: null,
   offers: [],
   cities: null,
-  favorite: null,
+  favorite: {},
   sorting: `popular`,
-  activeOffer: null,
-  comments: null,
+  activeOfferId: null,
+  comments: [],
   isLoading: false,
   currentOffers: ({ offers, currentCity, sorting }) => {
     return offers
@@ -51,4 +53,14 @@ export const state: State = {
       });
   },
   currentOffersCount: ({ currentOffers }) => currentOffers?.length,
+  activeOffer: ({ activeOfferId, offers }) => {
+    return offers.find((offer) => offer.id === activeOfferId);
+  },
+  nearbyOffers: ({ activeOfferId, offers, currentCity, activeOffer }) => {
+    const nearbyOffers = offers
+      .filter((offer) => offer.city.name === currentCity.name && offer.id !== activeOfferId)
+      .slice(0, 3);
+    nearbyOffers.push(activeOffer);
+    return nearbyOffers;
+  },
 };
