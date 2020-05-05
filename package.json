@@ -1,13 +1,13 @@
 {
   "name": "six-cities",
-  "homepage": "https://nataliailina.github.io/six-cities",
+  "homepage": "https://nataliailina.github.io/six-cities-overmind",
   "version": "1.0.0",
   "private": true,
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "start": "concurrently \"overmind-devtools\" \"cross-env NODE_ENV=development webpack-dev-server\"",
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest",
     "updateSnapshot": "npm test -- -u",
