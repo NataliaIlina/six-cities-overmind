@@ -17,8 +17,6 @@
       "pages/*": ["src/pages/*"],
       "containers/*": ["src/containers/*"],
       "components/*": ["src/components/*"],
-      "reducer/*": ["src/reducer/*"],
-      "hocs/*": ["src/hocs/*"],
       "src/*": ["src/*"]
     }
   },

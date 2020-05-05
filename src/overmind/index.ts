@@ -15,7 +15,6 @@ export const config = {
 export const useOvermind = createHook<typeof config>();
 
 declare module 'overmind' {
-  // tslint:disable:interface-name
   interface Config extends IConfig<typeof config> {}
 }
 
