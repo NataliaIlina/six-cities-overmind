@@ -2,16 +2,8 @@ import { transformKeysToCamel, transformOffersForFavorite } from 'src/utils';
 import { Action, AsyncAction } from './index';
 import { ICity, IComment, IOffer, IUser } from 'src/types';
 
-export const setUser: Action<IUser> = ({ state }, user) => {
-  state.user = user;
-};
-
 export const setOffers: Action<IOffer[]> = ({ state }, offers) => {
   state.offers = offers;
-};
-
-export const setCities: Action<ICity[]> = ({ state }, cities) => {
-  state.cities = cities;
 };
 
 export const setLoading: Action<boolean> = ({ state }, value) => {
@@ -47,23 +39,6 @@ export const changeCity: Action<ICity> = ({ state }, city) => {
 
 export const changeSorting: Action<string> = ({ state }, sorting) => {
   state.sorting = sorting;
-};
-
-export const getCurrentUser: AsyncAction = ({ state, effects, actions }) => {
-  return effects.api.getCurrentUser().then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
-};
-
-export const authorizeUser: AsyncAction<{ email: string; password: string }> = (
-  { state, effects, actions },
-  { email, password }
-) => {
-  return effects.api.authorizeUser(email, password).then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
 };
 
 export const fetchOffers: AsyncAction = ({ state, effects, actions }) => {

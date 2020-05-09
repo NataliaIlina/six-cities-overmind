@@ -8,14 +8,14 @@ import { BASE_URL } from 'src/constants/constants';
 const FavoritePage: React.FC = () => {
   const { state, actions } = useOvermind();
 
-  const { favorite, isUserAuth } = state;
+  const { favorite, user } = state;
   const { fetchFavorite } = actions;
 
   useEffect(() => {
     fetchFavorite();
   }, []);
 
-  if (!isUserAuth) {
+  if (!user.isUserAuth) {
     return <Redirect to={BASE_URL} />;
   }
 

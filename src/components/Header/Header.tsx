@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'src/components';
-import { IUser } from 'src/types';
 import { BASE_URL } from 'src/constants/constants';
 import { useOvermind } from 'src/overmind';
 
 const Header: React.FC = () => {
   const { state } = useOvermind();
+
+  const { user } = state;
 
   return (
     <header className='header'>
@@ -27,11 +28,11 @@ const Header: React.FC = () => {
               <li className='header__nav-item user'>
                 <Link
                   className='header__nav-link header__nav-link--profile'
-                  to={`/${state.user ? `favorites` : `login`}`}
+                  to={`/${user.isUserAuth ? `favorites` : `login`}`}
                 >
                   <div className='header__avatar-wrapper user__avatar-wrapper' />
-                  {state.user ? (
-                    <span className='header__user-name user__name'>{state.user.email}</span>
+                  {user.isUserAuth ? (
+                    <span className='header__user-name user__name'>{user.data.email}</span>
                   ) : (
                     <span className='header__login'>Sign in</span>
                   )}

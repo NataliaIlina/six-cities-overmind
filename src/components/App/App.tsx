@@ -8,7 +8,7 @@ const App: React.FC = () => {
   const { actions } = useOvermind();
 
   useEffect(() => {
-    actions.getCurrentUser();
+    actions.user.getCurrentUser();
   });
 
   return (

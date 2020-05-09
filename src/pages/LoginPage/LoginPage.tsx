@@ -10,7 +10,7 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  if (state.isUserAuth) {
+  if (state.user.isUserAuth) {
     return <Redirect to={BASE_URL} />;
   }
 
@@ -27,7 +27,7 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
               method='post'
               onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                actions.authorizeUser({ email, password }).then(() => history.push('/'));
+                actions.user.authorizeUser({ email, password }).then(() => history.push('/'));
               }}
             >
               <div className='login__input-wrapper form__input-wrapper'>

@@ -10,7 +10,7 @@ interface PlaceCardProps {
 const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
   const { state, actions } = useOvermind();
 
-  const { isUserAuth } = state;
+  const { user } = state;
   const { toggleFavoriteStatus, setActiveOfferId } = actions;
 
   return (
@@ -43,7 +43,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          {isUserAuth ? (
+          {user.isUserAuth ? (
             <button
               className={`place-card__bookmark-button button ${
                 offer.isFavorite ? `place-card__bookmark-button--active` : ``

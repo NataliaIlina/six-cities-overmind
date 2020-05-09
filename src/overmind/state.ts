@@ -1,9 +1,8 @@
-import { ICity, IComment, IOffer, IUser } from 'src/types';
+import { ICity, IComment, IOffer } from 'src/types';
 import { Derive } from './index';
 import { getCitiesFromOffers } from 'src/utils';
 
 type State = {
-  user: IUser | null;
   currentCity: ICity | null;
   offers: IOffer[] | [];
   favorite: { [key: string]: IOffer[] } | {};
@@ -15,12 +14,10 @@ type State = {
   currentOffersCount: Derive<State, number>;
   activeOffer: Derive<State, IOffer>;
   nearbyOffers: Derive<State, IOffer[]>;
-  isUserAuth: Derive<State, boolean>;
   cities: Derive<State, ICity[]>;
 };
 
 export const state: State = {
-  user: null,
   offers: [],
   favorite: {},
   comments: [],
@@ -30,9 +27,6 @@ export const state: State = {
   isLoading: false,
   cities: ({ offers }) => {
     return getCitiesFromOffers(offers);
-  },
-  isUserAuth: ({ user }) => {
-    return user !== null;
   },
   currentOffers: ({ offers, currentCity, sorting }) => {
     return offers

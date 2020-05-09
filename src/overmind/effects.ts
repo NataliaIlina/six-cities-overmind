@@ -1,13 +1,7 @@
 import { API } from 'src/utils';
-import { IComment, IOffer, IUser } from 'src/types';
+import { IComment, IOffer } from 'src/types';
 
 export const api = {
-  getCurrentUser: (): Promise<{ data: IUser }> => {
-    return API.get('/login');
-  },
-  authorizeUser: (email: string, password: string): Promise<{ data: IUser }> => {
-    return API.post(`/login`, { email, password });
-  },
   fetchOffers: (): Promise<{ data: IOffer[] }> => {
     return API.get(`/hotels`);
   },
