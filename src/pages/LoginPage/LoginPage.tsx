@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Link, Layout } from 'src/components';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 import { useOvermind } from 'src/overmind';
 
 const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {

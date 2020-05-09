@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import { MainPage, OfferPage, FavoritePage, LoginPage } from 'src/pages';
 import { Switch, Route } from 'react-router-dom';
-import { BASE_URL } from 'src/constants';
-import useAuth from 'src/hooks/useAuth';
+import { BASE_URL } from 'src/constants/constants';
+import { useOvermind } from 'src/overmind';
 
 const App: React.FC = () => {
-  useAuth();
+  const { actions } = useOvermind();
+
+  useEffect(() => {
+    actions.getCurrentUser();
+  });
+
   return (
     <Switch>
       <Route path={`${BASE_URL}/`} exact component={MainPage} />

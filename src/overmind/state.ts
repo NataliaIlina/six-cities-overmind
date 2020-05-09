@@ -1,6 +1,6 @@
 import { ICity, IComment, IOffer, IUser } from 'src/types';
 import { Derive } from './index';
-import { getCitiesFromOffers } from 'src/helpers';
+import { getCitiesFromOffers } from 'src/utils';
 
 type State = {
   user: IUser | null;
@@ -32,7 +32,7 @@ export const state: State = {
     return getCitiesFromOffers(offers);
   },
   isUserAuth: ({ user }) => {
-    return user === null ? false : true;
+    return user !== null;
   },
   currentOffers: ({ offers, currentCity, sorting }) => {
     return offers

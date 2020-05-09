@@ -3,7 +3,7 @@ import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
 import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 import { Redirect } from 'react-router-dom';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 
 const FavoritePage: React.FC = () => {
   const { state, actions } = useOvermind();

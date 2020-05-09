@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { RATINGS, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from 'src/constants';
+import { RATINGS, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from 'src/constants/constants';
 import { RatingStar } from 'src/components';
 import { useOvermind } from 'src/overmind';
 

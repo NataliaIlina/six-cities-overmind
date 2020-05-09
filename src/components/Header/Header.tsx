@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'src/components';
 import { IUser } from 'src/types';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 import { useOvermind } from 'src/overmind';
 
 const Header: React.FC = () => {

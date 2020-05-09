@@ -1,6 +1,5 @@
-import { transformKeysToCamel, transformOffersForFavorite } from 'src/helpers';
+import { transformKeysToCamel, transformOffersForFavorite } from 'src/utils';
 import { Action, AsyncAction } from './index';
-import { getCitiesFromOffers } from 'src/helpers';
 import { ICity, IComment, IOffer, IUser } from 'src/types';
 
 export const setUser: Action<IUser> = ({ state }, user) => {

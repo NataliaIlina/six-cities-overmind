@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { BASE_URL } from "src/constants";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { BASE_URL } from 'src/constants/constants';
 
 interface BaseLinkProps {
   to: string;

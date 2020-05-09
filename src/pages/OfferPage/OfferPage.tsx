@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Reviews, ReviewForm, PlaceCard, Layout, Map } from 'src/components';
 import { RouteComponentProps } from 'react-router-dom';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 import { useOvermind } from 'src/overmind';
 
 const OfferPage: React.FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {

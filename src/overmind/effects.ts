@@ -1,4 +1,4 @@
-import API from 'src/utils/api';
+import { API } from 'src/utils';
 import { IComment, IOffer, IUser } from 'src/types';
 
 export const api = {

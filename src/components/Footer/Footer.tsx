@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'src/components';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 
 const Footer: React.FC = () => (
   <footer className='footer container'>
