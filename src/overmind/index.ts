@@ -4,13 +4,20 @@ import * as effects from './effects';
 import * as actions from './actions';
 import { IConfig, IOnInitialize, IAction, IOperator, IDerive, IState } from 'overmind';
 import { onInitialize } from './onInitialize';
+import { merge, namespaced } from 'overmind/config';
+import * as user from './user';
 
-export const config = {
-  onInitialize,
-  state,
-  effects,
-  actions,
-};
+export const config = merge(
+  {
+    onInitialize,
+    state,
+    effects,
+    actions,
+  },
+  namespaced({
+    user,
+  })
+);
 
 export const useOvermind = createHook<typeof config>();
 

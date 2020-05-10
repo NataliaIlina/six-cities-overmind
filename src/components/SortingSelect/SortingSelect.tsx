@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SORTING_OPTIONS, SORTING_TITLE } from 'src/constants';
+import { SORTING_OPTIONS, SORTING_TITLE } from 'src/constants/constants';
 import { useOvermind } from 'src/overmind';
 
 const SortingSelect: React.FC = () => {

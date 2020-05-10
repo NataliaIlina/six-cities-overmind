@@ -18,7 +18,6 @@ const CitiesList: React.FC = () => {
                 className={`locations__item-link tabs__item ${
                   currentCity.name === city.name ? `tabs__item--active` : ``
                 }`}
-                href='#'
                 onClick={(e: React.MouseEvent) => {
                   e.preventDefault();
                   changeCity(city);

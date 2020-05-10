@@ -46,7 +46,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: './index.html',
+      template: './assets/index.html',
       minify: {
         collapseWhitespace: isProd,
       },
@@ -76,14 +76,14 @@ module.exports = {
         test: /\.(png|jpg|svg)$/,
         loader: 'file-loader',
         options: {
-          publicPath: isDev ? '' : '/six-cities/',
+          publicPath: isDev ? '' : '/six-cities-overmind/',
         },
       },
       {
         test: /\.(ttf|woff|woff2)$/,
         loader: 'file-loader',
         options: {
-          publicPath: isDev ? '' : '/six-cities/',
+          publicPath: isDev ? '' : '/six-cities-overmind/',
         },
       },
     ],

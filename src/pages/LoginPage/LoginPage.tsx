@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { Link, Layout } from 'src/components';
-import { BASE_URL } from 'src/constants';
+import { Layout } from 'src/components';
 import { useOvermind } from 'src/overmind';
+import page from 'page';
 
-const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
+const LoginPage: React.FC = () => {
   const { actions, state } = useOvermind();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  if (state.isUserAuth) {
-    return <Redirect to={BASE_URL} />;
+  if (state.user.isUserAuth) {
+    page.redirect('/');
   }
 
   return (
@@ -27,7 +26,9 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
               method='post'
               onSubmit={(e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                actions.authorizeUser({ email, password }).then(() => history.push('/'));
+                actions.user.authorizeUser({ email, password }).then(() => {
+                  page.redirect('/');
+                });
               }}
             >
               <div className='login__input-wrapper form__input-wrapper'>
@@ -65,9 +66,9 @@ const LoginPage: React.FC<RouteComponentProps> = ({ history }) => {
           </section>
           <section className='locations locations--login locations--current'>
             <div className='locations__item'>
-              <Link className='locations__item-link' to='/'>
+              <a className='locations__item-link' href='/'>
                 <span>Amsterdam</span>
-              </Link>
+              </a>
             </div>
           </section>
         </div>

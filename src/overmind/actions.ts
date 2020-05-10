@@ -1,35 +1,7 @@
-import { transformKeysToCamel, transformOffersForFavorite } from 'src/helpers';
+import { transformKeysToCamel, transformOffersForFavorite } from 'src/utils';
 import { Action, AsyncAction } from './index';
-import { getCitiesFromOffers } from 'src/helpers';
-import { ICity, IComment, IOffer, IUser } from 'src/types';
-
-export const setUser: Action<IUser> = ({ state }, user) => {
-  state.user = user;
-};
-
-export const setOffers: Action<IOffer[]> = ({ state }, offers) => {
-  state.offers = offers;
-};
-
-export const setCities: Action<ICity[]> = ({ state }, cities) => {
-  state.cities = cities;
-};
-
-export const setLoading: Action<boolean> = ({ state }, value) => {
-  state.isLoading = value;
-};
-
-export const setActiveOfferId: Action<number> = ({ state }, id) => {
-  state.activeOfferId = id;
-};
-
-export const setFavorite: Action<{ [key: string]: IOffer[] }> = ({ state }, favorite) => {
-  state.favorite = favorite;
-};
-
-export const setComments: Action<IComment[]> = ({ state }, comments) => {
-  state.comments = comments;
-};
+import { ICity, IOffer } from 'src/types';
+import { Page } from 'src/overmind/state';
 
 export const replaceOfferInState: Action<IOffer> = ({ state }, offer) => {
   const offers = state.offers as IOffer[];
@@ -50,35 +22,18 @@ export const changeSorting: Action<string> = ({ state }, sorting) => {
   state.sorting = sorting;
 };
 
-export const getCurrentUser: AsyncAction = ({ state, effects, actions }) => {
-  return effects.api.getCurrentUser().then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
-};
-
-export const authorizeUser: AsyncAction<{ email: string; password: string }> = (
-  { state, effects, actions },
-  { email, password }
-) => {
-  return effects.api.authorizeUser(email, password).then((response) => {
-    const data = transformKeysToCamel(response.data);
-    actions.setUser(data);
-  });
-};
-
 export const fetchOffers: AsyncAction = ({ state, effects, actions }) => {
   return effects.api.fetchOffers().then((response) => {
     const data = transformKeysToCamel(response.data);
-    actions.setOffers(data);
+    state.offers = data;
     actions.changeCity(data[0].city);
   });
 };
 
-export const fetchFavorite: AsyncAction = ({ effects, actions }) => {
+export const fetchFavorite: AsyncAction = ({ effects, state }) => {
   return effects.api.fetchFavorite().then((response) => {
     const data = transformOffersForFavorite(response.data);
-    actions.setFavorite(transformKeysToCamel(data));
+    state.favorite = transformKeysToCamel(data);
   });
 };
 
@@ -92,19 +47,53 @@ export const toggleFavoriteStatus: AsyncAction<{ hotelId: number; status: 0 | 1 
   });
 };
 
-export const fetchComments: AsyncAction<number> = ({ actions, effects }, hotelId) => {
+export const fetchComments: AsyncAction<number> = ({ actions, effects, state }, hotelId) => {
   return effects.api.fetchComments(hotelId).then((response) => {
     const data = transformKeysToCamel(response.data);
-    actions.setComments(data);
+    state.comments = data;
   });
 };
 
 export const addComment: AsyncAction<{ hotelId: number; rating: number; comment: string }> = (
-  { actions, effects },
+  { actions, effects, state },
   { hotelId, rating, comment }
 ) => {
   return effects.api.addComment(hotelId, rating, comment).then((response) => {
     const data = transformKeysToCamel(response.data);
-    actions.setComments(data);
+    state.comments = data;
   });
+};
+
+export const showHomePage: AsyncAction = async ({ actions, state }) => {
+  state.currentPage = Page.HOME;
+
+  if (!state.offers.length) {
+    state.isLoading = true;
+    await actions.fetchOffers();
+    state.isLoading = false;
+  }
+};
+
+export const showFavoritePage: AsyncAction = async ({ state, actions }) => {
+  state.currentPage = Page.FAVORITE;
+  state.isLoading = true;
+  await actions.fetchFavorite();
+  state.isLoading = false;
+};
+
+export const showOfferPage: AsyncAction<{ id: string }> = async ({ state, actions }, { id }) => {
+  state.currentPage = Page.OFFER;
+  state.isLoading = true;
+  if (!state.offers.length) {
+    await actions.fetchOffers();
+  }
+
+  state.activeOfferId = Number(id);
+
+  await actions.fetchComments(Number(id)).catch((error) => console.log(error));
+  state.isLoading = false;
+};
+
+export const showLoginPage: Action = ({ state }) => {
+  state.currentPage = Page.LOGIN;
 };

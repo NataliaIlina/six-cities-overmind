@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
-import { BASE_URL } from 'src/constants';
+import { BASE_URL } from 'src/constants/constants';
 import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 

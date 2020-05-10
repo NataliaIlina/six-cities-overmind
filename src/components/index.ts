@@ -7,7 +7,6 @@ export { default as SvgSprite } from './SvgSprite/SvgSprite';
 export { default as Reviews } from './Reviews/Reviews';
 export { default as ReviewForm } from './ReviewForm/ReviewForm';
 export { default as RatingStar } from './RatingStar/RatingStar';
-export { default as Link } from './Link/Link';
 export { default as Layout } from './Layout/Layout';
 export { default as CitiesList } from './CitiesList/CitiesList';
 export { default as SortingSelect } from './SortingSelect/SortingSelect';
