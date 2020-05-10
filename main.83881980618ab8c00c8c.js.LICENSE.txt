@@ -1,0 +1,740 @@
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/* @preserve
+ * Leaflet 1.5.1+build.2e3e0ff, a JS library for interactive maps. http://leafletjs.com
+ * (c) 2010-2018 Vladimir Agafonkin, (c) 2010-2011 CloudMade
+ */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+/*! ../ */
+
+/*! ../../components */
+
+/*! ../cancel/isCancel */
+
+/*! ../core/buildFullPath */
+
+/*! ../core/createError */
+
+/*! ../defaults */
+
+/*! ../helpers/buildURL */
+
+/*! ../helpers/combineURLs */
+
+/*! ../helpers/isAbsoluteURL */
+
+/*! ../utils */
+
+/*! ./../../process/browser.js */
+
+/*! ./../../webpack/buildin/global.js */
+
+/*! ./../core/settle */
+
+/*! ./../helpers/buildURL */
+
+/*! ./../helpers/cookies */
+
+/*! ./../helpers/isURLSameOrigin */
+
+/*! ./../helpers/parseHeaders */
+
+/*! ./../process/browser.js */
+
+/*! ./../utils */
+
+/*! ./App/App */
+
+/*! ./Cancel */
+
+/*! ./CitiesList/CitiesList */
+
+/*! ./Devtools */
+
+/*! ./FavoriteCard/FavoriteCard */
+
+/*! ./FavoritePage/FavoritePage */
+
+/*! ./FavoritesEmpty/FavoritesEmpty */
+
+/*! ./Footer/Footer */
+
+/*! ./Header/Header */
+
+/*! ./InterceptorManager */
+
+/*! ./Layout/Layout */
+
+/*! ./LoginPage/LoginPage */
+
+/*! ./MainPage/MainPage */
+
+/*! ./Map/Map */
+
+/*! ./MutationTree */
+
+/*! ./OfferPage/OfferPage */
+
+/*! ./OffersList/OffersList */
+
+/*! ./PlaceCard/PlaceCard */
+
+/*! ./Proxyfier */
+
+/*! ./RatingStar/RatingStar */
+
+/*! ./ReviewForm/ReviewForm */
+
+/*! ./Reviews/Reviews */
+
+/*! ./SortingSelect/SortingSelect */
+
+/*! ./SvgSprite/SvgSprite */
+
+/*! ./TrackStateTree */
+
+/*! ./actions */
+
+/*! ./adapters/http */
+
+/*! ./adapters/xhr */
+
+/*! ./api */
+
+/*! ./assets/styles/styles.css */
+
+/*! ./cancel/Cancel */
+
+/*! ./cancel/CancelToken */
+
+/*! ./cancel/isCancel */
+
+/*! ./cjs/react-dom.development.js */
+
+/*! ./cjs/react.development.js */
+
+/*! ./cjs/scheduler-tracing.development.js */
+
+/*! ./cjs/scheduler.development.js */
+
+/*! ./core/Axios */
+
+/*! ./core/mergeConfig */
+
+/*! ./createError */
+
+/*! ./defaults */
+
+/*! ./derived */
+
+/*! ./dispatchRequest */
+
+/*! ./effects */
+
+/*! ./enhanceError */
+
+/*! ./getCitiesFromOffers */
+
+/*! ./helpers/bind */
+
+/*! ./helpers/normalizeHeaderName */
+
+/*! ./helpers/spread */
+
+/*! ./internalTypes */
+
+/*! ./lazy */
+
+/*! ./lib/ReactPropTypesSecret */
+
+/*! ./lib/axios */
+
+/*! ./merge */
+
+/*! ./mergeConfig */
+
+/*! ./namespaced */
+
+/*! ./onInitialize */
+
+/*! ./operator */
+
+/*! ./overmind */
+
+/*! ./proxyfyEffects */
+
+/*! ./rehydrate */
+
+/*! ./state */
+
+/*! ./statechart */
+
+/*! ./statemachine */
+
+/*! ./transformData */
+
+/*! ./transformKeysToCamel */
+
+/*! ./transformOffersForFavorite */
+
+/*! ./types */
+
+/*! ./user */
+
+/*! ./utils */
+
+/*! axios */
+
+/*! betsy */
+
+/*! exports provided: Devtools */
+
+/*! exports provided: EventEmitter */
+
+/*! exports provided: EventType */
+
+/*! exports provided: IS_DERIVED, Derived */
+
+/*! exports provided: IS_PROXY, PATH, VALUE, PROXY_TREE, Proxifier */
+
+/*! exports provided: IS_PROXY, PROXY_TREE, VALUE, PATH, TrackStateTree, MutationTree, ProxyStateTree */
+
+/*! exports provided: IS_TEST, IS_OPERATOR, ORIGINAL_ACTIONS, EXECUTION, MODE_DEFAULT, MODE_TEST, MODE_SSR, MockedEventEmitter, json, isPromise, processState, getFunctionName, deepCopy, mergeState, getActionPaths, createActionsProxy */
+
+/*! exports provided: MutationTree */
+
+/*! exports provided: Provider, createHook, createConnect */
+
+/*! exports provided: TrackStateTree */
+
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
+
+/*! exports provided: createOperator, createMutationOperator, MODE_DEFAULT, MODE_TEST, MODE_SSR, SERIALIZE, rehydrate, statemachine, derived, json, createOvermindSSR, createOvermindMock, createOvermind, Overmind, pipe, forEach, parallel, map, noop, filter, action, mutate, run, catchError, tryCatch, fork, when, wait, debounce, throttle, waitUntil, EventType */
+
+/*! exports provided: doNotProxy, proxifyEffects */
+
+/*! exports provided: lazy */
+
+/*! exports provided: merge */
+
+/*! exports provided: merge, namespaced, lazy, statechart */
+
+/*! exports provided: namespaced */
+
+/*! exports provided: operatorStarted, operatorStopped, createContext, createNextPath, createOperator, createMutationOperator */
+
+/*! exports provided: rehydrateState, SERIALIZE, rehydrate */
+
+/*! exports provided: statechart */
+
+/*! exports provided: statemachine */
+
+/*! is-plain-obj */
+
+/*! leaflet */
+
+/*! no static exports found */
+
+/*! object-assign */
+
+/*! overmind */
+
+/*! overmind-react */
+
+/*! overmind/config */
+
+/*! page */
+
+/*! prop-types/checkPropTypes */
+
+/*! proxy-state-tree */
+
+/*! react */
+
+/*! react-dom */
+
+/*! scheduler */
+
+/*! scheduler/tracing */
+
+/*! src/components */
+
+/*! src/constants/constants */
+
+/*! src/overmind */
+
+/*! src/overmind/state */
+
+/*! src/pages */
+
+/*! src/utils */
+
+/*! tslib */
+
+/*!*******************!*\
+  !*** ./index.tsx ***!
+  \*******************/
+
+/*!**********************!*\
+  !*** ./utils/api.ts ***!
+  \**********************/
+
+/*!************************!*\
+  !*** ./pages/index.ts ***!
+  \************************/
+
+/*!************************!*\
+  !*** ./utils/index.ts ***!
+  \************************/
+
+/*!***************************!*\
+  !*** ./overmind/index.ts ***!
+  \***************************/
+
+/*!***************************!*\
+  !*** ./overmind/state.ts ***!
+  \***************************/
+
+/*!*****************************!*\
+  !*** ./components/index.ts ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./overmind/actions.ts ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./overmind/effects.ts ***!
+  \*****************************/
+
+/*!********************************!*\
+  !*** ./components/App/App.tsx ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./components/Map/Map.tsx ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./constants/constants.ts ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./overmind/user/index.ts ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./overmind/user/state.ts ***!
+  \********************************/
+
+/*!**********************************!*\
+  !*** ./assets/styles/styles.css ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./overmind/onInitialize.ts ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./overmind/user/actions.ts ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./overmind/user/effects.ts ***!
+  \**********************************/
+
+/*!************************************!*\
+  !*** ../node_modules/page/page.js ***!
+  \************************************/
+
+/*!*************************************!*\
+  !*** ./pages/MainPage/MainPage.tsx ***!
+  \*************************************/
+
+/*!**************************************!*\
+  !*** ../node_modules/axios/index.js ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ../node_modules/react/index.js ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./components/Footer/Footer.tsx ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./components/Header/Header.tsx ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./components/Layout/Layout.tsx ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./utils/getCitiesFromOffers.ts ***!
+  \**************************************/
+
+/*!***************************************!*\
+  !*** ./pages/LoginPage/LoginPage.tsx ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./pages/OfferPage/OfferPage.tsx ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./utils/transformKeysToCamel.ts ***!
+  \***************************************/
+
+/*!****************************************!*\
+  !*** ./components/Reviews/Reviews.tsx ***!
+  \****************************************/
+
+/*!*****************************************!*\
+  !*** ../node_modules/betsy/es/index.js ***!
+  \*****************************************/
+
+/*!******************************************!*\
+  !*** ../node_modules/axios/lib/axios.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ../node_modules/axios/lib/utils.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ../node_modules/process/browser.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ../node_modules/react-dom/index.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ../node_modules/scheduler/index.js ***!
+  \******************************************/
+
+/*!********************************************!*\
+  !*** ../node_modules/overmind/es/index.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ../node_modules/overmind/es/types.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ../node_modules/overmind/es/utils.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ../node_modules/scheduler/tracing.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ./components/PlaceCard/PlaceCard.tsx ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ./components/SvgSprite/SvgSprite.tsx ***!
+  \********************************************/
+
+/*!*********************************************!*\
+  !*** ../node_modules/axios/lib/defaults.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ../node_modules/is-plain-obj/index.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./pages/FavoritePage/FavoritePage.tsx ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./utils/transformOffersForFavorite.ts ***!
+  \*********************************************/
+
+/*!**********************************************!*\
+  !*** ../node_modules/object-assign/index.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ../node_modules/overmind/es/derived.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./components/CitiesList/CitiesList.tsx ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./components/OffersList/OffersList.tsx ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./components/RatingStar/RatingStar.tsx ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./components/ReviewForm/ReviewForm.tsx ***!
+  \**********************************************/
+
+/*!***********************************************!*\
+  !*** ../node_modules/axios/lib/core/Axios.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ../node_modules/overmind/es/Devtools.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ../node_modules/overmind/es/operator.js ***!
+  \***********************************************/
+
+/*!************************************************!*\
+  !*** ../node_modules/axios/lib/core/settle.js ***!
+  \************************************************/
+
+/*!************************************************!*\
+  !*** ../node_modules/overmind/es/rehydrate.js ***!
+  \************************************************/
+
+/*!*************************************************!*\
+  !*** ../node_modules/axios/lib/adapters/xhr.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/bind.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ../node_modules/webpack/buildin/global.js ***!
+  \*************************************************/
+
+/*!**************************************************!*\
+  !*** ../node_modules/axios/lib/cancel/Cancel.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ../node_modules/overmind-react/es/index.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ../node_modules/overmind/es/config/lazy.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ./components/FavoriteCard/FavoriteCard.tsx ***!
+  \**************************************************/
+
+/*!***************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/spread.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ../node_modules/leaflet/dist/leaflet-src.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ../node_modules/overmind/es/config/index.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ../node_modules/overmind/es/config/merge.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ../node_modules/overmind/es/statemachine.js ***!
+  \***************************************************/
+
+/*!****************************************************!*\
+  !*** ../node_modules/axios/lib/cancel/isCancel.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/cookies.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ../node_modules/overmind/es/internalTypes.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ../node_modules/prop-types/checkPropTypes.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ../node_modules/proxy-state-tree/es/index.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./components/SortingSelect/SortingSelect.tsx ***!
+  \****************************************************/
+
+/*!*****************************************************!*\
+  !*** ../node_modules/axios/lib/core/createError.js ***!
+  \*****************************************************/
+
+/*!*****************************************************!*\
+  !*** ../node_modules/axios/lib/core/mergeConfig.js ***!
+  \*****************************************************/
+
+/*!*****************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
+  \*****************************************************/
+
+/*!*****************************************************!*\
+  !*** ../node_modules/overmind/es/proxyfyEffects.js ***!
+  \*****************************************************/
+
+/*!******************************************************!*\
+  !*** ../node_modules/axios/lib/core/enhanceError.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
+  !*** ../node_modules/react/cjs/react.development.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
+  !*** ./components/FavoritesEmpty/FavoritesEmpty.tsx ***!
+  \******************************************************/
+
+/*!*******************************************************!*\
+  !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ../node_modules/axios/lib/core/buildFullPath.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ../node_modules/axios/lib/core/transformData.js ***!
+  \*******************************************************/
+
+/*!********************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/combineURLs.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ../node_modules/overmind/es/config/namespaced.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ../node_modules/overmind/es/config/statechart.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ../node_modules/proxy-state-tree/es/Proxyfier.js ***!
+  \********************************************************/
+
+/*!*********************************************************!*\
+  !*** ../node_modules/axios/lib/core/dispatchRequest.js ***!
+  \*********************************************************/
+
+/*!*********************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*********************************************************/
+
+/*!**********************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \**********************************************************/
+
+/*!***********************************************************!*\
+  !*** ../node_modules/proxy-state-tree/es/MutationTree.js ***!
+  \***********************************************************/
+
+/*!************************************************************!*\
+  !*** ../node_modules/axios/lib/core/InterceptorManager.js ***!
+  \************************************************************/
+
+/*!************************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \************************************************************/
+
+/*!*************************************************************!*\
+  !*** ../node_modules/proxy-state-tree/es/TrackStateTree.js ***!
+  \*************************************************************/
+
+/*!**************************************************************!*\
+  !*** ../node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \**************************************************************/
+
+/*!**************************************************************!*\
+  !*** ../node_modules/react-dom/cjs/react-dom.development.js ***!
+  \**************************************************************/
+
+/*!**************************************************************!*\
+  !*** ../node_modules/scheduler/cjs/scheduler.development.js ***!
+  \**************************************************************/
+
+/*!****************************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ../node_modules/overmind/node_modules/tslib/tslib.es6.js ***!
+  \****************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ../node_modules/scheduler/cjs/scheduler-tracing.development.js ***!
+  \**********************************************************************/
+
+/**
+ * Checks if an event is supported in the current execution environment.
+ *
+ * NOTE: This will not work correctly for non-generic events such as `change`,
+ * `reset`, `load`, `error`, and `select`.
+ *
+ * Borrows from Modernizr.
+ *
+ * @param {string} eventNameSuffix Event name, e.g. "click".
+ * @return {boolean} True if the event is supported.
+ * @internal
+ * @license Modernizr 3.0.0pre (Custom Build) | MIT
+ */
+
+/** @license React v0.13.6
+ * scheduler-tracing.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.8.6
+ * react-dom.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.8.6
+ * react.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
