@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from 'src/components';
-import { BrowserRouter } from 'react-router-dom';
 import './assets/styles/styles.css';
 import { createOvermind } from 'overmind';
 import { Provider } from 'overmind-react';
@@ -14,9 +13,7 @@ const overmind = createOvermind(config, {
 const init = () => {
   ReactDOM.render(
     <Provider value={overmind}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </Provider>,
     document.querySelector(`#root`)
   );

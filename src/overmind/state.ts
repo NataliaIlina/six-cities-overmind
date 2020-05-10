@@ -2,7 +2,15 @@ import { ICity, IComment, IOffer } from 'src/types';
 import { Derive } from './index';
 import { getCitiesFromOffers } from 'src/utils';
 
+export enum Page {
+  HOME = 'home',
+  OFFER = 'offer',
+  LOGIN = 'login',
+  FAVORITE = 'favorite',
+}
+
 type State = {
+  currentPage: Page;
   currentCity: ICity | null;
   offers: IOffer[] | [];
   favorite: { [key: string]: IOffer[] } | {};
@@ -18,6 +26,7 @@ type State = {
 };
 
 export const state: State = {
+  currentPage: Page.HOME,
   offers: [],
   favorite: {},
   comments: [],

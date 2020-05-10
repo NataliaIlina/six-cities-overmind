@@ -1,6 +1,7 @@
 import { transformKeysToCamel, transformOffersForFavorite } from 'src/utils';
 import { Action, AsyncAction } from './index';
-import { ICity, IComment, IOffer, IUser } from 'src/types';
+import { ICity, IComment, IOffer } from 'src/types';
+import { Page } from 'src/overmind/state';
 
 export const setOffers: Action<IOffer[]> = ({ state }, offers) => {
   state.offers = offers;
@@ -81,4 +82,38 @@ export const addComment: AsyncAction<{ hotelId: number; rating: number; comment:
     const data = transformKeysToCamel(response.data);
     actions.setComments(data);
   });
+};
+
+export const showHomePage: AsyncAction = async ({ actions, state }) => {
+  state.currentPage = Page.HOME;
+
+  if (!state.offers.length) {
+    actions.setLoading(true);
+    await actions.fetchOffers();
+    actions.setLoading(false);
+  }
+};
+
+export const showFavoritePage: AsyncAction = async ({ state, actions }) => {
+  state.currentPage = Page.FAVORITE;
+  actions.setLoading(true);
+  await actions.fetchFavorite();
+  actions.setLoading(false);
+};
+
+export const showOfferPage: AsyncAction<{ id: string }> = async ({ state, actions }, { id }) => {
+  state.currentPage = Page.OFFER;
+  actions.setLoading(true);
+  if (!state.offers.length) {
+    await actions.fetchOffers();
+  }
+
+  actions.setActiveOfferId(Number(id));
+
+  await actions.fetchComments(Number(id)).catch((error) => console.log(error));
+  actions.setLoading(false);
+};
+
+export const showLoginPage: Action = ({ state }) => {
+  state.currentPage = Page.LOGIN;
 };

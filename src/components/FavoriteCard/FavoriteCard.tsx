@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'src/components';
 import { IOffer } from 'src/types';
 
 interface FavoriteCardProps {
@@ -9,7 +8,7 @@ interface FavoriteCardProps {
 const FavoriteCard: React.FC<FavoriteCardProps> = ({ offer }) => (
   <article className='favorites__card place-card'>
     <div className='favorites__image-wrapper place-card__image-wrapper'>
-      <Link to={`/offer/${offer.id}`}>
+      <a href={`/offer/${offer.id}`}>
         <img
           className='place-card__image'
           src={offer.previewImage}
@@ -17,7 +16,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ offer }) => (
           height='110'
           alt='Place image'
         />
-      </Link>
+      </a>
     </div>
     <div className='favorites__card-info place-card__info'>
       <div className='place-card__price-wrapper'>
@@ -42,7 +41,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ offer }) => (
         </div>
       </div>
       <h2 className='place-card__name'>
-        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+        <a href={`/offer/${offer.id}`}>{offer.title}</a>
       </h2>
       <p className='place-card__type'>{offer.type}</p>
     </div>

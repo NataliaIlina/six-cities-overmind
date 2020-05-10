@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
 import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
@@ -6,14 +6,9 @@ import { Redirect } from 'react-router-dom';
 import { BASE_URL } from 'src/constants/constants';
 
 const FavoritePage: React.FC = () => {
-  const { state, actions } = useOvermind();
+  const { state } = useOvermind();
 
-  const { favorite, user } = state;
-  const { fetchFavorite } = actions;
-
-  useEffect(() => {
-    fetchFavorite();
-  }, []);
+  const { favorite, user, isLoading } = state;
 
   if (!user.isUserAuth) {
     return <Redirect to={BASE_URL} />;
@@ -23,6 +18,7 @@ const FavoritePage: React.FC = () => {
     <Layout>
       <main className='page__main page__main--favorites'>
         <div className='page__favorites-container container'>
+          {isLoading && <div>Loading...</div>}
           {Object.keys(favorite)?.length ? (
             <section className='favorites'>
               <h1 className='favorites__title'>Saved listing</h1>

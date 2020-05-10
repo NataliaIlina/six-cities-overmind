@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'src/components';
 import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
 
@@ -67,7 +66,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ offer }) => {
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <a href={`/offer/${offer.id}`}>{offer.title}</a>
         </h2>
         <p className='place-card__type'>{offer.type}</p>
       </div>
