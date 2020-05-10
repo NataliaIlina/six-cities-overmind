@@ -2,8 +2,7 @@ import React from 'react';
 import { Footer, FavoriteCard, FavoritesEmpty, Layout } from 'src/components';
 import { IOffer } from 'src/types';
 import { useOvermind } from 'src/overmind';
-import { Redirect } from 'react-router-dom';
-import { BASE_URL } from 'src/constants/constants';
+import page from 'page';
 
 const FavoritePage: React.FC = () => {
   const { state } = useOvermind();
@@ -11,7 +10,7 @@ const FavoritePage: React.FC = () => {
   const { favorite, user, isLoading } = state;
 
   if (!user.isUserAuth) {
-    return <Redirect to={BASE_URL} />;
+    page.redirect('/');
   }
 
   return (
