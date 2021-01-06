@@ -57,7 +57,7 @@
     "node": "10"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "concurrently": "^5.2.0",
     "leaflet": "1.5.1",
     "overmind": "^23.0.1",
